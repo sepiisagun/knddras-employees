@@ -1,5 +1,5 @@
 const spiels = {
-	APP_NAME: "",
+	APP_NAME: "KNDDRAS Employees",
 };
 
 export default spiels;
