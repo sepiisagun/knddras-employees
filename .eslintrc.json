@@ -1,0 +1,89 @@
+{
+	"env": {
+		"browser": true,
+		"es2021": true
+	},
+	"extends": ["airbnb", "plugin:prettier/recommended"],
+	"globals": {
+		"Atomics": "readonly",
+		"SharedArrayBuffer": "readonly",
+		"React": "writable"
+	},
+	"overrides": [
+		{
+			"files": [
+				"**/*.spec.js",
+				"**/*.spec.jsx",
+				"**/*.test.js",
+				"**/*.test.jsx"
+			]
+		}
+	],
+	"parser": "@babel/eslint-parser",
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true
+		},
+		"ecmaVersion": 2018,
+		"sourceType": "module",
+		"requireConfigFile": false,
+		"babelOptions": {
+			"presets": ["@babel/preset-react"]
+		 }
+	},
+	"plugins": ["prettier", "react", "sort-destructure-keys"],
+	"rules": {
+		"camelcase": ["warn", {"properties":"always"}],
+		"consistent-return": "warn",
+		"indent": [
+			"error",
+			"tab",
+			{
+				"SwitchCase": 1
+			}
+		],
+		"import/no-extraneous-dependencies": "off",
+		"no-alert": "error",
+		"no-console": "error",
+		"no-debugger": "error",
+		"no-dupe-keys": ["error"],
+    	"no-duplicate-case": ["error"],
+		"no-tabs": "off",
+		"no-use-before-define": "error",
+		"prettier/prettier": "error",
+		"react/function-component-definition": ["error", {
+			"namedComponents": "arrow-function",
+			"unnamedComponents": "arrow-function"
+		  }],
+		"react/jsx-one-expression-per-line": "off",
+		"react/jsx-filename-extension": ["error", { "extensions": [".js"] }],
+		"react/jsx-indent": ["error", "tab"],
+		"react/jsx-indent-props": ["error", "tab"],
+		"react/jsx-key": "error",
+		"react/no-array-index-key": "off",
+		"react/jsx-no-bind": [
+			"error",
+			{ "allowArrowFunctions": true, "allowBind": true }
+		],
+		"react/jsx-sort-props": [
+			"error",
+			{ "ignoreCase": false, "reservedFirst": true }
+		],
+		"react/no-did-mount-set-state": "error",
+		"react/no-direct-mutation-state": "error",
+		"react/jsx-props-no-spreading": "off",
+		"react/prop-types": "off",
+		"react/react-in-jsx-scope": "off",
+		"react/sort-default-props": ["error", { "ignoreCase": false }],
+		"react/sort-prop-types": ["error", { "ignoreCase": false }],
+		"sort-destructure-keys/sort-destructure-keys": [
+			"error",
+			{ "caseSensitive": true }
+		],
+		"sort-keys": [
+			"error",
+			"asc",
+			{ "caseSensitive": true, "natural": false, "minKeys": 2 }
+		]
+	}
+}
