@@ -1,7 +1,15 @@
+import { Flex } from "@chakra-ui/react";
 import React from "react";
+import SideBarNavigation from "../../sideBar/SideBarNavigation";
 
 const HomeScreen = () => {
-	return <div>Hello World!</div>;
+	const secondary = "gray.100";
+	const fullscreenH = "100vh";
+	return (
+		<Flex bg={secondary} minHeight={fullscreenH}>
+			<SideBarNavigation />
+		</Flex>
+	);
 };
 
 export default HomeScreen;
