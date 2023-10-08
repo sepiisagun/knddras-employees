@@ -1,15 +1,20 @@
-import { Flex } from "@chakra-ui/react";
-import React from "react";
-import SideBarNavigation from "../../sideBar/SideBarNavigation";
+import React, { useState } from "react";
+import NavBar from "../../navbar/NavBar";
+import LogInPage from "../../login/LogInPage";
 
 const HomeScreen = () => {
-	const secondary = "gray.100";
-	const fullscreenH = "100vh";
-	return (
-		<Flex bg={secondary} minHeight={fullscreenH}>
-			<SideBarNavigation />
-		</Flex>
-	);
+	const [loggedIn, setLoggedIn] = useState(false);
+
+	const Status = (status) => {
+		setLoggedIn(status);
+	};
+	const isLoggedIn = () => {
+		if (loggedIn) {
+			return <NavBar />;
+		}
+		return <LogInPage getStatus={Status} />;
+	};
+	return isLoggedIn();
 };
 
 export default HomeScreen;
