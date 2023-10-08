@@ -1,7 +1,13 @@
 import HomeScreen from "../src/modules/home/screens/HomeScreen";
+import NavBar from "../src/modules/navbar/NavBar";
 
 const Index = () => {
-	return <HomeScreen />;
+	return (
+		<>
+			<NavBar />
+			<HomeScreen />
+		</>
+	);
 };
 
 export default Index;
