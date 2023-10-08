@@ -1,6 +1,7 @@
 const spiels = {
 	APP_NAME: "KNDDRAS Employees",
 	CLR_TEAL: "teal.300",
+	COMP_NAME: "Klinika ng Dentista",
 	EMP_PORTAL: "Employee Portal",
 	EMP_PORTAL_SUB: "Enter your Email and Password to sign in",
 	INC_EMAIL: "Incorrect Email",
