@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import spiels from "../../../constants/spiels";
-import APPOINTMENT_USERS from "../../../constants/temporaryValues";
+import { APPOINTMENT_USERS } from "../../../constants/temporaryValues";
 
 const AppointmentsTable = () => {
 	return (

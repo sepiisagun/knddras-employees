@@ -1,4 +1,4 @@
-const APPOINTMENT_USERS = [
+export const APPOINTMENT_USERS = [
 	{
 		date: "April 01, 2023",
 		doctor: "Dr. John Doe",
@@ -33,4 +33,17 @@ const APPOINTMENT_USERS = [
 	},
 ];
 
-export default APPOINTMENT_USERS;
+export const COUNTER_VALUES = [
+	{
+		title: "Pending Requests",
+		value: "25",
+	},
+	{
+		title: "Total Appointment This Month",
+		value: "350",
+	},
+	{
+		title: "Upcoming Appointments",
+		value: "12",
+	},
+];
