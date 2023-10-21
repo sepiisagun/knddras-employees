@@ -3,7 +3,11 @@ import SideBarNavigation from "../components/SideBar/SideBarNavigation";
 
 const ProfileLayout = ({ children }) => {
 	return (
-		<Box bgColor="gray.100" minH="100vh">
+		<Box
+			bgColor="gray.100"
+			h="calc(100vh - 70px)"
+			maxH="calc(100vh - 70px)"
+		>
 			<Flex w="100vw">
 				<Flex maxW="30%" minW="fit-content">
 					<SideBarNavigation />
