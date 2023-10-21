@@ -3,7 +3,7 @@ import React from "react";
 import { RiFlashlightFill } from "react-icons/ri";
 
 const NavBar = () => {
-	const iconsize = "40px";
+	const iconsize = "4vh";
 	const px = "10px";
 	const py = "15px";
 	return (

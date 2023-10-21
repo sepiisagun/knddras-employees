@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import NavBar from "../../navbar/NavBar";
 import LogInPage from "../../login/LogInPage";
+// import ProfileLayout from "../../../layout/ProfileLayout";
+import DashboardScreen from "../../dashboard/screens/DashboardScreen";
 
 const HomeScreen = () => {
 	const [loggedIn, setLoggedIn] = useState(false);
@@ -10,7 +11,7 @@ const HomeScreen = () => {
 	};
 	const isLoggedIn = () => {
 		if (loggedIn) {
-			return <NavBar />;
+			return <DashboardScreen />;
 		}
 		return <LogInPage getStatus={Status} />;
 	};
