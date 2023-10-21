@@ -1,6 +1,5 @@
-import { Box, Flex, HStack, Icon, Spacer } from "@chakra-ui/react";
+import { Box, Flex, HStack, Image, Spacer } from "@chakra-ui/react";
 import React from "react";
-import { RiFlashlightFill } from "react-icons/ri";
 
 const NavBar = () => {
 	const iconsize = "4vh";
@@ -17,14 +16,18 @@ const NavBar = () => {
 			<HStack>
 				<Flex
 					alignItems="center"
-					bg="teal.300"
 					borderRadius="50px"
 					h={iconsize}
 					justifyContent="center"
 					mr="10px"
 					w={iconsize}
 				>
-					<Icon as={RiFlashlightFill} color="white" h={8} w={8} />
+					<Image
+						alt="Dan Abramov"
+						boxSize={iconsize}
+						objectFit="cover"
+						src="./Klinika ng Dentista Logo.png"
+					/>
 				</Flex>
 				<Box fontWeight="medium">Klinika ng Dentista</Box>
 			</HStack>
