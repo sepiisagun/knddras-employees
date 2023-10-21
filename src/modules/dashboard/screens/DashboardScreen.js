@@ -5,7 +5,8 @@ import AddAppointment from "../../../components/Counter/AddAppointment";
 import CheckRequests from "../../../components/Counter/CheckRequests";
 import AddRecord from "../../../components/Counter/AddRecord";
 import AppointmentsTable from "../components/AppointmentsTable";
-import RedirectBanner from "../components/RedirectBanner";
+// import RedirectBanner from "../components/RedirectBanner";
+import Counters from "../../../components/Counter/Counters";
 
 const DashboardScreen = () => {
 	return (
@@ -29,7 +30,7 @@ const DashboardScreen = () => {
 			</Box>
 			<Grid gap="1px" templateColumns="repeat(5, 1fr)">
 				<GridItem colSpan={3} h="10" p={{ base: 4, md: 5 }}>
-					<RedirectBanner />
+					{/* <RedirectBanner /> */}
 				</GridItem>
 				<GridItem
 					colEnd={6}
@@ -37,9 +38,7 @@ const DashboardScreen = () => {
 					gap="1px"
 					p={{ base: 4, md: 5 }}
 				>
-					<AddAppointment />
-					<AddAppointment />
-					<AddAppointment />
+					<Counters />
 				</GridItem>
 			</Grid>
 		</ProfileLayout>
