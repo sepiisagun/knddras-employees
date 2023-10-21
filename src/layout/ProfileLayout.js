@@ -1,15 +1,17 @@
-import { Box, Center, Flex } from "@chakra-ui/react";
+import { Grid, GridItem } from "@chakra-ui/react";
 import SideBarNavigation from "../components/SideBar/SideBarNavigation";
 
 const ProfileLayout = ({ children }) => {
 	return (
-		<Flex bgColor="gray.100" minH="calc(100vh - 85px)">
-			<Center>
+		<Grid templateAreas={`"nav main"`}>
+			<GridItem area="nav" pl="2">
 				<SideBarNavigation />
-			</Center>
+			</GridItem>
 
-			<Box flex="1">{children}</Box>
-		</Flex>
+			<GridItem area="main" flex="1">
+				{children}
+			</GridItem>
+		</Grid>
 	);
 };
 

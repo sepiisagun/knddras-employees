@@ -14,14 +14,16 @@ const SideBarNavigation = () => {
 				borderRightColor="gray.300"
 				borderRightWidth="1px"
 				display={{ sm: "none", xl: "block" }}
+				h="100vh"
 				pr="2"
 				py="2"
 			>
 				<Box
 					bg={sidebarBg}
 					borderRadius={sidebarRadius}
+					h="100vh"
 					m={sidebarMargins}
-					minH="calc(100vh - 90px)"
+					maxH="100%"
 					minW="300px"
 					ms={{
 						sm: "16px",

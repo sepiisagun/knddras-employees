@@ -1,10 +1,11 @@
 import React from "react";
-import { Box, Grid } from "@chakra-ui/react";
+import { Box, Grid, GridItem } from "@chakra-ui/react";
 import ProfileLayout from "../../../layout/ProfileLayout";
 import AddAppointment from "../../../components/Counter/AddAppointment";
 import CheckRequests from "../../../components/Counter/CheckRequests";
 import AddRecord from "../../../components/Counter/AddRecord";
 import AppointmentsTable from "../components/AppointmentsTable";
+import RedirectBanner from "../components/RedirectBanner";
 
 const DashboardScreen = () => {
 	return (
@@ -26,6 +27,21 @@ const DashboardScreen = () => {
 			<Box maxW="auto" p={{ base: 4, md: 5 }}>
 				<AppointmentsTable />
 			</Box>
+			<Grid gap="1px" templateColumns="repeat(5, 1fr)">
+				<GridItem colSpan={3} h="10" p={{ base: 4, md: 5 }}>
+					<RedirectBanner />
+				</GridItem>
+				<GridItem
+					colEnd={6}
+					colStart={4}
+					gap="1px"
+					p={{ base: 4, md: 5 }}
+				>
+					<AddAppointment />
+					<AddAppointment />
+					<AddAppointment />
+				</GridItem>
+			</Grid>
 		</ProfileLayout>
 	);
 };
