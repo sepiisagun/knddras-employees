@@ -4,6 +4,7 @@ import ProfileLayout from "../../../layout/ProfileLayout";
 import AddAppointment from "../../../components/Counter/AddAppointment";
 import CheckRequests from "../../../components/Counter/CheckRequests";
 import AddRecord from "../../../components/Counter/AddRecord";
+import AppointmentsTable from "../components/AppointmentsTable";
 
 const DashboardScreen = () => {
 	return (
@@ -22,6 +23,9 @@ const DashboardScreen = () => {
 					<AddRecord />
 				</Box>
 			</Grid>
+			<Box maxW="auto" p={{ base: 4, md: 5 }}>
+				<AppointmentsTable />
+			</Box>
 		</ProfileLayout>
 	);
 };

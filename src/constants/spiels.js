@@ -20,6 +20,25 @@ const spiels = {
 	COUNTER_ADD_APPOINTMENT: "Add Appointment",
 	COUNTER_CHECK_REQUESTS: "Check Requests",
 	COUNTER_ADD_RECORD: "Add Record",
+
+	// Table
+	TABLE_COLUMNS: [
+		{
+			title: "Name",
+		},
+		{
+			title: "Procedure",
+		},
+		{
+			title: "Assigned To",
+		},
+		{
+			title: "Schedule",
+		},
+		{
+			title: "Status",
+		},
+	],
 };
 
 export default spiels;
