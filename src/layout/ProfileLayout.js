@@ -1,21 +1,15 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Center, Flex } from "@chakra-ui/react";
 import SideBarNavigation from "../components/SideBar/SideBarNavigation";
 
 const ProfileLayout = ({ children }) => {
 	return (
-		<Box
-			bgColor="gray.100"
-			h="calc(100vh - 70px)"
-			maxH="calc(100vh - 70px)"
-		>
-			<Flex w="100vw">
-				<Flex maxW="30%" minW="fit-content">
-					<SideBarNavigation />
-				</Flex>
+		<Flex bgColor="gray.100" minH="calc(100vh - 85px)">
+			<Center>
+				<SideBarNavigation />
+			</Center>
 
-				<Flex maxW="full">{children}</Flex>
-			</Flex>
-		</Box>
+			<Box flex="1">{children}</Box>
+		</Flex>
 	);
 };
 

@@ -7,7 +7,7 @@ import spiels from "../../constants/spiels";
 const AddAppointment = () => {
 	const iconBoxInside = useColorModeValue("white", "white");
 	return (
-		<Card h="120px" p="16px" w="500px">
+		<Card h="120px" p="16px">
 			<CardHeader mb="1px">
 				<MiniStatistics
 					icon={
