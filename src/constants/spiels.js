@@ -39,6 +39,12 @@ const spiels = {
 			title: "Status",
 		},
 	],
+
+	// Banner
+	REDIRECT_SUBHEADER: "Built by developers",
+	REDIRECT_BANNER: "KNNDRAS Web UI",
+	REDIRECT_BANNER_DESC:
+		"Klinika ng Dentista's Appointment Maker page for their Patients.",
 };
 
 export default spiels;
