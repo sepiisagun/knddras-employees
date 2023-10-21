@@ -22,6 +22,7 @@ const SideBarNavigation = () => {
 					h="calc(100vh - 32px)"
 					m={sidebarMargins}
 					maxW="320px"
+					minW="fit-content"
 					ms={{
 						sm: "16px",
 					}}
@@ -30,7 +31,7 @@ const SideBarNavigation = () => {
 					}}
 					pe="15px"
 					transition={variantChange}
-					w="320px"
+					w="full"
 				>
 					<SideBarContent />
 				</Box>

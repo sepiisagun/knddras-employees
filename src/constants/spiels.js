@@ -1,3 +1,4 @@
+/* eslint-disable sort-keys */
 const spiels = {
 	APP_NAME: "KNDDRAS Employees",
 	CLR_TEAL: "teal.300",
@@ -14,6 +15,11 @@ const spiels = {
 	PHOLDER_PASSWORD: "Your Password",
 	REQ_EMAIL: "Email is required",
 	REQ_PASSWORD: "Password is required",
+
+	// Counters
+	COUNTER_ADD_APPOINTMENT: "Add Appointment",
+	COUNTER_CHECK_REQUESTS: "Check Requests",
+	COUNTER_ADD_RECORD: "Add Record",
 };
 
 export default spiels;
