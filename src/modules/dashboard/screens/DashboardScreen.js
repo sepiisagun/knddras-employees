@@ -11,7 +11,6 @@ const DashboardScreen = () => {
 			<Grid
 				gap="1px"
 				templateColumns={{ sm: "5fr", xl: "repeat(3, 3fr)" }}
-				w="full"
 			>
 				<Box maxW="auto" p={{ base: 4, md: 5 }}>
 					<AddAppointment />
