@@ -2,7 +2,7 @@ import { Box, Flex, HStack, Image, Spacer } from "@chakra-ui/react";
 import React from "react";
 
 const NavBar = () => {
-	const iconsize = "40px";
+	const iconsize = "4vh";
 	const px = "10px";
 	const py = "15px";
 	return (
