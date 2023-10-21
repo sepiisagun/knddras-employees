@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import LogInPage from "../../login/LogInPage";
-import DashboardScreen from "../../dashboard/screens/DashboardScreen";
+// import DashboardScreen from "../../dashboard/screens/DashboardScreen";
+import RecordsScreen from "../../records/screens/RecordsScreen";
 
 const HomeScreen = () => {
 	const [loggedIn, setLoggedIn] = useState(false);
@@ -10,7 +11,7 @@ const HomeScreen = () => {
 	};
 	const isLoggedIn = () => {
 		if (loggedIn) {
-			return <DashboardScreen />;
+			return <RecordsScreen />;
 		}
 		return <LogInPage getStatus={Status} />;
 	};

@@ -47,3 +47,15 @@ export const COUNTER_VALUES = [
 		value: "12",
 	},
 ];
+
+export const PATIENT_ACCOUNT = [
+	{
+		email: "johndoe@gmail.com",
+	},
+	{
+		email: "johndoe1@gmail.com",
+	},
+	{
+		email: "johndoe2@gmail.com",
+	},
+];

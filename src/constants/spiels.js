@@ -85,6 +85,7 @@ const spiels = {
 	FORM_OCCUPATION: "Occupation",
 	FORM_OLD_PASSWORD: "Old Password",
 	FORM_PASSWORD: "Password",
+	FORM_PATIENT_ACCOUNT: "Patient Account Email Address",
 	FORM_PHYSICIAN_NAME: "Name of Physician",
 	FORM_PREV_DENTIST: "Previous Dentist",
 	FORM_REGION: "Region",

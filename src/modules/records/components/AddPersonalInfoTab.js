@@ -14,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import spiels from "../../../constants/spiels";
+import { PATIENT_ACCOUNT } from "../../../constants/temporaryValues";
 
 const AddPersonalInfoTab = ({ currentTab, switchToNextTab }) => {
 	const [fnameInput, setFNameInput] = useState("");
@@ -53,7 +54,7 @@ const AddPersonalInfoTab = ({ currentTab, switchToNextTab }) => {
 			<SimpleGrid columns={2} spacing={10}>
 				<FormControl isInvalid={isFNameError}>
 					<Box>
-						<FormLabel>{spiels.FORM_LNAME}</FormLabel>
+						<FormLabel>{spiels.FORM_FNAME}</FormLabel>
 						<Input
 							onChange={handleFNameInputChange}
 							type="text"
@@ -161,7 +162,18 @@ const AddPersonalInfoTab = ({ currentTab, switchToNextTab }) => {
 					</Box>
 				</FormControl>
 			</SimpleGrid>
-
+			<FormControl>
+				<Box>
+					<FormLabel>{spiels.FORM_PATIENT_ACCOUNT}</FormLabel>
+					<Select>
+						{PATIENT_ACCOUNT.map((account) => (
+							<option key={account.email} value={account.email}>
+								{account.email}
+							</option>
+						))}
+					</Select>
+				</Box>
+			</FormControl>
 			<FormControl isInvalid={isAddressError}>
 				<Box pt={2}>
 					<FormLabel>{spiels.FORM_ADDRESS}</FormLabel>
@@ -181,7 +193,7 @@ const AddPersonalInfoTab = ({ currentTab, switchToNextTab }) => {
 			<Divider mt={4} />
 			<Stack direction="row">
 				<Checkbox defaultChecked pt={2}>
-					Minor?
+					Is the patient minor?
 				</Checkbox>
 			</Stack>
 
