@@ -1,7 +1,7 @@
 export const APPOINTMENT_USERS = [
 	{
 		date: "April 01, 2023",
-		doctor: "Dr. John Doe",
+		dentist: "Dr. Anna Mia",
 		name: "Juan Dela Cruz",
 		procedure: "Root Canal Theraphy",
 		status: "Scheduled",
@@ -9,7 +9,7 @@ export const APPOINTMENT_USERS = [
 	},
 	{
 		date: "April 01, 2023",
-		doctor: "Dr. John Doe",
+		dentist: "Dr. Ron Hallway",
 		name: "Juan Dela Cruz",
 		procedure: "Root Canal Theraphy",
 		status: "Scheduled",
@@ -17,16 +17,16 @@ export const APPOINTMENT_USERS = [
 	},
 	{
 		date: "April 01, 2023",
-		doctor: "Dr. John Doe",
-		name: "Juan Dela Cruz",
+		dentist: "Dr. John Doe",
+		name: "Maria Dela Cruz",
 		procedure: "Root Canal Theraphy",
 		status: "Ended",
 		time: "10:00 AM - 11:00 AM",
 	},
 	{
 		date: "April 01, 2023",
-		doctor: "Dr. John Doe",
-		name: "Juan Dela Cruz",
+		dentist: "Dr. John Doe",
+		name: "John Doe",
 		procedure: "Root Canal Theraphy",
 		status: "Ended",
 		time: "10:00 AM - 11:00 AM",

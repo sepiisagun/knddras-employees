@@ -1,22 +1,18 @@
-import { Card, CardHeader, useColorModeValue } from "@chakra-ui/react";
-import React from "react";
-import MiniStatistics from "../MiniStatisticsGlobalCount";
-import WalletIcon from "../Icons/Icons";
-import spiels from "../../constants/spiels";
+import { useDisclosure } from "@chakra-ui/react";
+import SetAppointmentModal from "../Modals/SetAppointmentModal";
 
 const AddAppointment = () => {
-	const iconBoxInside = useColorModeValue("white", "white");
+	const {
+		isOpen: isOpenSetAppointment,
+		onClose: onCloseSetAppointment,
+		onOpen: onOpenSetAppointment,
+	} = useDisclosure();
 	return (
-		<Card h="120px" p="16px">
-			<CardHeader mb="1px">
-				<MiniStatistics
-					icon={
-						<WalletIcon color={iconBoxInside} h="24px" w="24px" />
-					}
-					title={spiels.COUNTER_ADD_APPOINTMENT}
-				/>
-			</CardHeader>
-		</Card>
+		<SetAppointmentModal
+			isOpenSetAppointment={isOpenSetAppointment}
+			onCloseSetAppointment={onCloseSetAppointment}
+			onOpenSetAppointment={onOpenSetAppointment}
+		/>
 	);
 };
 
