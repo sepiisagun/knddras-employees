@@ -7,7 +7,14 @@ import spiels from "../../constants/spiels";
 const CheckRequests = () => {
 	const iconBoxInside = useColorModeValue("white", "white");
 	return (
-		<Card h="120px" p="16px">
+		<Card
+			_hover={{
+				bgColor: "gray.50",
+			}}
+			cursor="pointer"
+			h="120px"
+			p="16px"
+		>
 			<CardHeader mb="1px">
 				<MiniStatistics
 					icon={
