@@ -7,6 +7,7 @@ import AddRecord from "../../../components/Counter/AddRecord";
 import AppointmentsTable from "../components/AppointmentsTable";
 import RedirectBanner from "../components/RedirectBanner";
 import Counters from "../../../components/Counter/Counters";
+import SearchBar from "../../../components/Search/SearchBar";
 
 const DashboardScreen = () => {
 	return (
@@ -39,6 +40,11 @@ const DashboardScreen = () => {
 					p={{ base: 4, md: 5 }}
 				>
 					<Counters />
+				</GridItem>
+			</Grid>
+			<Grid>
+				<GridItem>
+					<SearchBar />
 				</GridItem>
 			</Grid>
 		</ProfileLayout>
