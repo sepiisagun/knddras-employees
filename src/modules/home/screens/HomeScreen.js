@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import LogInPage from "../../login/LogInPage";
-// import ProfileLayout from "../../../layout/ProfileLayout";
+
 import DashboardScreen from "../../dashboard/screens/DashboardScreen";
 
 const HomeScreen = () => {
