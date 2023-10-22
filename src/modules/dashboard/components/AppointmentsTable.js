@@ -48,7 +48,7 @@ const AppointmentsTable = () => {
 										{appointmentUser.procedure}
 									</Td>
 									<Td textAlign="center">
-										{appointmentUser.doctor}
+										{appointmentUser.dentist}
 									</Td>
 									<Td textAlign="center">
 										<Text>{appointmentUser.date}</Text>

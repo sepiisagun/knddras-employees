@@ -44,6 +44,7 @@ const spiels = {
 	],
 
 	// Buttons
+	BUTTON_ADD: "Add",
 	BUTTON_BACK: "Back",
 	BUTTON_BOOK_NOW: "Book Now",
 	BUTTON_CANCEL: "Cancel",
@@ -66,14 +67,17 @@ const spiels = {
 		"Klinika ng Dentista's Appointment Maker page for their Patients.",
 
 	// Form
+	FORM_ADD_APPOINTMENT: "Add Appointment",
 	FORM_ADDRESS: "Address",
 	FORM_AGE: "Age",
+	FORM_ASSIGN_DENTIST: "Assign Dentist",
 	FORM_BIRTHDATE: "Birthdate",
 	FORM_BLEEDING_TIME: "Bleeding Time",
 	FORM_BLOOD_TYPE: "Blood Type",
 	FORM_CONFIRM: "Confirm Password",
 	FORM_CONFIRM_PASSWORD: "Confirm New Password",
 	FORM_CONTACT_NO: "Contact Number",
+	FORM_DATE: "Appointment Date",
 	FORM_DENTAL_VISIT: "Last Dental Visit",
 	FORM_EMAIL_ADDRESS: "Email Address",
 	FORM_FNAME: "First Name",
@@ -84,6 +88,7 @@ const spiels = {
 	FORM_LNAME: "Last Name",
 	FORM_NATIONALITY: "Nationality",
 	FORM_NEW_PASSWORD: "New Password",
+	FORM_NOTES: "Notes (optional)",
 	FORM_OFFICE_ADDRESS: "Office Address",
 	FORM_OCCUPATION: "Occupation",
 	FORM_OLD_PASSWORD: "Old Password",
@@ -91,9 +96,12 @@ const spiels = {
 	FORM_PATIENT_ACCOUNT: "Patient Account Email Address",
 	FORM_PHYSICIAN_NAME: "Name of Physician",
 	FORM_PREV_DENTIST: "Previous Dentist",
+	FORM_PROCEDURE: "Procedure",
 	FORM_REGION: "Region",
 	FORM_RELATIONSHIP: "Relationship",
 	FORM_RELIGION: "Religion",
+	FORM_SELECT_PATIENT: "Select Patient",
+	FORM_SLOT: "Slot",
 
 	// Form Blood Type
 	FORM_BLOOD_TYPE_LIST: [
@@ -151,6 +159,15 @@ const spiels = {
 		},
 		{
 			value: "French",
+		},
+	],
+
+	FORM_SLOT_LIST: [
+		{
+			value: "AM",
+		},
+		{
+			value: "PM",
 		},
 	],
 
