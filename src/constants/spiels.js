@@ -9,6 +9,7 @@ const spiels = {
 	TEXT_FILTER: "Filters",
 	INC_EMAIL: "Incorrect Email",
 	INC_PASSWORD: "Incorrect Password",
+	LABEL_LAST_VISIT: "Last Visit",
 	LBL_EMAIL: "Email",
 	LBL_PASSWORD: "Password",
 	LBL_REMEMBER: "Remember Me",
@@ -50,8 +51,10 @@ const spiels = {
 	BUTTON_CANCEL: "Cancel",
 	BUTTON_DELETE_ACCOUNT: "Delete Account",
 	BUTTON_DELETE: "Delete",
+	BUTTON_EDIT_RECORD: "Edit Record",
 	BUTTON_LOGIN: "Login",
 	BUTTON_NEXT: "Next",
+	BUTTON_PRINT_RECORD: "Print Record",
 	BUTTON_SAVE: "Save",
 	BUTTON_SEND_RESET_REQUEST: "Send Reset Request",
 	BUTTON_SET_APPOINTMENT: "Set Appointment",
@@ -59,6 +62,7 @@ const spiels = {
 	BUTTON_SIGN_UP: "Sign Up",
 	BUTTON_SUBMIT: "Submit",
 	BUTTON_VIEW_ALL: "View all",
+	BUTTON_VIEW_RECORD: "View Record",
 
 	// Banner
 	REDIRECT_SUBHEADER: "Built by developers",
@@ -101,6 +105,7 @@ const spiels = {
 	FORM_RELATIONSHIP: "Relationship",
 	FORM_RELIGION: "Religion",
 	FORM_SELECT_PATIENT: "Select Patient",
+	FORM_SEX: "Sex",
 	FORM_SLOT: "Slot",
 
 	// Form Blood Type
