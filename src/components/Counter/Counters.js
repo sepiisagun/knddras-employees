@@ -9,7 +9,14 @@ const Counters = () => {
 	return (
 		<>
 			{COUNTER_VALUES.map((counterValue) => (
-				<Card key={counterValue} h="120px" mb={9} p="16px">
+				<Card
+					key={counterValue}
+					borderRadius="3xl"
+					h="120px"
+					mb={9}
+					p="16px"
+					variant="outline"
+				>
 					<CardHeader mb="1px">
 						<MiniStatistics
 							count={counterValue.value}

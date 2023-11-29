@@ -1,58 +1,47 @@
 import React from "react";
-import { Flex, Box, Icon, Link } from "@chakra-ui/react";
+import { Flex, Box, Icon, Button } from "@chakra-ui/react";
+import { Router } from "next/router";
 
 const SideBarMenuItem = ({ item }) => {
-	const iconRad = "15px";
-	const inactiveColor = "gray.400";
-	const pyInactive = "8px";
-	const iconP = "12px";
-	const iconSize = 6;
 	const minW = "100%";
 	return (
-		<Link
-			_hover={{
-				textDecoration: "none",
-			}}
-			href={item.path}
-		>
-			<Flex
+		<Box key={item.key} w={minW}>
+			<Button
+				key={item.title}
 				_hover={{
 					bg: "gray.200",
 				}}
 				alignItems="center"
 				borderRadius="15px"
 				boxSize="initial"
+				colorScheme="teal"
 				justifyContent="flex-start"
 				mb={{
 					xl: "4px",
 				}}
-				mx={{
-					xl: "auto",
-				}}
+				mx={1}
 				ps={{
 					sm: "10px",
-					xl: "16px",
+					xl: "10px",
 				}}
-				py={pyInactive}
+				py="8px"
+				variant={
+					Router.pathname === `/${item.href}` ? "solid" : "ghost"
+				}
 				w={minW}
 			>
 				<Flex
 					bg="white"
-					borderRadius={iconRad}
+					borderRadius="15px"
 					justifyContent="center"
-					mr="16px"
-					p={iconP}
+					mr="12px"
+					p="18px"
 				>
-					<Icon
-						as={item.icon}
-						color="teal.300"
-						h={iconSize}
-						w={iconSize}
-					/>
+					<Icon as={item.icon} color="teal.300" h={6} w={6} />
 				</Flex>
-				<Box color={inactiveColor}>{item.name}</Box>
-			</Flex>
-		</Link>
+				{item.title}
+			</Button>
+		</Box>
 	);
 };
 

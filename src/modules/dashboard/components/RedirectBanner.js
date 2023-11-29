@@ -14,6 +14,7 @@ import spiels from "../../../constants/spiels";
 const RedirectBanner = () => {
 	return (
 		<Card
+			borderRadius="3xl"
 			direction={{ base: "column", sm: "row" }}
 			overflow="hidden"
 			variant="outline"

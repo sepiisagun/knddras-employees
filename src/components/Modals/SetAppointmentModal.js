@@ -41,10 +41,12 @@ const SetAppointmentModal = ({
 				_hover={{
 					bgColor: "gray.50",
 				}}
+				borderRadius="3xl"
 				cursor="pointer"
 				h="120px"
 				onClick={onOpenSetAppointment}
 				p="16px"
+				variant="outline"
 			>
 				<CardHeader mb="1px">
 					<MiniStatistics

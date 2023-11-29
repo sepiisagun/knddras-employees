@@ -18,7 +18,7 @@ import { APPOINTMENT_USERS } from "../../../constants/temporaryValues";
 
 const AppointmentsTable = () => {
 	return (
-		<Card variant="outline">
+		<Card borderRadius="3xl" variant="outline">
 			<CardBody px="5px">
 				<Stack direction="row" h="100px" p={6}>
 					<Divider orientation="vertical" />
