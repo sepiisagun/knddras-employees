@@ -8,6 +8,7 @@ import AppointmentsTable from "../components/AppointmentsTable";
 import RedirectBanner from "../components/RedirectBanner";
 import Counters from "../../../components/Counter/Counters";
 import SearchBar from "../../../components/Search/SearchBar";
+import SearchProfileCard from "../../../components/Search/ProfileCard/SearchProfileCard";
 
 const DashboardScreen = () => {
 	return (
@@ -45,6 +46,11 @@ const DashboardScreen = () => {
 			<Grid>
 				<GridItem>
 					<SearchBar />
+				</GridItem>
+			</Grid>
+			<Grid>
+				<GridItem>
+					<SearchProfileCard />
 				</GridItem>
 			</Grid>
 		</ProfileLayout>
