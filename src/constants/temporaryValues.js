@@ -59,7 +59,6 @@ export const PATIENT_ACCOUNT = [
 		email: "johndoe2@gmail.com",
 	},
 ];
-
 export const PATIENT_CHECKUP_HISTORY = [
 	{
 		action: "View",
@@ -164,5 +163,19 @@ export const VIEW_TREATMENT = [
 		cost: 800,
 		procedure: "Composite Restoration",
 		toothNumber: 41,
+	},
+];
+
+export const PATIENT_INFORMATION = [
+	{
+		address: "Street #, Barangay, City, Region",
+		birthDate: "December 1, 2000",
+		contactNumber: "09123456789",
+		email: "juandelacruz@sample.com",
+		lastVisit: "January 1, 2023",
+		name: "Juan dela Cruz",
+		nationality: "Pipino",
+		religion: "Roman Alcoholic",
+		sex: "Male",
 	},
 ];
