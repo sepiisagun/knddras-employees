@@ -2,13 +2,27 @@
 const spiels = {
 	APP_NAME: "KNDDRAS Employees",
 	BUTTON_SEARCH: "Search",
-	CLR_TEAL: "teal.300",
-	COMP_NAME: "Klinika ng Dentista",
-	EMP_PORTAL: "Employee Portal",
-	EMP_PORTAL_SUB: "Enter your Email and Password to sign in",
+	COLOR_TEAR: "teal.300",
+	COMPANY_NAME: "Klinika ng Dentista",
+	EMPLOYEE_PORTAL: "Employee Portal",
+	EMPLOYEE_PORTAL_SUBTITLE: "Enter your Email and Password to sign in",
 	TEXT_FILTER: "Filters",
+	INCORRECT_EMAIL: "Incorrect Email",
+	INCORRECT_PASSWORD: "Incorrect Password",
+	LABEL_ASSIGNED_TO: "Assigned To: ",
+	LABEL_DATE: "Date: ",
+	LABEL_EMAIL: "Email",
+	LABEL_NAME: "Name: ",
+	LABEL_PASSWORD: "Password",
+	LABEL_REMEMBER: "Remember Me",
+	LABEL_SIGNIN: "Sign In",
+	LABEL_TRANSACTION_NUMBER: "Transaction #: ",
+	LABEL_VIEW_TREATMENT_TOTAL: "Total",
+	PLACEHOLDER_EMAIL: "Your Email Address",
+	PLACEHOLDER_PASSWORD: "Your Password",
 	INC_EMAIL: "Incorrect Email",
 	INC_PASSWORD: "Incorrect Password",
+	LABEL_LAST_VISIT: "Last Visit",
 	LBL_EMAIL: "Email",
 	LBL_PASSWORD: "Password",
 	LBL_REMEMBER: "Remember Me",
@@ -18,6 +32,7 @@ const spiels = {
 	PLACEHOLDER_SEARCH: "Search for Records",
 	REQ_EMAIL: "Email is required",
 	REQ_PASSWORD: "Password is required",
+	TABLE_CHECKUP_HISTORY: "Check Up and Treatment History",
 
 	// Counters
 	COUNTER_ADD_APPOINTMENT: "Add Appointment",
@@ -42,6 +57,34 @@ const spiels = {
 			title: "Status",
 		},
 	],
+	TABLE_COLUMNS_CHECKUP_HISTORY: [
+		{
+			title: "Procedure",
+		},
+		{
+			title: "Operated By",
+		},
+		{
+			title: "Date Operated",
+		},
+		{
+			title: "Total Fee",
+		},
+		{
+			title: "Action",
+		},
+	],
+	TABLE_COLUMNS_TREATMENT_VIEW: [
+		{
+			title: "Tooth No.",
+		},
+		{
+			title: "Procedure",
+		},
+		{
+			title: "Cost",
+		},
+	],
 
 	// Buttons
 	BUTTON_ADD: "Add",
@@ -50,8 +93,10 @@ const spiels = {
 	BUTTON_CANCEL: "Cancel",
 	BUTTON_DELETE_ACCOUNT: "Delete Account",
 	BUTTON_DELETE: "Delete",
+	BUTTON_EDIT_RECORD: "Edit Record",
 	BUTTON_LOGIN: "Login",
 	BUTTON_NEXT: "Next",
+	BUTTON_PRINT_RECORD: "Print Record",
 	BUTTON_SAVE: "Save",
 	BUTTON_SEND_RESET_REQUEST: "Send Reset Request",
 	BUTTON_SET_APPOINTMENT: "Set Appointment",
@@ -59,6 +104,7 @@ const spiels = {
 	BUTTON_SIGN_UP: "Sign Up",
 	BUTTON_SUBMIT: "Submit",
 	BUTTON_VIEW_ALL: "View all",
+	BUTTON_VIEW_RECORD: "View Record",
 
 	// Banner
 	REDIRECT_SUBHEADER: "Built by developers",
@@ -101,6 +147,7 @@ const spiels = {
 	FORM_RELATIONSHIP: "Relationship",
 	FORM_RELIGION: "Religion",
 	FORM_SELECT_PATIENT: "Select Patient",
+	FORM_SEX: "Sex",
 	FORM_SLOT: "Slot",
 
 	// Form Blood Type

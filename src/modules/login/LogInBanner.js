@@ -19,7 +19,7 @@ const LogInBanner = () => {
 				size="3xl"
 				textAlign="center"
 			>
-				{spiels.COMP_NAME}
+				{spiels.COMPANY_NAME}
 			</Heading>
 		</Flex>
 	);
