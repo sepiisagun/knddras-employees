@@ -11,9 +11,11 @@ const AddRecord = () => {
 			_hover={{
 				bgColor: "gray.50",
 			}}
+			borderRadius="3xl"
 			cursor="pointer"
 			h="120px"
 			p="16px"
+			variant="outline"
 		>
 			<CardHeader mb="1px">
 				<MiniStatistics
