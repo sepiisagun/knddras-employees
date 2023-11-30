@@ -2,11 +2,24 @@
 const spiels = {
 	APP_NAME: "KNDDRAS Employees",
 	BUTTON_SEARCH: "Search",
-	CLR_TEAL: "teal.300",
-	COMP_NAME: "Klinika ng Dentista",
-	EMP_PORTAL: "Employee Portal",
-	EMP_PORTAL_SUB: "Enter your Email and Password to sign in",
+	COLOR_TEAR: "teal.300",
+	COMPANY_NAME: "Klinika ng Dentista",
+	EMPLOYEE_PORTAL: "Employee Portal",
+	EMPLOYEE_PORTAL_SUBTITLE: "Enter your Email and Password to sign in",
 	TEXT_FILTER: "Filters",
+	INCORRECT_EMAIL: "Incorrect Email",
+	INCORRECT_PASSWORD: "Incorrect Password",
+	LABEL_ASSIGNED_TO: "Assigned To: ",
+	LABEL_DATE: "Date: ",
+	LABEL_EMAIL: "Email",
+	LABEL_NAME: "Name: ",
+	LABEL_PASSWORD: "Password",
+	LABEL_REMEMBER: "Remember Me",
+	LABEL_SIGNIN: "Sign In",
+	LABEL_TRANSACTION_NUMBER: "Transaction #: ",
+	LABEL_VIEW_TREATMENT_TOTAL: "Total",
+	PLACEHOLDER_EMAIL: "Your Email Address",
+	PLACEHOLDER_PASSWORD: "Your Password",
 	INC_EMAIL: "Incorrect Email",
 	INC_PASSWORD: "Incorrect Password",
 	LABEL_LAST_VISIT: "Last Visit",
@@ -19,6 +32,7 @@ const spiels = {
 	PLACEHOLDER_SEARCH: "Search for Records",
 	REQ_EMAIL: "Email is required",
 	REQ_PASSWORD: "Password is required",
+	TABLE_CHECKUP_HISTORY: "Check Up and Treatment History",
 
 	// Counters
 	COUNTER_ADD_APPOINTMENT: "Add Appointment",
@@ -41,6 +55,34 @@ const spiels = {
 		},
 		{
 			title: "Status",
+		},
+	],
+	TABLE_COLUMNS_CHECKUP_HISTORY: [
+		{
+			title: "Procedure",
+		},
+		{
+			title: "Operated By",
+		},
+		{
+			title: "Date Operated",
+		},
+		{
+			title: "Total Fee",
+		},
+		{
+			title: "Action",
+		},
+	],
+	TABLE_COLUMNS_TREATMENT_VIEW: [
+		{
+			title: "Tooth No.",
+		},
+		{
+			title: "Procedure",
+		},
+		{
+			title: "Cost",
 		},
 	],
 

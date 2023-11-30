@@ -24,6 +24,11 @@ const LogInForm = ({ getStatus }) => {
 	};
 	// Tests in the consolde if there are value fetched
 	const onSignIn = () => {
+		if (!emailValue || !passValue) {
+			// eslint-disable-next-line no-alert
+			alert("Empty fields detected!");
+			return;
+		}
 		// eslint-disable-next-line no-console
 		console.log(passValue, emailValue);
 		getStatus(true);
@@ -31,29 +36,29 @@ const LogInForm = ({ getStatus }) => {
 	// Styles
 	const minW = "400px";
 	const py = "16px";
-	const colorTeal = spiels.CLR_TEAL;
+	const colorTeal = spiels.COLOR_TEAR;
 	return (
 		<Box minW={minW}>
-			<Heading color={colorTeal}> {spiels.EMP_PORTAL}</Heading>
+			<Heading color={colorTeal}> {spiels.EMPLOYEE_PORTAL}</Heading>
 			<Box color="gray.300" py="8px">
-				{spiels.EMP_PORTAL_SUB}
+				{spiels.EMPLOYEE_PORTAL_SUBTITLE}
 			</Box>
 			<InputLayout
-				formLbl={spiels.LBL_EMAIL}
+				formLbl={spiels.LABEL_EMAIL}
 				getValue={getEmailValue}
 				inputType="email"
-				placeholderVal={spiels.PHOLDER_EMAIL}
+				placeholderVal={spiels.PLACEHOLDER_EMAIL}
 			/>
 			<InputLayout
-				formLbl={spiels.LBL_PASSWORD}
+				formLbl={spiels.LABEL_PASSWORD}
 				getValue={getPassValue}
 				inputType="password"
-				placeholderVal={spiels.PHOLDER_PASSWORD}
+				placeholderVal={spiels.PLACEHOLDER_PASSWORD}
 			/>
 			<FormControl alignItems="center" display="flex" py={py}>
 				<Switch colorScheme="teal" id="remember-me" />
 				<FormLabel htmlFor="remember-me" mb="0" ml="4">
-					{spiels.LBL_REMEMBER}
+					{spiels.LABEL_REMEMBER}
 				</FormLabel>
 			</FormControl>
 			<Button
@@ -64,7 +69,7 @@ const LogInForm = ({ getStatus }) => {
 				size="lg"
 				w="100%"
 			>
-				{spiels.LBL_SIGNIN}
+				{spiels.LABEL_SIGNIN}
 			</Button>
 		</Box>
 	);

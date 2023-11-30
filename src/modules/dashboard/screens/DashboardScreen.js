@@ -8,6 +8,7 @@ import AppointmentsTable from "../components/AppointmentsTable";
 import RedirectBanner from "../components/RedirectBanner";
 import Counters from "../../../components/Counter/Counters";
 import SearchBar from "../../../components/Search/SearchBar";
+import CheckUpTreatmentTable from "../../../components/CheackupTreatment/CheckUpTreatmentTable";
 import SearchProfileCard from "../../../components/Search/ProfileCard/SearchProfileCard";
 
 const DashboardScreen = () => {
@@ -50,6 +51,7 @@ const DashboardScreen = () => {
 			</Grid>
 			<Grid>
 				<GridItem>
+					<CheckUpTreatmentTable />
 					<SearchProfileCard />
 				</GridItem>
 			</Grid>

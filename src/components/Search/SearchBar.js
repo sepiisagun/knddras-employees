@@ -30,7 +30,7 @@ const SearchBar = () => {
 				</InputGroup>
 				<Button
 					onClick={() => {
-						setShowFilter(true);
+						setShowFilter(!showFilter);
 					}}
 				>
 					<Flex justifyContent="center" mr={2}>

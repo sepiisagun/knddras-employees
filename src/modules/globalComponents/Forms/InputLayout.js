@@ -33,7 +33,7 @@ const InputLayout = ({ formLbl, getValue, inputType, placeholderVal }) => {
 				setIsValid(input === "");
 			} else {
 				validateEmail(input);
-				setErrMessage(spiels.INC_EMAIL);
+				setErrMessage(spiels.INCORRECT_EMAIL);
 			}
 		}
 		if (inputType === "password") {
@@ -41,7 +41,7 @@ const InputLayout = ({ formLbl, getValue, inputType, placeholderVal }) => {
 				setErrMessage(spiels.REQ_PASSWORD);
 				setIsValid(input === "");
 			} else {
-				setErrMessage(spiels.INC_PASSWORD);
+				setErrMessage(spiels.INCORRECT_PASSWORD);
 				// Code here if the password does not match
 				setIsValid(input === "");
 			}
