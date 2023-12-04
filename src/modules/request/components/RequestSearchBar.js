@@ -13,7 +13,7 @@ import { SearchIcon } from "@chakra-ui/icons";
 import { MdFilterList } from "react-icons/md";
 import spiels from "../../../constants/spiels";
 
-const ViewRecordSearchBar = () => {
+const RequestSearchBar = () => {
 	const [showFilter, setShowFilter] = useState(false);
 	return (
 		<HStack py={3}>
@@ -42,4 +42,4 @@ const ViewRecordSearchBar = () => {
 	);
 };
 
-export default ViewRecordSearchBar;
+export default RequestSearchBar;

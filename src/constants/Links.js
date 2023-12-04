@@ -107,24 +107,11 @@ const Links = [
 			"doctor",
 			"associate_dentist",
 		],
-		href: `${ENDPOINTS.ADD_RECORD}`,
+		href: `${ENDPOINTS.RECORD}`,
 		icon: MdOutlineTopic,
 		key: 4,
 		location: "navbar",
-		title: "Add Record",
-	},
-	{
-		allowed: [
-			"authenticated",
-			"dental_assistant",
-			"doctor",
-			"associate_dentist",
-		],
-		href: `${ENDPOINTS.VIEW_RECORD}`,
-		icon: MdOutlineTopic,
-		key: 5,
-		location: "navbar",
-		title: "View Record",
+		title: "Record",
 	},
 ];
 
