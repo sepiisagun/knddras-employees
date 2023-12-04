@@ -68,7 +68,7 @@ const Links = [
 			"doctor",
 			"associate_dentist",
 		],
-		href: `${ENDPOINTS.RECORD}`,
+		href: `${ENDPOINTS.RECORDS}`,
 		icon: MdOutlineTopic,
 		key: 2,
 		location: "navbar",

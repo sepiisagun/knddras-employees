@@ -9,38 +9,51 @@ import RedirectBanner from "../components/RedirectBanner";
 import Counters from "../../../components/Counter/Counters";
 
 const DashboardScreen = () => {
+	const DASHBOARD_COUNTERS = [
+		{
+			title: "Pending Requests",
+			value: "25",
+		},
+		{
+			title: "Total Appointment This Month",
+			value: "350",
+		},
+		{
+			title: "Upcoming Appointments",
+			value: "12",
+		},
+	];
 	return (
 		<ProfileLayout>
-			<Grid
-				gap="1px"
-				templateColumns={{ sm: "5fr", xl: "repeat(3, 3fr)" }}
-			>
-				<Box maxW="auto" p={{ base: 4, md: 5 }}>
-					<AddAppointment />
-				</Box>
-				<Box maxW="auto" p={{ base: 4, md: 5 }}>
-					<CheckRequests />
-				</Box>
-				<Box maxW="auto" p={{ base: 4, md: 5 }}>
-					<AddRecord />
-				</Box>
-			</Grid>
 			<Box maxW="auto" p={{ base: 4, md: 5 }}>
-				<AppointmentsTable />
-			</Box>
-			<Grid gap="1px" templateColumns="repeat(5, 1fr)">
-				<GridItem colSpan={3} h="10" p={{ base: 4, md: 5 }}>
-					<RedirectBanner />
-				</GridItem>
-				<GridItem
-					colEnd={6}
-					colStart={4}
-					gap="1px"
-					p={{ base: 4, md: 5 }}
+				<Grid
+					gap={3}
+					pb={3}
+					templateColumns={{ sm: "5fr", xl: "repeat(3, 1fr)" }}
 				>
-					<Counters />
-				</GridItem>
-			</Grid>
+					<GridItem colEnd={2} colStart={1} maxW="auto">
+						<AddAppointment />
+					</GridItem>
+					<GridItem colEnd={3} colStart={2} maxW="auto">
+						<CheckRequests />
+					</GridItem>
+					<GridItem colStart={3} maxW="auto">
+						<AddRecord />
+					</GridItem>
+				</Grid>
+				<AppointmentsTable />
+				<Grid
+					gap={3}
+					templateColumns={{ sm: "5fr", xl: "repeat(3, 1fr)" }}
+				>
+					<GridItem colEnd={3} colStart={1} maxW="auto">
+						<RedirectBanner />
+					</GridItem>
+					<GridItem colStart={3} gap={1} maxW="auto">
+						<Counters countersValue={DASHBOARD_COUNTERS} />
+					</GridItem>
+				</Grid>
+			</Box>
 		</ProfileLayout>
 	);
 };
