@@ -11,7 +11,9 @@ import {
 import React, { useState } from "react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { MdFilterList } from "react-icons/md";
-import spiels from "../../constants/spiels";
+import Link from "next/link";
+import spiels from "../../../constants/spiels";
+import ENDPOINTS from "../../../constants/Endpoints";
 
 const SearchBar = () => {
 	const [showFilter, setShowFilter] = useState(false);
@@ -27,6 +29,7 @@ const SearchBar = () => {
 					type="text"
 				/>
 			</InputGroup>
+
 			<Button
 				onClick={() => {
 					setShowFilter(!showFilter);
@@ -37,9 +40,11 @@ const SearchBar = () => {
 				</Flex>
 				<Box justifyContent="center">{spiels.TEXT_FILTER}</Box>
 			</Button>
-			<Button colorScheme="teal" onClick={() => setShowFilter(false)}>
-				{spiels.BUTTON_ADD_RECORD}
-			</Button>
+			<Link href={`${ENDPOINTS.RECORD}`} passHref>
+				<Button colorScheme="teal" onClick={() => setShowFilter(false)}>
+					{spiels.BUTTON_ADD_RECORD}
+				</Button>
+			</Link>
 		</HStack>
 	);
 };

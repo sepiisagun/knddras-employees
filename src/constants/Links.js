@@ -100,6 +100,19 @@ const Links = [
 		location: "navbar",
 		title: "Logout",
 	},
+	{
+		allowed: [
+			"authenticated",
+			"dental_assistant",
+			"doctor",
+			"associate_dentist",
+		],
+		href: `${ENDPOINTS.RECORD}`,
+		icon: MdOutlineTopic,
+		key: 4,
+		location: "navbar",
+		title: "Record",
+	},
 ];
 
 export default Links;

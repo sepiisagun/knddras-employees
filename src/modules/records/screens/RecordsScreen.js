@@ -7,9 +7,9 @@ import {
 } from "@chakra-ui/react";
 import ProfileLayout from "../../../layout/ProfileLayout";
 import StrapiTable from "../../../components/Table";
-import SearchBar from "../../../components/Search/SearchBar";
 import MiniStatistics from "../../../components/MiniStatisticsCount";
 import WalletIcon from "../../../components/Icons/Icons";
+import SearchBar from "../components/SearchBar";
 
 const RequestScreen = () => {
 	const RECORDS_COUNTERS = [
