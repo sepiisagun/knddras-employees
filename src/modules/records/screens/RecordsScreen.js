@@ -9,7 +9,7 @@ import ProfileLayout from "../../../layout/ProfileLayout";
 import StrapiTable from "../../../components/Table";
 import MiniStatistics from "../../../components/MiniStatisticsCount";
 import WalletIcon from "../../../components/Icons/Icons";
-import SearchBar from "../components/SearchBar";
+import AddRecordSearchBar from "../components/AddRecordSearchBar";
 
 const RequestScreen = () => {
 	const RECORDS_COUNTERS = [
@@ -59,7 +59,7 @@ const RequestScreen = () => {
 						</Card>
 					))}
 				</Grid>
-				<SearchBar />
+				<AddRecordSearchBar />
 				<StrapiTable
 					action={["Edit"]}
 					headerTitles={[
