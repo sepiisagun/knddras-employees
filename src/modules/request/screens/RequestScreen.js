@@ -1,5 +1,12 @@
+import SearchBar from "../../../components/Search/SearchBar";
+import ProfileLayout from "../../../layout/ProfileLayout";
+
 const RequestScreen = () => {
-	return <div>RequestScreen</div>;
+	return (
+		<ProfileLayout>
+			<SearchBar />
+		</ProfileLayout>
+	);
 };
 
 export default RequestScreen;

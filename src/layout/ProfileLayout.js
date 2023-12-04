@@ -3,12 +3,11 @@ import SideBarNavigation from "../components/SideBar/SideBarNavigation";
 
 const ProfileLayout = ({ children }) => {
 	return (
-		<Grid templateAreas={`"nav main"`}>
-			<GridItem area="nav" maxW="30%" minW="fit-content" pl="2">
+		<Grid gap={2} templateColumns="repeat(10, 1fr)">
+			<GridItem colSpan="2" maxH="fit-content">
 				<SideBarNavigation />
 			</GridItem>
-
-			<GridItem area="main" flex="1" maxW="full">
+			<GridItem colSpan="8" maxH="fit-content">
 				{children}
 			</GridItem>
 		</Grid>
