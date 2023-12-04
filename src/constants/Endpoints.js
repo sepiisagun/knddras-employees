@@ -1,5 +1,5 @@
 const ENDPOINTS = {
-	APPOINTMENT: "appointment",
+	APPOINTMENTS: "appointments",
 	CALENDAR: "calendar",
 	DASHBOARD: "dashboard",
 	LOG_OUT: "logout",

@@ -1,5 +1,5 @@
-import SearchBar from "../../../components/Search/SearchBar";
 import ProfileLayout from "../../../layout/ProfileLayout";
+import SearchBar from "../../records/components/SearchBar";
 
 const RequestScreen = () => {
 	return (

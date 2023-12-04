@@ -89,6 +89,7 @@ const spiels = {
 	// Buttons
 	BUTTON_ADD: "Add",
 	BUTTON_ADD_RECORD: "Add Record",
+	BUTTON_ADD_APPOINTMENT: "Add Appointment",
 	BUTTON_BACK: "Back",
 	BUTTON_BOOK_NOW: "Book Now",
 	BUTTON_CANCEL: "Cancel",
