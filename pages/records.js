@@ -1,8 +1,7 @@
-import React from "react";
 import RecordsScreen from "../src/modules/records/screens/RecordsScreen";
 
-const Record = () => {
+const Records = () => {
 	return <RecordsScreen />;
 };
 
-export default Record;
+export default Records;

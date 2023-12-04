@@ -3,7 +3,8 @@ const ENDPOINTS = {
 	CALENDAR: "calendar",
 	DASHBOARD: "dashboard",
 	LOG_OUT: "logout",
-	RECORD: "record",
+	RECORD: "records/add-record",
+	RECORDS: "records",
 	REQUEST: "request",
 	TRANSACTION: "transaction",
 };

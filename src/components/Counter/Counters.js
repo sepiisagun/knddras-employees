@@ -1,21 +1,21 @@
-import { Card, CardHeader, useColorModeValue } from "@chakra-ui/react";
+import { Card, CardHeader, Grid, useColorModeValue } from "@chakra-ui/react";
 import React from "react";
 import MiniStatistics from "../MiniStatisticsCount";
 import WalletIcon from "../Icons/Icons";
-import { COUNTER_VALUES } from "../../constants/temporaryValues";
 
-const Counters = () => {
+const Counters = ({ countersValue }) => {
 	const iconBoxInside = useColorModeValue("white", "white");
 	return (
-		<>
-			{COUNTER_VALUES.map((counterValue) => (
+		<Grid gap="2" templateRows={{ sm: "5fr", xl: "repeat(3, 1fr)" }}>
+			{countersValue.map((counterValue) => (
 				<Card
 					key={counterValue}
 					borderRadius="3xl"
-					h="120px"
-					mb={9}
-					p="16px"
+					h="135px"
+					mb={1}
+					p="22px"
 					variant="outline"
+					w="lg"
 				>
 					<CardHeader mb="1px">
 						<MiniStatistics
@@ -32,7 +32,7 @@ const Counters = () => {
 					</CardHeader>
 				</Card>
 			))}
-		</>
+		</Grid>
 	);
 };
 

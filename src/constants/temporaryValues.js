@@ -33,21 +33,6 @@ export const APPOINTMENT_USERS = [
 	},
 ];
 
-export const COUNTER_VALUES = [
-	{
-		title: "Pending Requests",
-		value: "25",
-	},
-	{
-		title: "Total Appointment This Month",
-		value: "350",
-	},
-	{
-		title: "Upcoming Appointments",
-		value: "12",
-	},
-];
-
 export const PATIENT_ACCOUNT = [
 	{
 		email: "johndoe@gmail.com",

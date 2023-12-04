@@ -21,7 +21,6 @@ const AddPersonalInfoTab = ({ currentTab, switchToNextTab }) => {
 	const [lnameInput, setLNameInput] = useState("");
 	const [initialInput, setInitialInput] = useState("");
 	const [birthdateInput, setBirthdateInput] = useState("");
-	const [religionInput, setReligionInput] = useState("");
 	const [addressInput, setAddressInput] = useState("");
 	const [guardianInput, setGuardianInput] = useState("");
 	const [occupationInput, setOccupationInput] = useState("");
@@ -31,7 +30,6 @@ const AddPersonalInfoTab = ({ currentTab, switchToNextTab }) => {
 	const handleLNameInputChange = (e) => setLNameInput(e.target.value);
 	const handleInitialInputChange = (e) => setInitialInput(e.target.value);
 	const handleBirthdateInputChange = (e) => setBirthdateInput(e.target.value);
-	const handleReligionInputChange = (e) => setReligionInput(e.target.value);
 	const handleAddressInputChange = (e) => setAddressInput(e.target.value);
 	const handleGuardianInputChange = (e) => setGuardianInput(e.target.value);
 	const handleOccupationInputChange = (e) =>
@@ -43,7 +41,6 @@ const AddPersonalInfoTab = ({ currentTab, switchToNextTab }) => {
 	const isLNameError = lnameInput === "";
 	const isInitialError = initialInput === "";
 	const isBirthdateError = birthdateInput === "";
-	const isReligionError = religionInput === "";
 	const isAddressError = addressInput === "";
 	const isGuardianError = guardianInput === "";
 	const isOccupationError = occupationInput === "";
@@ -128,40 +125,6 @@ const AddPersonalInfoTab = ({ currentTab, switchToNextTab }) => {
 				</FormControl>
 			</SimpleGrid>
 
-			<SimpleGrid columns={2} pt={2} spacing={10}>
-				<FormControl isInvalid={isReligionError}>
-					<Box>
-						<FormLabel>{spiels.FORM_RELIGION}</FormLabel>
-						<Input
-							onChange={handleReligionInputChange}
-							type="text"
-							value={religionInput}
-						/>
-						{!isReligionError ? (
-							<FormHelperText />
-						) : (
-							<FormErrorMessage>Error Message</FormErrorMessage>
-						)}
-					</Box>
-				</FormControl>
-				<FormControl>
-					<Box>
-						<FormLabel>{spiels.FORM_NATIONALITY}</FormLabel>
-						<Select>
-							{spiels.FORM_NATIONALITY_LIST.map(
-								(nationalityItem) => (
-									<option
-										key={nationalityItem.value}
-										value={nationalityItem.value}
-									>
-										{nationalityItem.value}
-									</option>
-								),
-							)}
-						</Select>
-					</Box>
-				</FormControl>
-			</SimpleGrid>
 			<FormControl>
 				<Box>
 					<FormLabel>{spiels.FORM_PATIENT_ACCOUNT}</FormLabel>

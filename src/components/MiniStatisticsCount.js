@@ -28,7 +28,7 @@ const MiniStatistics = ({ count, icon, title }) => {
 					<Stat me="auto">
 						<StatLabel
 							color="gray.400"
-							fontSize="lg"
+							fontSize="md"
 							fontWeight="bold"
 							pb=".1rem"
 						>
