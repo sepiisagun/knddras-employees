@@ -42,7 +42,7 @@ const Links = [
 			"doctor",
 			"associate_dentist",
 		],
-		href: `${ENDPOINTS.APPOINTMENT}`,
+		href: `${ENDPOINTS.APPOINTMENTS}`,
 		icon: MdSchedule,
 		key: 1,
 		location: "navbar",
