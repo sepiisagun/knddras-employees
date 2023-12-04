@@ -15,6 +15,7 @@ import {
 	PATIENT_INFORMATION_LABEL_LEFT,
 	PATIENT_INFORMATION_LABEL_RIGHT,
 } from "../../../constants/temporaryValues";
+import PrintModal from "./PrintModal";
 
 const ViewRecordProfileTable = () => {
 	return (
@@ -34,16 +35,7 @@ const ViewRecordProfileTable = () => {
 					Edit
 				</Button>
 
-				<Button
-					colorScheme="purple"
-					float="right"
-					mt={3}
-					mx={1}
-					size="md"
-					variant="solid"
-				>
-					Print
-				</Button>
+				<PrintModal />
 				<Button
 					colorScheme="teal"
 					float="right"
