@@ -15,7 +15,7 @@ import Link from "next/link";
 import spiels from "../../../constants/spiels";
 import ENDPOINTS from "../../../constants/Endpoints";
 
-const AddRecordSearchBar = () => {
+const SearchBar = () => {
 	const [showFilter, setShowFilter] = useState(false);
 	return (
 		<HStack py={3}>
@@ -40,7 +40,7 @@ const AddRecordSearchBar = () => {
 				</Flex>
 				<Box justifyContent="center">{spiels.TEXT_FILTER}</Box>
 			</Button>
-			<Link href={`${ENDPOINTS.ADD_RECORD}`} passHref>
+			<Link href={`${ENDPOINTS.RECORD}`} passHref>
 				<Button colorScheme="teal" onClick={() => setShowFilter(false)}>
 					{spiels.BUTTON_ADD_RECORD}
 				</Button>
@@ -49,4 +49,4 @@ const AddRecordSearchBar = () => {
 	);
 };
 
-export default AddRecordSearchBar;
+export default SearchBar;
