@@ -5,7 +5,7 @@ import { Router } from "next/router";
 const SideBarMenuItem = ({ item }) => {
 	const minW = "100%";
 	return (
-		<Box key={item.key} w={minW}>
+		<Box key={item.key}>
 			<Button
 				key={item.title}
 				_hover={{

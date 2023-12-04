@@ -11,10 +11,11 @@ const SideBarNavigation = () => {
 	return (
 		<Box ref={mainPanel}>
 			<Box
+				bg={sidebarBg}
 				borderRightColor="gray.300"
 				borderRightWidth="1px"
 				display={{ sm: "none", xl: "block" }}
-				h="100vh"
+				maxW="100%"
 				pr="2"
 				py="2"
 			>
@@ -24,13 +25,11 @@ const SideBarNavigation = () => {
 					h="100vh"
 					m={sidebarMargins}
 					maxH="100%"
-					minW="300px"
 					ms={{
 						sm: "16px",
 					}}
-					pe="15px"
+					pe="4px"
 					transition={variantChange}
-					w="full"
 				>
 					<SideBarContent />
 				</Box>
