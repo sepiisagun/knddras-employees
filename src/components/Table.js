@@ -4,7 +4,11 @@ import TableRow from "./TableRow";
 
 const StrapiTable = ({ action, data = [], headerTitles = [] }) => {
 	return (
-		<Card overflowX={{ sm: "scroll", xl: "hidden" }} w="full">
+		<Card
+			borderRadius="2xl"
+			overflowX={{ sm: "scroll", xl: "hidden" }}
+			w="full"
+		>
 			<CardBody>
 				<Table color="gray.700" variant="simple">
 					<Thead>
