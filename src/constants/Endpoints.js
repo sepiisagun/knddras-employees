@@ -7,7 +7,6 @@ const ENDPOINTS = {
 	RECORD: "records/add-record",
 	RECORDS: "records",
 	REQUEST: "request",
-	TRANSACTION: "transaction",
+	TRANSACTIONS: "transactions",
 };
-
 export default ENDPOINTS;
