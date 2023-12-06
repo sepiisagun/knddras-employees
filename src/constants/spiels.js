@@ -31,6 +31,8 @@ const spiels = {
 	PHOLDER_PASSWORD: "Your Password",
 	PLACEHOLDER_SEARCH: "Search for Records",
 	PRINT_CONFIRMATION: "Generate a printable copy for this record?",
+	PRINT_TRANSACTION_TABLE:
+		"Generate a transaction report with data starting from ",
 	REQ_EMAIL: "Email is required",
 	REQ_PASSWORD: "Password is required",
 	TABLE_CHECKUP_HISTORY: "Check Up and Treatment History",

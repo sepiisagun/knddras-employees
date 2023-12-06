@@ -5,7 +5,7 @@ export const CONFIG = {
 /**
  * Front-end endpoints
  */
-const ENDPOINTS = {
+export const ENDPOINTS = {
 	ADD_RECORD: "records/add-record",
 	APPOINTMENTS: "appointments",
 	CALENDAR: "calendar",
@@ -14,7 +14,7 @@ const ENDPOINTS = {
 	RECORD: "records/add-record",
 	RECORDS: "records",
 	REQUEST: "request",
-	TRANSACTION: "transaction",
+	TRANSACTIONS: "transactions",
 };
 
 /**
@@ -33,5 +33,3 @@ export const API_ENDPOINTS = {
 	TREATMENTS: "/api/treatments",
 	USERS: "/api/users",
 };
-
-export default ENDPOINTS;
