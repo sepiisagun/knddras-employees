@@ -39,6 +39,8 @@ const spiels = {
 	GENERATE_TRANSACTION_REPORT: "Generate Transaction Report",
 	VIEW_APPOINTMENT: "View Appointment",
 	REBOOK_APPOINTMENT: "Rebook Appointment",
+	PROCEDURE_SUMMARY: "Procedure Summary",
+	APPOINTMENT_REQUEST: "Appointment Request",
 
 	// Counters
 	COUNTER_ADD_APPOINTMENT: "Add Appointment",
@@ -93,6 +95,7 @@ const spiels = {
 	],
 
 	// Buttons
+	BUTTON_ACCEPT: "Accept",
 	BUTTON_ADD: "Add",
 	BUTTON_ADD_RECORD: "Add Record",
 	BUTTON_ADD_APPOINTMENT: "Add Appointment",
@@ -105,10 +108,12 @@ const spiels = {
 	BUTTON_EDIT_RECORD: "Edit Record",
 	BUTTON_LOGIN: "Login",
 	BUTTON_NEXT: "Next",
+	BUTTON_NEW_PROCEDURE: "New Procedure",
 	BUTTON_PRINT: "Print",
 	BUTTON_PRINT_RECORD: "Print Record",
 	BUTTON_PRINT_TABLE: "Print Table",
 	BUTTON_PROCEED: "Proceed",
+	BUTTON_REJECT: "Reject",
 	BUTTON_RESCHEDULE: "Reschedule",
 	BUTTON_SAVE: "Save",
 	BUTTON_SEND_RESET_REQUEST: "Send Reset Request",
@@ -145,6 +150,7 @@ const spiels = {
 	FORM_FORGOT_PASSWORD: "Forgot Password",
 	FORM_GENDER: "Gender",
 	FORM_GUARDIAN: "Parent/Guardian's Name",
+	FORM_ID_NUMBER: "ID Number",
 	FORM_INITIAL: "Middle Initial",
 	FORM_LNAME: "Last Name",
 	FORM_NATIONALITY: "Nationality",

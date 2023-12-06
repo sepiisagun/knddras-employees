@@ -226,3 +226,60 @@ export const APPOINTMENT_USER_ONE = [
 		value: "No concerns mentioned...",
 	},
 ];
+
+export const TRANSACTION_AMOUNT = [
+	{
+		label: "Subtotal",
+		value: "₱",
+	},
+	{
+		label: "Discount",
+		value: "₱",
+	},
+	{
+		label: "Total",
+		value: "₱",
+	},
+	{
+		label: "Paid",
+		value: "₱",
+	},
+	{
+		label: "Change",
+		value: "₱",
+	},
+];
+
+export const PATIENT_INFORMATION_REBOOK_APPOINTMENT = [
+	{
+		label: "Name: ",
+		value: "Juan Dela Cruz",
+	},
+	{
+		label: "Procedure: ",
+		value: "Root Canal Theraphy",
+	},
+	{
+		label: "Original Schedule: ",
+		value: "April 01, 2023 at 10:00 AM - 11:00 AM",
+	},
+];
+
+export const PATIENT_INFORMATION_VIEW_REQUEST = [
+	{
+		label: "Name: ",
+		value: "Juan Dela Cruz",
+	},
+	{
+		label: "Procedure: ",
+		value: "Root Canal Theraphy",
+	},
+	{
+		label: "Contact Number: ",
+		value: "09123456789",
+	},
+	{
+		label: "Prospect Schedule: ",
+		value: "April 01, 2023 at 10:00 AM - 11:00 AM",
+	},
+];
