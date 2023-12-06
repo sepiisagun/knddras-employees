@@ -102,6 +102,7 @@ const spiels = {
 	BUTTON_EDIT_RECORD: "Edit Record",
 	BUTTON_LOGIN: "Login",
 	BUTTON_NEXT: "Next",
+	BUTTON_PRINT: "Print",
 	BUTTON_PRINT_RECORD: "Print Record",
 	BUTTON_PRINT_TABLE: "Print Table",
 	BUTTON_PROCEED: "Proceed",
