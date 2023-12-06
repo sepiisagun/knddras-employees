@@ -31,9 +31,12 @@ const spiels = {
 	PHOLDER_PASSWORD: "Your Password",
 	PLACEHOLDER_SEARCH: "Search for Records",
 	PRINT_CONFIRMATION: "Generate a printable copy for this record?",
+	PRINT_TRANSACTION_TABLE:
+		"Generate a transaction report with data starting from ",
 	REQ_EMAIL: "Email is required",
 	REQ_PASSWORD: "Password is required",
 	TABLE_CHECKUP_HISTORY: "Check Up and Treatment History",
+	GENERATE_TRANSACTION_REPORT: "Generate Transaction Report",
 
 	// Counters
 	COUNTER_ADD_APPOINTMENT: "Add Appointment",
@@ -101,6 +104,7 @@ const spiels = {
 	BUTTON_NEXT: "Next",
 	BUTTON_PRINT: "Print",
 	BUTTON_PRINT_RECORD: "Print Record",
+	BUTTON_PRINT_TABLE: "Print Table",
 	BUTTON_PROCEED: "Proceed",
 	BUTTON_SAVE: "Save",
 	BUTTON_SEND_RESET_REQUEST: "Send Reset Request",
