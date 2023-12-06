@@ -6,7 +6,7 @@ import {
 	MdOutlineTopic,
 	MdOutlineMultipleStop,
 } from "react-icons/md";
-import ENDPOINTS from "./Endpoints";
+import { ENDPOINTS } from "./Endpoints";
 
 const Links = [
 	{
