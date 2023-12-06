@@ -37,6 +37,8 @@ const spiels = {
 	REQ_PASSWORD: "Password is required",
 	TABLE_CHECKUP_HISTORY: "Check Up and Treatment History",
 	GENERATE_TRANSACTION_REPORT: "Generate Transaction Report",
+	VIEW_APPOINTMENT: "View Appointment",
+	REBOOK_APPOINTMENT: "Rebook Appointment",
 
 	// Counters
 	COUNTER_ADD_APPOINTMENT: "Add Appointment",
@@ -97,6 +99,7 @@ const spiels = {
 	BUTTON_BACK: "Back",
 	BUTTON_BOOK_NOW: "Book Now",
 	BUTTON_CANCEL: "Cancel",
+	BUTTON_CANCEL_APPOINTMENT: "Cancel Appointment",
 	BUTTON_DELETE_ACCOUNT: "Delete Account",
 	BUTTON_DELETE: "Delete",
 	BUTTON_EDIT_RECORD: "Edit Record",
@@ -106,12 +109,15 @@ const spiels = {
 	BUTTON_PRINT_RECORD: "Print Record",
 	BUTTON_PRINT_TABLE: "Print Table",
 	BUTTON_PROCEED: "Proceed",
+	BUTTON_RESCHEDULE: "Reschedule",
 	BUTTON_SAVE: "Save",
 	BUTTON_SEND_RESET_REQUEST: "Send Reset Request",
 	BUTTON_SET_APPOINTMENT: "Set Appointment",
 	BUTTON_SIGN_IN: "Sign In",
 	BUTTON_SIGN_UP: "Sign Up",
 	BUTTON_SUBMIT: "Submit",
+	BUTTON_UPDATE: "Update",
+	BUTTON_VIEW: "View",
 	BUTTON_VIEW_ALL: "View all",
 	BUTTON_VIEW_RECORD: "View Record",
 
