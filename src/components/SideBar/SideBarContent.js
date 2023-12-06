@@ -1,10 +1,21 @@
-import { Flex, Box, VStack, Divider } from "@chakra-ui/react";
-import React from "react";
 import Link from "next/link";
+import { useSelector } from "react-redux";
+import _ from "lodash";
+
+import { Flex, Box, VStack, Divider } from "@chakra-ui/react";
+
+import {
+	isLoggedInSelector,
+	userRoleTypeSelector,
+} from "../../modules/auth/engine/auth.selectors";
+
 import Links from "../../constants/Links";
 import SideBarMenuItem from "./SideBarMenuItem";
 
 const SideBarContent = () => {
+	const isLoggedIn = useSelector(isLoggedInSelector);
+	const userRole = useSelector(userRoleTypeSelector);
+
 	const minH = "100%";
 	const minW = "100%";
 	return (
@@ -13,9 +24,13 @@ const SideBarContent = () => {
 				<VStack w={minW}>
 					{Links.map((headerItem) => {
 						// Dashboard
-						if (headerItem.key === 0) {
+						if (
+							headerItem.location === "dashboard" &&
+							isLoggedIn &&
+							_.includes(headerItem.allowed, userRole)
+						) {
 							return (
-								<Box key={headerItem.key} w={minW}>
+								<Box key={headerItem.title} w={minW}>
 									<Link href={`/${headerItem.href}`}>
 										<SideBarMenuItem item={headerItem} />
 									</Link>
@@ -29,9 +44,13 @@ const SideBarContent = () => {
 					</Box>
 					{/* // Appointments Item */}
 					{Links.map((headerItem) => {
-						if (headerItem.key === 1) {
+						if (
+							headerItem.location === "appointments" &&
+							isLoggedIn &&
+							_.includes(headerItem.allowed, userRole)
+						) {
 							return (
-								<Box key={headerItem.key} w={minW}>
+								<Box key={headerItem.title} w={minW}>
 									<Link href={`/${headerItem.href}`}>
 										<SideBarMenuItem item={headerItem} />
 									</Link>
@@ -45,9 +64,13 @@ const SideBarContent = () => {
 						RECORDS AND TRANSACTION
 					</Box>
 					{Links.map((headerItem) => {
-						if (headerItem.key === 2) {
+						if (
+							headerItem.location === "records" &&
+							isLoggedIn &&
+							_.includes(headerItem.allowed, userRole)
+						) {
 							return (
-								<Box key={headerItem.key} w={minW}>
+								<Box key={headerItem.title} w={minW}>
 									<Link href={`/${headerItem.href}`}>
 										<SideBarMenuItem item={headerItem} />
 									</Link>
@@ -57,13 +80,19 @@ const SideBarContent = () => {
 						return null;
 					})}
 					{Links.map((headerItem) => {
-						if (headerItem.key === 3) {
+						if (headerItem.location === "logout") {
 							return (
-								<Box key={headerItem.key} w={minW}>
+								<Box key={headerItem.title} w={minW}>
 									<Divider mb={2} />
-									<Link href={`/${headerItem.href}`}>
+									{headerItem.title !== "Logout" ? (
+										<Link href={`/${headerItem.href}`}>
+											<SideBarMenuItem
+												item={headerItem}
+											/>
+										</Link>
+									) : (
 										<SideBarMenuItem item={headerItem} />
-									</Link>
+									)}
 								</Box>
 							);
 						}

@@ -1,21 +1,19 @@
-import React, { useState } from "react";
-import LogInPage from "../../login/LogInPage";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import { isLoggedInSelector } from "../../auth/engine/auth.selectors";
 
-import DashboardScreen from "../../dashboard/screens/DashboardScreen";
+import LogInPage from "../../login/LogInPage";
+import { ENDPOINTS } from "../../../constants/Endpoints";
 
 const HomeScreen = () => {
-	const [loggedIn, setLoggedIn] = useState(false);
+	const isLoggedIn = useSelector(isLoggedInSelector);
+	const router = useRouter();
 
-	const Status = (status) => {
-		setLoggedIn(status);
-	};
-	const isLoggedIn = () => {
-		if (loggedIn) {
-			return <DashboardScreen />;
-		}
-		return <LogInPage getStatus={Status} />;
-	};
-	return isLoggedIn();
+	if (isLoggedIn) {
+		router.push(`${ENDPOINTS.DASHBOARD}`);
+	}
+
+	return <LogInPage />;
 };
 
 export default HomeScreen;

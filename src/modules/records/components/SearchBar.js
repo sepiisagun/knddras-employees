@@ -13,7 +13,7 @@ import { SearchIcon } from "@chakra-ui/icons";
 import { MdFilterList } from "react-icons/md";
 import Link from "next/link";
 import spiels from "../../../constants/spiels";
-import ENDPOINTS from "../../../constants/Endpoints";
+import { ENDPOINTS } from "../../../constants/Endpoints";
 
 const SearchBar = () => {
 	const [showFilter, setShowFilter] = useState(false);

@@ -33,6 +33,11 @@ const RedirectBanner = () => {
 				<CardFooter>
 					<Button
 						colorScheme="blue"
+						onClick={() => {
+							window.location.replace(
+								`${process.env.NEXT_PUBLIC_CLIENT_BASE_URL}`,
+							);
+						}}
 						rightIcon={<ArrowForwardIcon mt={1} />}
 						variant="ghost"
 					>

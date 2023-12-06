@@ -1,9 +1,18 @@
-import React from "react";
+import { Router, useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+
 import { Flex, Box, Icon, Button } from "@chakra-ui/react";
-import { Router } from "next/router";
+
+import { logout } from "../../modules/auth/engine/auth.actions";
 
 const SideBarMenuItem = ({ item }) => {
-	const minW = "100%";
+	const dispatch = useDispatch();
+	const router = useRouter();
+
+	const handleLogout = () => {
+		dispatch(logout());
+		router.push("/");
+	};
 	return (
 		<Box key={item.key}>
 			<Button
@@ -20,6 +29,7 @@ const SideBarMenuItem = ({ item }) => {
 					xl: "4px",
 				}}
 				mx={1}
+				onClick={item.title === "Logout" ? handleLogout : () => {}}
 				ps={{
 					sm: "10px",
 					xl: "10px",
@@ -28,7 +38,7 @@ const SideBarMenuItem = ({ item }) => {
 				variant={
 					Router.pathname === `/${item.href}` ? "solid" : "ghost"
 				}
-				w={minW}
+				w="100%"
 			>
 				<Flex
 					bg="white"

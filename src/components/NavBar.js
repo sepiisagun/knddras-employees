@@ -1,7 +1,10 @@
 import { Box, Flex, HStack, Image, Spacer } from "@chakra-ui/react";
-import React from "react";
+import { useSelector } from "react-redux";
+
+import { isLoggedInSelector } from "../modules/auth/engine/auth.selectors";
 
 const NavBar = () => {
+	const isLoggedIn = useSelector(isLoggedInSelector);
 	const iconsize = "4vh";
 	const px = "10px";
 	const py = "15px";
@@ -32,16 +35,18 @@ const NavBar = () => {
 				<Box fontWeight="medium">Klinika ng Dentista</Box>
 			</HStack>
 			<Spacer />
-			<Flex
-				alignItems="center"
-				bg="blue.400"
-				borderRadius="50px"
-				h={iconsize}
-				justifyContent="center"
-				w={iconsize}
-			>
-				<Box fontWeight="bold">EM</Box>
-			</Flex>
+			{isLoggedIn && (
+				<Flex
+					alignItems="center"
+					bg="blue.400"
+					borderRadius="50px"
+					h={iconsize}
+					justifyContent="center"
+					w={iconsize}
+				>
+					<Box fontWeight="bold">EM</Box>
+				</Flex>
+			)}
 		</Flex>
 	);
 };

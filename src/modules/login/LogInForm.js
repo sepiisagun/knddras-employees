@@ -1,5 +1,8 @@
-/* eslint-disable react/jsx-indent */
-import React, { useState } from "react";
+import { useMutation } from "react-query";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/router";
+import { useFormik } from "formik";
+
 import {
 	Box,
 	Button,
@@ -8,64 +11,103 @@ import {
 	FormLabel,
 	Switch,
 } from "@chakra-ui/react";
+
+import { login } from "../auth/engine/auth.mutations";
+import {
+	login as loginAction,
+	setUserDetails,
+} from "../auth/engine/auth.actions";
+import { attachToken, detachToken } from "../../utils/api";
+
+import retrieveUserDetails from "../auth/engine/auth.queries";
+
+import loginValidator from "../auth/models/auth.model";
+
+import { ENDPOINTS } from "../../constants/Endpoints";
 import spiels from "../../constants/spiels";
 import InputLayout from "../globalComponents/Forms/InputLayout";
 
-const LogInForm = ({ getStatus }) => {
-	// Gets the email value typed from the InputLayout Component
-	const [emailValue, setEmailValue] = useState("");
-	const getEmailValue = (value) => {
-		setEmailValue(value);
+const LogInForm = () => {
+	const dispatch = useDispatch();
+	const router = useRouter();
+	const loginMutation = useMutation(login);
+
+	const onSubmit = (values) => {
+		loginMutation
+			.mutateAsync(values)
+			.then((data) => {
+				attachToken(data.jwt);
+
+				return Promise.all([retrieveUserDetails()]).then((result) => {
+					dispatch(loginAction(result));
+
+					return result;
+				});
+			})
+			.then(([details]) => {
+				dispatch(setUserDetails(details));
+				router.push(`${ENDPOINTS.DASHBOARD}`);
+			})
+			.catch((error) => {
+				detachToken();
+				// eslint-disable-next-line no-console
+				console.log(error);
+			});
 	};
-	// Gets the email value typed from the InputLayout Component
-	const [passValue, setpassValue] = useState("");
-	const getPassValue = (value) => {
-		setpassValue(value);
-	};
-	// Tests in the consolde if there are value fetched
-	const onSignIn = () => {
-		if (!emailValue || !passValue) {
-			// eslint-disable-next-line no-alert
-			alert("Empty fields detected!");
-			return;
-		}
-		// eslint-disable-next-line no-console
-		console.log(passValue, emailValue);
-		getStatus(true);
-	};
-	// Styles
-	const minW = "400px";
-	const py = "16px";
-	const colorTeal = spiels.COLOR_TEAR;
+
+	const { errors, handleBlur, handleChange, handleSubmit, touched, values } =
+		useFormik({
+			initialValues: {
+				identifier: "",
+				password: "",
+			},
+			onSubmit,
+			validateOnChange: false,
+			validationSchema: loginValidator,
+		});
+
 	return (
-		<Box minW={minW}>
-			<Heading color={colorTeal}> {spiels.EMPLOYEE_PORTAL}</Heading>
+		<Box minW="400px">
+			<Heading color={spiels.COLOR_TEAR}>
+				{" "}
+				{spiels.EMPLOYEE_PORTAL}
+			</Heading>
 			<Box color="gray.300" py="8px">
 				{spiels.EMPLOYEE_PORTAL_SUBTITLE}
 			</Box>
 			<InputLayout
+				errorMessage={touched.identifier && errors.identifier}
 				formLbl={spiels.LABEL_EMAIL}
-				getValue={getEmailValue}
-				inputType="email"
-				placeholderVal={spiels.PLACEHOLDER_EMAIL}
+				handleBlur={handleBlur}
+				handleChange={handleChange}
+				invalid={touched.identifier && errors.identifier}
+				name="identifier"
+				placeholder={spiels.PLACEHOLDER_EMAIL}
+				type="email"
+				value={values.identifier}
 			/>
 			<InputLayout
+				errorMessage={touched.password && errors.password}
 				formLbl={spiels.LABEL_PASSWORD}
-				getValue={getPassValue}
-				inputType="password"
-				placeholderVal={spiels.PLACEHOLDER_PASSWORD}
+				handleBlur={handleBlur}
+				handleChange={handleChange}
+				invalid={touched.password && errors.password}
+				name="password"
+				placeholder={spiels.PLACEHOLDER_PASSWORD}
+				type="password"
+				value={values.password}
 			/>
-			<FormControl alignItems="center" display="flex" py={py}>
+			<FormControl alignItems="center" display="flex" py="16px">
 				<Switch colorScheme="teal" id="remember-me" />
 				<FormLabel htmlFor="remember-me" mb="0" ml="4">
 					{spiels.LABEL_REMEMBER}
 				</FormLabel>
 			</FormControl>
 			<Button
-				borderRadius={py}
+				borderRadius="16px"
 				colorScheme="teal"
-				my={py}
-				onClick={onSignIn}
+				my="16px"
+				onClick={handleSubmit}
 				size="lg"
 				w="100%"
 			>
