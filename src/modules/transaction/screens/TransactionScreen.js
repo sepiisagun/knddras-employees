@@ -1,5 +1,7 @@
+import ProfileLayout from "../../../layout/ProfileLayout";
+
 const TransactionScreen = () => {
-	return <div>TransactionScreen</div>;
+	return <ProfileLayout>TransactionScreen</ProfileLayout>;
 };
 
 export default TransactionScreen;
