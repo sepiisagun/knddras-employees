@@ -4,7 +4,7 @@ import Link from "next/link";
 import MiniStatistics from "../MiniStatisticsGlobalCount";
 import WalletIcon from "../Icons/Icons";
 import spiels from "../../constants/spiels";
-import { ENDPOINTS } from "../../constants/Endpoints";
+import ENDPOINTS from "../../constants/Endpoints";
 
 const AddRecord = () => {
 	const iconBoxInside = useColorModeValue("white", "white");
