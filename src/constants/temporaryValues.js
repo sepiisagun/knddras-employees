@@ -170,6 +170,36 @@ export const PATIENT_INFORMATION = [
 	},
 ];
 
+export const PATIENT_INFORMATION_LABEL_LEFT = [
+	{
+		label: "Address: ",
+		value: "Street #, Barangay, City, Region",
+	},
+	{
+		label: "Contact Number: ",
+		value: "09123456789",
+	},
+	{
+		label: "Email Address: ",
+		value: "juandelacruz@sample.com",
+	},
+];
+
+export const PATIENT_INFORMATION_LABEL_RIGHT = [
+	{
+		label: "Birthdate: ",
+		value: "December 1, 2000",
+	},
+	{
+		label: "Last Visit: ",
+		value: "January 1, 2023",
+	},
+	{
+		label: "Sex: ",
+		value: "Male",
+	},
+];
+
 export const APPOINTMENT_USER_ONE = [
 	{
 		icon: FaRegCalendar,

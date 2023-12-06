@@ -1,7 +1,7 @@
-import React from "react";
+import ProfileLayout from "../../../layout/ProfileLayout";
 
 const CalendarScreen = () => {
-	return <div>CalendarScreen</div>;
+	return <ProfileLayout>CalendarScreen</ProfileLayout>;
 };
 
 export default CalendarScreen;
