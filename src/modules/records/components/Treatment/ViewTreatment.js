@@ -9,19 +9,17 @@ import {
 	StackDivider,
 	Table,
 	TableContainer,
-	Tbody,
-	Td,
-	Text,
-	Tr,
 	useDisclosure,
 } from "@chakra-ui/react";
 import spiels from "../../../../constants/spiels";
-import { PATIENT_CHECKUP_HISTORY } from "../../../../constants/temporaryValues";
+import { TRANSACTION_AMOUNT } from "../../../../constants/temporaryValues";
 import StrapiTable from "../../../../components/Table";
+import TreatmentHeader from "./TreatmentHeader";
+import TreatmentBreakdownFee from "./TreatmentBreakdownFee";
 
 const ViewTreatment = () => {
 	const { isOpen, onClose, onOpen } = useDisclosure();
-	const patient = PATIENT_CHECKUP_HISTORY[0];
+	const total = TRANSACTION_AMOUNT[2];
 	return (
 		<>
 			<Button
@@ -42,31 +40,7 @@ const ViewTreatment = () => {
 					<ModalCloseButton mt={2} />
 					<ModalBody>
 						<TableContainer>
-							<Table variant="simple">
-								<Tbody>
-									<Tr>
-										<Td>
-											<Text fontWeight="normal">
-												Name: {patient.name}
-											</Text>
-											<Text fontWeight="normal">
-												Date: {patient.dateOperated}
-											</Text>
-										</Td>
-
-										<Td>
-											<Text fontWeight="normal">
-												Assigned To:{" "}
-												{patient.operatedBy}
-											</Text>
-											<Text fontWeight="normal">
-												Transaction #:{" "}
-												{patient.transactionNumber}
-											</Text>
-										</Td>
-									</Tr>
-								</Tbody>
-							</Table>
+							<TreatmentHeader />
 							<StrapiTable
 								action={["View"]}
 								headerTitles={[
@@ -77,25 +51,11 @@ const ViewTreatment = () => {
 								title="ViewTreatment"
 							/>
 							<StackDivider />
-							<Table variant="simple">
-								<Tbody>
-									<Tr>
-										<Td>
-											<Text fontWeight="normal">
-												Total
-											</Text>
-										</Td>
-
-										<Td>
-											<Text
-												fontWeight="normal"
-												textAlign="right"
-											>
-												₱{patient.totalFee}
-											</Text>
-										</Td>
-									</Tr>
-								</Tbody>
+							<Table mt={6} size="sm">
+								<TreatmentBreakdownFee
+									key={total.value}
+									amount={total}
+								/>
 							</Table>
 						</TableContainer>
 					</ModalBody>

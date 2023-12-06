@@ -226,3 +226,26 @@ export const APPOINTMENT_USER_ONE = [
 		value: "No concerns mentioned...",
 	},
 ];
+
+export const TRANSACTION_AMOUNT = [
+	{
+		label: "Subtotal",
+		value: "₱",
+	},
+	{
+		label: "Discount",
+		value: "₱",
+	},
+	{
+		label: "Total",
+		value: "₱",
+	},
+	{
+		label: "Paid",
+		value: "₱",
+	},
+	{
+		label: "Change",
+		value: "₱",
+	},
+];
