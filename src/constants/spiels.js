@@ -40,6 +40,7 @@ const spiels = {
 	VIEW_APPOINTMENT: "View Appointment",
 	REBOOK_APPOINTMENT: "Rebook Appointment",
 	PROCEDURE_SUMMARY: "Procedure Summary",
+	APPOINTMENT_REQUEST: "Appointment Request",
 
 	// Counters
 	COUNTER_ADD_APPOINTMENT: "Add Appointment",
@@ -94,6 +95,7 @@ const spiels = {
 	],
 
 	// Buttons
+	BUTTON_ACCEPT: "Accept",
 	BUTTON_ADD: "Add",
 	BUTTON_ADD_RECORD: "Add Record",
 	BUTTON_ADD_APPOINTMENT: "Add Appointment",
@@ -111,6 +113,7 @@ const spiels = {
 	BUTTON_PRINT_RECORD: "Print Record",
 	BUTTON_PRINT_TABLE: "Print Table",
 	BUTTON_PROCEED: "Proceed",
+	BUTTON_REJECT: "Reject",
 	BUTTON_RESCHEDULE: "Reschedule",
 	BUTTON_SAVE: "Save",
 	BUTTON_SEND_RESET_REQUEST: "Send Reset Request",
