@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 import { Card, CardHeader, useColorModeValue } from "@chakra-ui/react";
-
 import MiniStatistics from "../MiniStatisticsGlobalCount";
 import WalletIcon from "../Icons/Icons";
 import spiels from "../../constants/spiels";

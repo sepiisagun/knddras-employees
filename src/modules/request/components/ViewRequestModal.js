@@ -20,11 +20,11 @@ import React, { useState } from "react";
 import spiels from "../../../constants/spiels";
 import {
 	APPOINTMENT_USERS,
-	PATIENT_INFORMATION_REBOOK_APPOINTMENT,
+	PATIENT_INFORMATION_VIEW_REQUEST,
 } from "../../../constants/temporaryValues";
 import AppointmentRequestHeader from "../../../components/Modals/AppointmentRequestHeader";
 
-const RebookAppointmentModal = () => {
+const ViewRequestModal = () => {
 	const [date, setDate] = useState("");
 	const handleDateChange = (e) => setDate(e.target.value);
 	const isDateError = date === "";
@@ -45,11 +45,11 @@ const RebookAppointmentModal = () => {
 			<Modal isCentered isOpen={isOpen} onClose={onClose} size="lg">
 				<ModalOverlay />
 				<ModalContent>
-					<ModalHeader>{spiels.REBOOK_APPOINTMENT}</ModalHeader>
+					<ModalHeader>{spiels.APPOINTMENT_REQUEST}</ModalHeader>
 					<ModalCloseButton mt={2} />
 					<ModalBody>
 						<AppointmentRequestHeader
-							patient={PATIENT_INFORMATION_REBOOK_APPOINTMENT}
+							patient={PATIENT_INFORMATION_VIEW_REQUEST}
 						/>
 						<FormControl my={5}>
 							<Box>
@@ -93,7 +93,10 @@ const RebookAppointmentModal = () => {
 					</ModalBody>
 					<ModalFooter>
 						<Button colorScheme="blue" mx={1} variant="solid">
-							{spiels.BUTTON_UPDATE}
+							{spiels.BUTTON_ACCEPT}
+						</Button>
+						<Button colorScheme="red" mx={1} variant="solid">
+							{spiels.BUTTON_REJECT}
 						</Button>
 						<Button colorScheme="gray" mx={1} onClick={onClose}>
 							{spiels.BUTTON_CANCEL}
@@ -105,4 +108,4 @@ const RebookAppointmentModal = () => {
 	);
 };
 
-export default RebookAppointmentModal;
+export default ViewRequestModal;
