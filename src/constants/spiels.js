@@ -180,6 +180,75 @@ const spiels = {
 	FORM_ALLERGIES_ASPIRIN: "Aspirin",
 	FORM_OTHER: "Other:",
 
+	// Column 1
+	FORM_HIGH_BLOOD_PRESSURE: "High Blood Pressure",
+	FORM_AIDS_OR_HIV: "AIDS or HIV Infection",
+	FORM_STOMACH_PROBLEMS_ULCER: "Stomach Troubles/Ulcers",
+	FORM_JOINT_REPLACEMENT_IMPLANT: "Joint Replacement/Implant",
+	FORM_THYROID_PROBLEM: "Thyroid Problem",
+	FORM_HEPATITIS_LIVER_DISEASE: "Hepatitis/Liver Disease",
+	FORM_RESPIRATORY_PROBLEMS: "Respiratory Problems",
+	FORM_SWOLLEN_ANKLES: "Swollen Ankles",
+	FORM_CHEST_PAIN: "Chest Pain",
+	FORM_ANEMIA: "Anemia",
+	FORM_EMPHYSEMA: "Emphysema",
+	FORM_HEAD_INJURIES: "Head Injuries",
+	// Column 2
+	FORM_LOW_BLOOD_PRESSURE: "Low Blood Pressure",
+	FORM_SEXUALLY_TRANSMITTED_DISEASE: "Sexually Transmitted Disease",
+	FORM_RAPID_WEIGHT_LOSS: "Rapid Weight Loss",
+	FORM_HEART_SURGERY: "Heart Surgery",
+	FORM_HEART_DISEASE: "Heart Disease",
+	FORM_RHEUMATIC_FEVER: "Rheumatic Fever",
+	FORM_HAPATITIS_JAUNDICE: "Hepatitis/Jaundice",
+	FORM_KIDNEY_DISEASE: "Kidney Disease",
+	FORM_STROKE: "Stroke",
+	FORM_ANGINA: "Angina",
+	FORM_BLEEDING_PROBLEMS: "Bleeding Problems",
+	FORM_ARTHRITIS_RHEUMATISM: "Arthritis/Rheumatism",
+	// Column 3
+	FORM_EPILEPSY_CONVULSIONS: "Epilepsy/Convulsions",
+	FORM_FAINTING_SEIZURE: "Fainting Seizure",
+	FORM_RADIATION_THERAPY: "Radiation Theraphy",
+	FORM_HEART_ATTACK: "Heart Attack",
+	FORM_HEART_MURMUR: "Heart Murmur",
+	FORM_HAY_FEVER_ALLERGIES: "Hay Fever/Allergies",
+	FORM_TUBERCULOSIS: "Tuberculosis",
+	FORM_DIABETES: "Diabetes",
+	FORM_CANCER_TUMORS: "Cancer/Tumors",
+	FORM_ASTHMA: "Asthma",
+	FORM_BLOOD_DISEASE: "Blood Diseases",
+
+	// DC Checkboxes
+	// Periodontal Screening
+	FORM_GINGIVITIS: "Gingivitis",
+	FORM_EARLY_PERIODONTITIS: "Early Periodontitis",
+	FORM_MODERATE_PERIODONTITIS: "Moderate Periodontitis",
+	FORM_ADVANCED_PERIODONTITIS: "Advanced Periodontitis",
+
+	// Occlusion
+	FORM_MOLAR: "Class (Molar)",
+	FORM_OVERJET: "Overjet",
+	FORM_OVERBITE: "Overbite",
+	FORM_MIDLINE_DEVIATION: "Midline Deviation",
+	FORM_CROSSBITE: "Crossbite",
+
+	// Appliances
+	FORM_ORTHODONTIC: "Orthodontic",
+	FORM_STAYPLATE: "Stayplate",
+
+	// TMD
+	FORM_CLENCHING: "Clenching",
+	FORM_CLICKING: "Clicking",
+	FORM_TRISMUS: "Trismus",
+	FORM_MUSCLE_SPASM: "Muscle Spasm",
+
+	// XRAY
+	FORM_PERIAPICAL: "Periapical",
+	FORM_PANORAMIC: "Panoramic",
+	FORM_CEPHALOMETRIC: "Cephalometric",
+	FORM_OCCLUSAL: "Occlusal",
+
 	// Form Blood Type
 	FORM_BLOOD_TYPE_LIST: [
 		{
@@ -299,95 +368,6 @@ const spiels = {
 		},
 	],
 
-	// Dental Chart Checkbox
-	DC_CHECKBOXES: [
-		// Periodontal Screening
-		{
-			value: "Gingivitis",
-			key: 1,
-		},
-		{
-			value: "Early Periodontitis",
-			key: 1,
-		},
-		{
-			value: "Moderate Periodontitis",
-			key: 1,
-		},
-		{
-			value: "Advanced Periodontitis",
-			key: 1,
-		},
-
-		// Occlusion
-		{
-			value: "Class (Molar)",
-			key: 2,
-		},
-		{
-			value: "Overjet",
-			key: 2,
-		},
-		{
-			value: "Overbite",
-			key: 2,
-		},
-		{
-			value: "Midline Deviation",
-			key: 2,
-		},
-		{
-			value: "Crossbite",
-			key: 2,
-		},
-
-		// Appliances
-		{
-			value: "Orthodontic",
-			key: 3,
-		},
-		{
-			value: "Stayplate",
-			key: 3,
-		},
-
-		// TMD
-		{
-			value: "Clenching",
-			key: 4,
-		},
-		{
-			value: "Clicking",
-			key: 4,
-		},
-		{
-			value: "Trismus",
-			key: 4,
-		},
-		{
-			value: "Muscle Spasm",
-			key: 4,
-		},
-
-		// X-ray Taken
-		{
-			value: "Periapical",
-			key: 5,
-		},
-		{
-			value: "Panoramic",
-			key: 5,
-		},
-		{
-			value: "Cephalometric",
-			key: 5,
-		},
-		{
-			value: "Occlusal",
-			key: 5,
-		},
-	],
-
 	// Conditions Tab
 	CONDITIONS_TAB: {
 		// Conditions
@@ -399,144 +379,6 @@ const spiels = {
 				value: "Do you use alcohol, cocaine, or other dangerous drugs?",
 			},
 		],
-
-		ALLERGIES_ROW: [
-			// Allergies
-			{
-				value: "Local Anesthetic (ex. Lidocaine)",
-			},
-			{
-				value: "Penicilin, Antibiotics",
-			},
-			{
-				value: "Latex",
-			},
-			{
-				value: "Sulfa Drugs",
-			},
-			{
-				value: "Aspirin",
-			},
-			{
-				value: "Other: ",
-			},
-		],
-
-		MEDICAL_CONDITIONS_ROW: {
-			MEDICAL_CONDITIONS_ROW_COLUMN_ONE: [
-				{
-					value: "High Blood Pressure",
-				},
-				{
-					value: "AIDS or HIV Infection",
-				},
-				{
-					value: "Stomach Troubles/Ulcers",
-				},
-				{
-					value: "Joint Replacement/Implant",
-				},
-				{
-					value: "Thyroid Problem",
-				},
-				{
-					value: "Hepatitis/Liver Disease",
-				},
-				{
-					value: "Respiratory Problems",
-				},
-				{
-					value: "Swollen Ankles",
-				},
-				{
-					value: "Chest Pain",
-				},
-				{
-					value: "Anemia",
-				},
-				{
-					value: "Emphysema",
-				},
-				{
-					value: "Head Injuries",
-				},
-			],
-
-			MEDICAL_CONDITIONS_ROW_COLUMN_TWO: [
-				{
-					value: "Low Blood Pressure",
-				},
-				{
-					value: "Sexually Transmitted Disease",
-				},
-				{
-					value: "Rapid Weight Loss",
-				},
-				{
-					value: "Heart Surgery",
-				},
-				{
-					value: "Heart Disease",
-				},
-				{
-					value: "Rheumatic Fever",
-				},
-				{
-					value: "Hepatitis/Jaundice",
-				},
-				{
-					value: "Kidney Disease",
-				},
-				{
-					value: "Stroke",
-				},
-				{
-					value: "Angina",
-				},
-				{
-					value: "Bleeding Problems",
-				},
-				{
-					value: "Arthritis/Rheumatism",
-				},
-			],
-
-			MEDICAL_CONDITIONS_ROW_COLUMN_THREE: [
-				{
-					value: "Epilepsy/Convulsions",
-				},
-				{
-					value: "Fainting Seizure",
-				},
-				{
-					value: "Radiation Theraphy",
-				},
-				{
-					value: "Heart Attack",
-				},
-				{
-					value: "Heart Murmur",
-				},
-				{
-					value: "Hay Fever/Allergies",
-				},
-				{
-					value: "Tuberculosis",
-				},
-				{
-					value: "Diabetes",
-				},
-				{
-					value: "Cancer/Tumors",
-				},
-				{
-					value: "Asthma",
-				},
-				{
-					value: "Blood Diseases",
-				},
-			],
-		},
 	},
 };
 

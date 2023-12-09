@@ -22,7 +22,12 @@ import AddPersonalInfoTab from "./AddPersonalInfoTab";
 import ConditionsTab from "./ConditionsTab";
 import DentalChartTab from "./DentalChartTab";
 
-import { createRecord, createMedicalHistory } from "../engine/record.mutations";
+import {
+	createRecord,
+	createMedicalHistory,
+	createConditions,
+	createDentalRecords,
+} from "../engine/record.mutations";
 import { recordSchema, medicalSchema } from "../model/record.model";
 import { ENDPOINTS } from "../../../constants/Endpoints";
 
@@ -37,6 +42,8 @@ const AddRecordTab = () => {
 
 	const createRecordMutation = useMutation(createRecord);
 	const createMedicalMutation = useMutation(createMedicalHistory);
+	const createConditionsMutation = useMutation(createConditions);
+	const createDentalRecordsMutation = useMutation(createDentalRecords);
 
 	const formikPersonalInfo = useFormik({
 		enableReinitialize: true,
@@ -125,6 +132,163 @@ const AddRecordTab = () => {
 		validationSchema: medicalSchema,
 	});
 
+	const formikConditions = useFormik({
+		enableReinitialize: true,
+		initialValues: {
+			aidsHiv: false,
+			anemia: false,
+			angina: false,
+			arthritisRheumatism: false,
+			asthma: false,
+			bleedingProblems: false,
+			bloodDiseases: false,
+			cancerTumors: false,
+			chestPain: false,
+			diabetes: false,
+			emphysema: false,
+			epilepsyConvulsions: false,
+			faintingSeizure: false,
+			hayFever: false,
+			headInjuries: false,
+			heartAttack: false,
+			heartDisease: false,
+			heartMurmur: false,
+			heartSurgery: false,
+			hepatitisJaundice: false,
+			hepatitisLiverDisease: false,
+			highBloodPressure: false,
+			jointReplacementImplant: false,
+			kidneyDisease: false,
+			lowBloodPressure: false,
+			radiationTheraphy: false,
+			rapidWeightLoss: false,
+			respiratoryProblems: false,
+			rheumaticFever: false,
+			std: false,
+			stomachTroublesUlcers: false,
+			stroke: false,
+			swollenAnkles: false,
+			thyroidProblem: false,
+			tuberculosis: false,
+		},
+		onSubmit: async (data, { resetForm }) => {
+			const payload = {
+				aidsHiv: data.aidsHiv,
+				anemia: data.anemia,
+				angina: data.angina,
+				arthritisRheumatism: data.arthritisRheumatism,
+				asthma: data.asthma,
+				bleedingProblems: data.bleedingProblems,
+				bloodDiseases: data.bloodDiseases,
+				cancerTumors: data.cancerTumors,
+				chestPain: data.chestPain,
+				diabetes: data.diabetes,
+				emphysema: data.emphysema,
+				epilepsyConvulsions: data.epilepsyConvulsions,
+				faintingSeizure: data.faintingSeizure,
+				hayFever: data.hayFever,
+				headInjuries: data.headInjuries,
+				heartAttack: data.heartAttack,
+				heartDisease: data.heartDisease,
+				heartMurmur: data.heartMurmur,
+				heartSurgery: data.heartSurgery,
+				hepatitisJaundice: data.hepatitisJaundice,
+				hepatitisLiverDisease: data.hepatitisLiverDisease,
+				highBloodPressure: data.highBloodPressure,
+				jointReplacementImplant: data.jointReplacementImplant,
+				kidneyDisease: data.kidneyDisease,
+				lowBloodPressure: data.lowBloodPressure,
+				radiationTheraphy: data.radiationTheraphy,
+				rapidWeightLoss: data.rapidWeightLoss,
+				respiratoryProblems: data.respiratoryProblems,
+				rheumaticFever: data.rheumaticFever,
+				std: data.std,
+				stomachTroublesUlcers: data.stomachTroublesUlcers,
+				stroke: data.stroke,
+				swollenAnkles: data.swollenAnkles,
+				thyroidProblem: data.thyroidProblem,
+				tuberculosis: data.tuberculosis,
+			};
+			createConditionsMutation
+				.mutateAsync({ data: payload })
+				.then(() => {
+					resetForm();
+
+					// go to success page
+				})
+				.catch((error) => {
+					// display error
+					// eslint-disable-next-line no-console
+					console.log(error);
+				});
+		},
+		validateOnBlur: true,
+		validateOnMount: true,
+		validationSchema: medicalSchema,
+	});
+
+	const formikDentalRecords = useFormik({
+		enableReinitialize: true,
+		initialValues: {
+			advancedPeriodontitis: false,
+			cephalometric: false,
+			clenching: false,
+			clicking: false,
+			crossbite: false,
+			earlyPeriodontitis: false,
+			gingivitis: false,
+			midlineDeviation: false,
+			moderatePeriodontitis: false,
+			molar: false,
+			muscleSpasm: false,
+			occlusal: false,
+			orthodontic: false,
+			overbite: false,
+			overjet: false,
+			panoramic: false,
+			periapical: false,
+			stayplate: false,
+			trismus: false,
+		},
+		onSubmit: async (data, { resetForm }) => {
+			const payload = {
+				advancedPeriodontitis: data.advancedPeriodontitis,
+				cephalometric: data.cephalometric,
+				clenching: data.clenching,
+				clicking: data.clicking,
+				crossbite: data.crossbite,
+				earlyPeriodontitis: data.earlyPeriodontitis,
+				gingivitis: data.gingivitis,
+				midlineDeviation: data.midlineDeviation,
+				moderatePeriodontitis: data.moderatePeriodontitis,
+				molar: data.molar,
+				muscleSpasm: data.muscleSpasm,
+				occlusal: data.occlusal,
+				orthodontic: data.orthodontic,
+				overbite: data.overbite,
+				overjet: data.overjetr,
+				panoramic: data.panoramic,
+				periapical: data.periapical,
+				stayplate: data.stayplate,
+				trismus: data.trismus,
+			};
+			createDentalRecordsMutation
+				.mutateAsync({ data: payload })
+				.then(() => {
+					resetForm();
+
+					// go to success page
+				})
+				.catch((error) => {
+					// display error
+					// eslint-disable-next-line no-console
+					console.log(error);
+				});
+		},
+		validateOnBlur: true,
+		validateOnMount: true,
+		validationSchema: medicalSchema,
+	});
 	const {
 		handleSubmit: handleSubmitMedicalHistory,
 		resetForm: resetMedicalHistory,
@@ -135,9 +299,19 @@ const AddRecordTab = () => {
 		resetForm: resetPersonalInfo,
 	} = formikPersonalInfo;
 
+	const { handleSubmit: handleSubmitConditions, resetForm: resetConditions } =
+		formikConditions;
+
+	const {
+		handleSubmit: handleSubmitDentalRecords,
+		resetForm: resetDentalRecords,
+	} = formikDentalRecords;
+
 	const handleSubmit = async () => {
 		await handleSubmitPersonalInfo();
 		await handleSubmitMedicalHistory();
+		await handleSubmitConditions();
+		await handleSubmitDentalRecords();
 	};
 	return (
 		<Flex alignItems="center" justifyContent="center" p={50} w="full">
@@ -185,19 +359,25 @@ const AddRecordTab = () => {
 									</FormikProvider>
 								</TabPanel>
 								<TabPanel>
-									<ConditionsTab
-										switchToNextTab={() => setCurrentTab(3)}
-										switchToPreviousTab={() =>
-											setCurrentTab(1)
-										}
-									/>
+									<FormikProvider value={formikConditions}>
+										<ConditionsTab
+											switchToNextTab={() =>
+												setCurrentTab(3)
+											}
+											switchToPreviousTab={() =>
+												setCurrentTab(1)
+											}
+										/>
+									</FormikProvider>
 								</TabPanel>
 								<TabPanel>
-									<DentalChartTab
-										switchToPreviousTab={() =>
-											setCurrentTab(2)
-										}
-									/>
+									<FormikProvider value={formikDentalRecords}>
+										<DentalChartTab
+											switchToPreviousTab={() =>
+												setCurrentTab(2)
+											}
+										/>
+									</FormikProvider>
 								</TabPanel>
 							</TabPanels>
 						</Tabs>
@@ -242,6 +422,8 @@ const AddRecordTab = () => {
 								if (currentTab === 0) {
 									resetPersonalInfo();
 									resetMedicalHistory();
+									resetConditions();
+									resetDentalRecords();
 									router.push(`/${ENDPOINTS.RECORDS}`);
 								} else {
 									setCurrentTab(currentTab - 1);
