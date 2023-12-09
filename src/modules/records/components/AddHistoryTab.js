@@ -145,7 +145,7 @@ const AddHistoryTab = ({ switchToPreviousTab }) => {
 				size="sm"
 				variant="solid"
 			>
-				{spiels.BUTTON_SUBMIT}
+				{spiels.BUTTON_NEXT}
 			</Button>
 			<Button
 				colorScheme="blue"
