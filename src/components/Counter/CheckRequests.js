@@ -1,8 +1,11 @@
+import Link from "next/link";
+
 import { Card, CardHeader, useColorModeValue } from "@chakra-ui/react";
-import React from "react";
+
 import MiniStatistics from "../MiniStatisticsGlobalCount";
 import WalletIcon from "../Icons/Icons";
 import spiels from "../../constants/spiels";
+import { ENDPOINTS } from "../../constants/Endpoints";
 
 const CheckRequests = () => {
 	const iconBoxInside = useColorModeValue("white", "white");
@@ -18,12 +21,18 @@ const CheckRequests = () => {
 			variant="outline"
 		>
 			<CardHeader mb="1px">
-				<MiniStatistics
-					icon={
-						<WalletIcon color={iconBoxInside} h="24px" w="24px" />
-					}
-					title={spiels.COUNTER_CHECK_REQUESTS}
-				/>
+				<Link href={`${ENDPOINTS.REQUEST}`}>
+					<MiniStatistics
+						icon={
+							<WalletIcon
+								color={iconBoxInside}
+								h="24px"
+								w="24px"
+							/>
+						}
+						title={spiels.COUNTER_CHECK_REQUESTS}
+					/>
+				</Link>
 			</CardHeader>
 		</Card>
 	);

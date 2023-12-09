@@ -9,7 +9,7 @@ import { ENDPOINTS } from "../../constants/Endpoints";
 const AddRecord = () => {
 	const iconBoxInside = useColorModeValue("white", "white");
 	return (
-		<Link href={`${ENDPOINTS.RECORD}`} passHref>
+		<Link href={`${ENDPOINTS.ADD_RECORD}`} passHref>
 			<Card
 				_hover={{
 					bgColor: "gray.50",

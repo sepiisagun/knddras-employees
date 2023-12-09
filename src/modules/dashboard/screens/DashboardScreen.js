@@ -1,5 +1,8 @@
-import React from "react";
+import { useQuery } from "react-query";
+import { DateTime } from "luxon";
+
 import { Box, Grid, GridItem } from "@chakra-ui/react";
+
 import ProfileLayout from "../../../layout/ProfileLayout";
 import AddAppointment from "../../../components/Counter/AddAppointment";
 import CheckRequests from "../../../components/Counter/CheckRequests";
@@ -8,19 +11,81 @@ import AppointmentsTable from "../components/AppointmentsTable";
 import RedirectBanner from "../components/RedirectBanner";
 import Counters from "../../../components/Counter/Counters";
 
+import { retrieveAppointments } from "../../appointment/engine/appointment.queries";
+import { retrieveRequests } from "../../request/engine/request.queries";
+
 const DashboardScreen = () => {
+	const today = DateTime.now().toFormat("yyyy-MM-dd");
+	const ago = DateTime.now().minus({ month: 1 }).toFormat("yyyy-MM-dd");
+
+	const {
+		data: { count: monthAppointment },
+	} = useQuery({
+		initialData: {},
+		placeholderData: [],
+		queryFn: retrieveAppointments,
+		queryKey: [
+			"month-appointments-count",
+			{
+				filters: {
+					date: {
+						$between: [`${ago}`, `${today}`],
+					},
+				},
+			},
+		],
+	});
+	const {
+		data: { count: pendingRequestCount },
+	} = useQuery({
+		initialData: {},
+		placeholderData: [],
+		queryFn: retrieveRequests,
+		queryKey: [
+			"pending-requests-count",
+			{
+				filters: {
+					status: "PENDING",
+				},
+			},
+		],
+	});
+	const {
+		data: { count: upcomingAppointmentCount },
+	} = useQuery({
+		initialData: {},
+		placeholderData: [],
+		queryFn: retrieveAppointments,
+		queryKey: [
+			"upcoming-appointments-count",
+			{
+				filters: {
+					$and: [
+						{
+							status: "ACCEPTED",
+						},
+						{
+							date: {
+								$gt: `${today}`,
+							},
+						},
+					],
+				},
+			},
+		],
+	});
 	const DASHBOARD_COUNTERS = [
 		{
 			title: "Pending Requests",
-			value: "25",
+			value: pendingRequestCount,
 		},
 		{
 			title: "Total Appointment This Month",
-			value: "350",
+			value: monthAppointment,
 		},
 		{
 			title: "Upcoming Appointments",
-			value: "12",
+			value: upcomingAppointmentCount,
 		},
 	];
 	return (

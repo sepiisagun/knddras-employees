@@ -11,7 +11,6 @@ export const ENDPOINTS = {
 	CALENDAR: "calendar",
 	DASHBOARD: "dashboard",
 	LOG_OUT: "logout",
-	RECORD: "records/add-record",
 	RECORDS: "records",
 	REQUEST: "request",
 	TRANSACTIONS: "transactions",

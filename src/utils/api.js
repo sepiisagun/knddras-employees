@@ -22,6 +22,7 @@ export const defaultThen = ({ data: payload }) => {
 	let data;
 	let meta;
 	let pages;
+	let count;
 
 	if (!_.isEmpty(_.get(payload, "meta"))) {
 		const { data: payloadData, meta: payloadMeta } = payload;
@@ -33,9 +34,10 @@ export const defaultThen = ({ data: payload }) => {
 
 	if (!_.isEmpty(meta)) {
 		pages = meta.pagination;
+		count = pages.total;
 	}
 
-	const response = { data, pagination: pages };
+	const response = { count, data, pagination: pages };
 
 	return response;
 };
