@@ -380,6 +380,157 @@ const spiels = {
 			key: 5,
 		},
 	],
+
+	// Conditions Tab
+	CONDITIONS_TAB: {
+		// Conditions
+		CONDITIONS_ROW: [
+			{
+				value: "Do you use tobacco products",
+			},
+			{
+				value: "Do you use alcohol, cocaine, or other dangerous drugs?",
+			},
+		],
+
+		ALLERGIES_ROW: [
+			// Allergies
+			{
+				value: "Local Anesthetic (ex. Lidocaine)",
+			},
+			{
+				value: "Penicilin, Antibiotics",
+			},
+			{
+				value: "Latex",
+			},
+			{
+				value: "Sulfa Drugs",
+			},
+			{
+				value: "Aspirin",
+			},
+			{
+				value: "Other: ",
+			},
+		],
+
+		MEDICAL_CONDITIONS_ROW: {
+			MEDICAL_CONDITIONS_ROW_COLUMN_ONE: [
+				{
+					value: "High Blood Pressure",
+				},
+				{
+					value: "AIDS or HIV Infection",
+				},
+				{
+					value: "Stomach Troubles/Ulcers",
+				},
+				{
+					value: "Joint Replacement/Implant",
+				},
+				{
+					value: "Thyroid Problem",
+				},
+				{
+					value: "Hepatitis/Liver Disease",
+				},
+				{
+					value: "Respiratory Problems",
+				},
+				{
+					value: "Swollen Ankles",
+				},
+				{
+					value: "Chest Pain",
+				},
+				{
+					value: "Anemia",
+				},
+				{
+					value: "Emphysema",
+				},
+				{
+					value: "Head Injuries",
+				},
+			],
+
+			MEDICAL_CONDITIONS_ROW_COLUMN_TWO: [
+				{
+					value: "Low Blood Pressure",
+				},
+				{
+					value: "Sexually Transmitted Disease",
+				},
+				{
+					value: "Rapid Weight Loss",
+				},
+				{
+					value: "Heart Surgery",
+				},
+				{
+					value: "Heart Disease",
+				},
+				{
+					value: "Rheumatic Fever",
+				},
+				{
+					value: "Hepatitis/Jaundice",
+				},
+				{
+					value: "Kidney Disease",
+				},
+				{
+					value: "Stroke",
+				},
+				{
+					value: "Angina",
+				},
+				{
+					value: "Bleeding Problems",
+				},
+				{
+					value: "Arthritis/Rheumatism",
+				},
+			],
+
+			MEDICAL_CONDITIONS_ROW_COLUMN_THREE: [
+				{
+					value: "Epilepsy/Convulsions",
+				},
+				{
+					value: "Fainting Seizure",
+				},
+				{
+					value: "Radiation Theraphy",
+				},
+				{
+					value: "Heart Attack",
+				},
+				{
+					value: "Heart Murmur",
+				},
+				{
+					value: "Hay Fever/Allergies",
+				},
+				{
+					value: "Tuberculosis",
+				},
+				{
+					value: "Diabetes",
+				},
+				{
+					value: "Cancer/Tumors",
+				},
+				{
+					value: "Asthma",
+				},
+				{
+					value: "Blood Diseases",
+				},
+			],
+		},
+	},
 };
 
 export default spiels;

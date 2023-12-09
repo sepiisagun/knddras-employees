@@ -4,7 +4,7 @@ import DentalChartCheckboxes from "./Dental Chart/DentalChartCheckboxes";
 import DentalChart from "./Dental Chart/DentalChart";
 import spiels from "../../../constants/spiels";
 
-const DentalChartTab = () => {
+const DentalChartTab = ({ switchToPreviousTab }) => {
 	return (
 		<>
 			<Grid gap={2} templateColumns="repeat(10, 1fr)">
@@ -30,6 +30,7 @@ const DentalChartTab = () => {
 				float="right"
 				mr={2}
 				mt={10}
+				onClick={switchToPreviousTab}
 				size="sm"
 				variant="outline"
 			>

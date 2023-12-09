@@ -56,16 +56,26 @@ const AddRecordTab = () => {
 								</TabPanel>
 								<TabPanel>
 									<AddHistoryTab
+										switchToNextTab={() => setCurrentTab(2)}
 										switchToPreviousTab={() =>
 											setCurrentTab(0)
 										}
 									/>
 								</TabPanel>
 								<TabPanel>
-									<ConditionsTab />
+									<ConditionsTab
+										switchToNextTab={() => setCurrentTab(3)}
+										switchToPreviousTab={() =>
+											setCurrentTab(1)
+										}
+									/>
 								</TabPanel>
 								<TabPanel>
-									<DentalChartTab />
+									<DentalChartTab
+										switchToPreviousTab={() =>
+											setCurrentTab(2)
+										}
+									/>
 								</TabPanel>
 							</TabPanels>
 						</Tabs>

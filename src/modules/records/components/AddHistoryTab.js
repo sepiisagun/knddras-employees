@@ -12,7 +12,7 @@ import {
 import React, { useState } from "react";
 import spiels from "../../../constants/spiels";
 
-const AddHistoryTab = ({ switchToPreviousTab }) => {
+const AddHistoryTab = ({ switchToNextTab, switchToPreviousTab }) => {
 	const [prevDentistInput, setPrevDentistInput] = useState("");
 	const [dentalVisitInput, setDentalVisitInput] = useState("");
 	const [physicianNameInput, setPhysicianNameInput] = useState("");
@@ -142,6 +142,7 @@ const AddHistoryTab = ({ switchToPreviousTab }) => {
 				colorScheme="blue"
 				float="right"
 				mt={10}
+				onClick={switchToNextTab}
 				size="sm"
 				variant="solid"
 			>
