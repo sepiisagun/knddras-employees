@@ -26,11 +26,10 @@ const ConditionsTab = ({ switchToNextTab, switchToPreviousTab }) => {
 				{spiels.CONDITIONS_TAB.ALLERGIES_ROW.map((allergy) => {
 					if (allergy.value === "Other: ") {
 						return (
-							<Checkbox key={allergy.value} justifyContent="left">
+							<Text key={allergy.value}>
 								{allergy.value}
-								{/* di gumagana */}
 								<Input size="sm" width="auto" />
-							</Checkbox>
+							</Text>
 						);
 					}
 					return (
