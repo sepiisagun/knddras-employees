@@ -19,7 +19,7 @@ import {
 } from "../auth/engine/auth.actions";
 import { attachToken, detachToken } from "../../utils/api";
 
-import retrieveUserDetails from "../auth/engine/auth.queries";
+import { retrieveUserDetails } from "../auth/engine/auth.queries";
 
 import loginValidator from "../auth/models/auth.model";
 

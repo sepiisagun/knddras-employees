@@ -116,6 +116,7 @@ const spiels = {
 	BUTTON_REJECT: "Reject",
 	BUTTON_RESCHEDULE: "Reschedule",
 	BUTTON_SAVE: "Save",
+	BUTTON_SAVE_CONTINUE: "Save & Continue",
 	BUTTON_SEND_RESET_REQUEST: "Send Reset Request",
 	BUTTON_SET_APPOINTMENT: "Set Appointment",
 	BUTTON_SIGN_IN: "Sign In",
@@ -170,6 +171,12 @@ const spiels = {
 	FORM_SELECT_PATIENT: "Select Patient",
 	FORM_SEX: "Sex",
 	FORM_SLOT: "Slot",
+	FORM_ALLERGIES_ANESTHETICS: "Local Anesthetic (ex. Lidocaine)",
+	FORM_ALLERGIES_ANTIBIOTICS: "Penicillin, Antibiotics",
+	FORM_ALLERGIES_LATEX: "Latex",
+	FORM_ALLERGIES_SULFA: "Sulfa Drugs",
+	FORM_ALLERGIES_ASPIRIN: "Aspirin",
+	FORM_OTHER: "Other:",
 
 	// Form Blood Type
 	FORM_BLOOD_TYPE_LIST: [

@@ -1,3 +1,5 @@
+import { useQuery } from "react-query";
+
 import {
 	Box,
 	Card,
@@ -5,27 +7,103 @@ import {
 	Grid,
 	useColorModeValue,
 } from "@chakra-ui/react";
+import { DateTime } from "luxon";
+
 import ProfileLayout from "../../../layout/ProfileLayout";
 import StrapiTable from "../../../components/Table";
 import MiniStatistics from "../../../components/MiniStatisticsCount";
 import WalletIcon from "../../../components/Icons/Icons";
 import AppointmentsSearchBar from "../components/AppointmentsSearchBar";
 
+import { retrieveAppointments } from "../engine/appointment.queries";
+import { retrieveRequests } from "../../request/engine/request.queries";
+
 const AppointmentsScreen = () => {
+	const today = DateTime.now().toFormat("yyyy-MM-dd");
+	const {
+		data: { total: upcomingTotal },
+	} = useQuery({
+		initialData: [],
+		queryFn: retrieveAppointments,
+		queryKey: [
+			"upcoming-appointments-count",
+			{
+				filters: {
+					$and: [
+						{
+							status: "ACCEPTED",
+						},
+						{
+							date: {
+								$gte: `${today}`,
+							},
+						},
+					],
+				},
+			},
+		],
+	});
+
+	const {
+		data: { total: totalAppointments },
+	} = useQuery({
+		initialData: [],
+		queryFn: retrieveAppointments,
+		queryKey: [
+			"total-appointments-count",
+			{
+				filters: {
+					status: "ACCEPTED",
+				},
+			},
+		],
+	});
+
+	const {
+		data: { total: pendingTotal },
+	} = useQuery({
+		initialData: [],
+		queryFn: retrieveRequests,
+		queryKey: [
+			"pending-requests-count",
+			{
+				filters: {
+					status: "PENDING",
+				},
+			},
+		],
+	});
+
+	const {
+		data: { data },
+	} = useQuery({
+		initialData: [],
+		queryFn: retrieveAppointments,
+		queryKey: [
+			"appointments-data",
+			{
+				populate: "*",
+			},
+		],
+	});
+
 	const RECORDS_COUNTERS = [
 		{
 			title: "Upcoming Appointments",
-			value: "25",
+			value: upcomingTotal,
 		},
 		{
 			title: "Total Appointments",
-			value: "3,500",
+			value: totalAppointments,
 		},
 		{
 			title: "Pending Requests",
-			value: "1,250",
+			value: pendingTotal,
 		},
 	];
+
+	console.log(data);
+
 	const iconBoxInside = useColorModeValue("white", "white");
 	return (
 		<ProfileLayout>
@@ -62,9 +140,10 @@ const AppointmentsScreen = () => {
 				<AppointmentsSearchBar />
 				<StrapiTable
 					action={["Edit"]}
+					data={data}
 					headerTitles={[
-						"Name",
-						"Procedure",
+						"Patient",
+						"Purpose",
 						"Assigned To",
 						"Schedule",
 						"Action",

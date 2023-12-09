@@ -1,12 +1,27 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable array-callback-return */
 /* eslint-disable consistent-return */
-import { Badge, Button, Flex, Td, Text, Tr } from "@chakra-ui/react";
-
+import { useEffect, useState } from "react";
 import _ from "lodash";
 
-const TableRow = ({ action = [], data = [], headerTitles = [] }) => {
-	const renderAction = () => {
-		if (_.includes(action, "View")) {
+import { Badge, Button, Flex, Td, Text, Tr } from "@chakra-ui/react";
+import { DateTime } from "luxon";
+
+const TableRow = ({
+	action = [],
+	data = [],
+	handleSubmit,
+	headerTitles = [],
+	setFieldValue,
+}) => {
+	const [price, setPrice] = useState(0);
+	const [mobileNumber, setMobileNumber] = useState("");
+
+	const renderAction = (status, actionItem) => {
+		if (
+			(status === "REJECTED" && actionItem === "View") ||
+			(!status && actionItem === "View")
+		) {
 			return (
 				<Button bg="transparent" p="0px" variant="no-hover">
 					<Text
@@ -20,7 +35,7 @@ const TableRow = ({ action = [], data = [], headerTitles = [] }) => {
 				</Button>
 			);
 		}
-		if (_.includes(action, "Edit")) {
+		if (actionItem === "Edit") {
 			return (
 				<Button bg="transparent" p="0px" variant="no-hover">
 					<Text
@@ -34,9 +49,20 @@ const TableRow = ({ action = [], data = [], headerTitles = [] }) => {
 				</Button>
 			);
 		}
-		if (_.includes(action, "Cancel")) {
+		if (
+			(status === "PENDING" && actionItem === "Cancel") ||
+			(!status && actionItem === "Cancel")
+		) {
 			return (
-				<Button bg="transparent" p="0px" variant="no-hover">
+				<Button
+					bg="transparent"
+					onClick={() => {
+						setFieldValue("id", data.id);
+						handleSubmit();
+					}}
+					p="0px"
+					variant="no-hover"
+				>
 					<Text
 						color="gray.400"
 						cursor="pointer"
@@ -49,64 +75,167 @@ const TableRow = ({ action = [], data = [], headerTitles = [] }) => {
 			);
 		}
 	};
+
 	const statusStyle = (status) => {
 		if (status === "ACCEPTED") return "green.400";
 		if (status === "REJECTED") return "red.400";
+		if (status === "CANCELLED") return "orange.400";
 		return "gray.400";
 	};
+
+	useEffect(() => {
+		if (!_.isEmpty(data) && !_.isEmpty(_.get(data, "purpose"))) {
+			setPrice(_.get(data, "purpose.data.price"), 0);
+		} else if (!_.isEmpty(data) && !_.isEmpty(_.get(data, "procedure"))) {
+			setPrice(_.get(data, "procedure.price"), 0);
+		}
+		if (!_.isEmpty(data) && (!_.isEmpty(_.get(data, "patient")) || _.has(data, "mobileNumber"))) {
+			setMobileNumber(_.get(data, "patient.data.mobileNumber"), "");
+		}
+	}, [data]);
 
 	return (
 		<Tr>
 			{!_.isEmpty(data) &&
 				headerTitles.map((title, index) => {
-					if (_.isObject(data[_.toLower(title)])) {
-						if (_.has(data[_.toLower(title)].data, "username")) {
-							return (
-								<Td
-									key={index}
-									minWidth={{ sm: "250px" }}
-									pl="0px"
-								>
-									<Flex
-										align="center"
-										flexWrap="nowrap"
-										minWidth="100%"
-										py=".8rem"
+					if (_.isObject(data[_.toLower(title)]) || title === "Assigned To" || title === "Name") {
+						if (title === "Patient" || title === "Assigned To" || title === "Name") {
+							if (_.has(_.get(data, `${_.toLower(title)}.data`), "username") || _.has(_.get(data, "doctor.data"), "username") || _.has(data, "username")) {
+								let user;
+								if (_.has(_.get(data, `${_.toLower(title)}.data`), "username")) user = data[_.toLower(title)].data;
+								else if (_.has(data, "username")) user = data;
+								else user = _.get(data, 'doctor.data');
+								return (
+									<Td
+										key={index}
+										minWidth={{ sm: "250px" }}
+										pl="0px"
 									>
-										<Flex direction="column">
-											<Text
-												color="gray.700"
-												fontSize="md"
-												fontWeight="bold"
-												minWidth="100%"
-											>
-												{
-													data[_.toLower(title)].data
-														.firstName
-												}{" "}
-												{
-													data[_.toLower(title)].data
-														.lastName
-												}
-											</Text>
-											<Text
-												color="gray.400"
-												fontSize="sm"
-												fontWeight="normal"
-											>
-												{
-													data[_.toLower(title)].data
-														.email
-												}
-											</Text>
+										<Flex
+											align="center"
+											flexWrap="nowrap"
+											minWidth="100%"
+											py=".8rem"
+										>
+											<Flex direction="column">
+												<Text
+													color="gray.700"
+													fontSize="md"
+													fontWeight="bold"
+													minWidth="100%"
+												>
+													{
+														user.firstName
+													}{" "}
+													{
+														user.lastName
+													}
+												</Text>
+												<Text
+													color="gray.400"
+													fontSize="sm"
+													fontWeight="normal"
+												>
+													{
+														user.email
+													}
+												</Text>
+											</Flex>
 										</Flex>
-									</Flex>
-								</Td>
-							);
+									</Td>
+								);
+							}
 						}
 						if (
-							_.has(data[_.toLower(title)].data, "readableName")
+							_.has(data, "purpose") ||
+							_.has(data, "procedure")
 						) {
+							if (
+								data[_.toLower(title)].data &&
+								_.has(
+									data[_.toLower(title)].data,
+									"readableName",
+								)
+							) {
+								return (
+									<Td
+										key={index}
+										minWidth={{ sm: "250px" }}
+										pl="0px"
+									>
+										<Flex
+											align="center"
+											flexWrap="nowrap"
+											minWidth="100%"
+											py=".8rem"
+										>
+											<Flex direction="column">
+												<Text
+													color="gray.700"
+													fontSize="md"
+													fontWeight="bold"
+													minWidth="100%"
+												>
+													{
+														data[_.toLower(title)]
+															.data.readableName
+													}
+												</Text>
+												<Text
+													color="gray.400"
+													fontSize="sm"
+													fontWeight="normal"
+												>
+													{
+														data[_.toLower(title)]
+															.data.name
+													}
+												</Text>
+											</Flex>
+										</Flex>
+									</Td>
+								);
+							}
+							if (_.has(data[_.toLower(title)], "readableName")) {
+								return (
+									<Td
+										key={index}
+										minWidth={{ sm: "250px" }}
+										pl="0px"
+									>
+										<Flex
+											align="center"
+											flexWrap="nowrap"
+											minWidth="100%"
+											py=".8rem"
+										>
+											<Flex direction="column">
+												<Text
+													color="gray.700"
+													fontSize="md"
+													fontWeight="bold"
+													minWidth="100%"
+												>
+													{
+														data[_.toLower(title)]
+															.readableName
+													}
+												</Text>
+												<Text
+													color="gray.400"
+													fontSize="sm"
+													fontWeight="normal"
+												>
+													{
+														data[_.toLower(title)]
+															.name
+													}
+												</Text>
+											</Flex>
+										</Flex>
+									</Td>
+								);
+							}
 							return (
 								<Td
 									key={index}
@@ -126,20 +255,7 @@ const TableRow = ({ action = [], data = [], headerTitles = [] }) => {
 												fontWeight="bold"
 												minWidth="100%"
 											>
-												{
-													data[_.toLower(title)].data
-														.readableName
-												}
-											</Text>
-											<Text
-												color="gray.400"
-												fontSize="sm"
-												fontWeight="normal"
-											>
-												{
-													data[_.toLower(title)].data
-														.name
-												}
+												-
 											</Text>
 										</Flex>
 									</Flex>
@@ -147,7 +263,7 @@ const TableRow = ({ action = [], data = [], headerTitles = [] }) => {
 							);
 						}
 					} else if (!_.isObject(data[_.toLower(title)])) {
-						if (title === "Date") {
+						if (title === "Date" || title === "Schedule") {
 							return (
 								<Td key={index}>
 									<Flex direction="column">
@@ -156,14 +272,31 @@ const TableRow = ({ action = [], data = [], headerTitles = [] }) => {
 											fontSize="md"
 											fontWeight="bold"
 										>
-											Date
+											{!_.isEmpty(data[_.toLower(title)])
+												? DateTime.fromSQL(
+													data[_.toLower(title)],
+												  ).toFormat("MMMM d, yyyy")
+												: DateTime.fromISO(
+													data.createdAt,
+												  ).toFormat("MMMM d, yyyy")}
 										</Text>
 										<Text
 											color="gray.400"
 											fontSize="sm"
 											fontWeight="normal"
 										>
-											Time
+											{!_.isEmpty(data.time) &&
+												DateTime.fromSQL(
+													data.time,
+												).toFormat("hh:mm a")}
+											{_.isEmpty(data.time) &&
+												data.slot &&
+												data.slot}
+											{_.isEmpty(data.time) &&
+												_.isEmpty(data.slot) &&
+												DateTime.fromISO(
+													data.createdAt,
+												).toFormat("hh:mm a")}
 										</Text>
 									</Flex>
 								</Td>
@@ -184,8 +317,23 @@ const TableRow = ({ action = [], data = [], headerTitles = [] }) => {
 								</Td>
 							);
 						}
-
-						if (title === "Contact Number") {
+						if (title === "Price") {
+							return (
+								<Td key={index}>
+									<Text
+										color="gray.700"
+										fontSize="md"
+										fontWeight="bold"
+										pb=".5rem"
+									>
+										{`₱ ${price.toLocaleString()}`}
+									</Text>
+								</Td>
+							);
+						}
+						if (
+							title === "MobileNumber" || title === "Contact Number"
+						) {
 							return (
 								<Td
 									key={index}
@@ -205,7 +353,7 @@ const TableRow = ({ action = [], data = [], headerTitles = [] }) => {
 												fontWeight="bold"
 												minWidth="100%"
 											>
-												Contact Number
+												{!_.isEmpty(mobileNumber) ? mobileNumber : '-'}
 											</Text>
 										</Flex>
 									</Flex>
@@ -213,7 +361,13 @@ const TableRow = ({ action = [], data = [], headerTitles = [] }) => {
 							);
 						}
 						if (title === "Action" && !_.isEmpty(action))
-							return <Td key={index}>{renderAction()}</Td>;
+							return (
+								<Td key={index}>
+									{action.map((actionItem) =>
+										renderAction(data.status, actionItem),
+									)}
+								</Td>
+							);
 						return (
 							<Td key={index}>
 								<Text
@@ -222,7 +376,7 @@ const TableRow = ({ action = [], data = [], headerTitles = [] }) => {
 									fontWeight="bold"
 									pb=".5rem"
 								>
-									Action
+									{data[_.toLower(title)]}
 								</Text>
 							</Td>
 						);
