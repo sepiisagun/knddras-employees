@@ -206,13 +206,30 @@ const AddRecordTab = () => {
 							float="right"
 							mt={10}
 							onClick={() => {
-								if (currentTab !== 1) setCurrentTab(1);
+								if (
+									currentTab !== 1 &&
+									currentTab !== 2 &&
+									currentTab !== 3
+								)
+									setCurrentTab(1);
+								if (
+									currentTab !== 0 &&
+									currentTab !== 2 &&
+									currentTab !== 3
+								)
+									setCurrentTab(2);
+								if (
+									currentTab !== 0 &&
+									currentTab !== 1 &&
+									currentTab !== 3
+								)
+									setCurrentTab(3);
 								else handleSubmit();
 							}}
 							size="sm"
 							variant="solid"
 						>
-							{currentTab !== 1
+							{currentTab !== 3
 								? spiels.BUTTON_NEXT
 								: spiels.BUTTON_SUBMIT}
 						</Button>
