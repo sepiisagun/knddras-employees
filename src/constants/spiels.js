@@ -41,6 +41,8 @@ const spiels = {
 	REBOOK_APPOINTMENT: "Rebook Appointment",
 	PROCEDURE_SUMMARY: "Procedure Summary",
 	APPOINTMENT_REQUEST: "Appointment Request",
+	CONDITIONS: "Conditions",
+	DENTAL_CHART: "Dental Chart",
 
 	// Counters
 	COUNTER_ADD_APPOINTMENT: "Add Appointment",
@@ -194,49 +196,6 @@ const spiels = {
 		},
 	],
 
-	// Form Nationalities
-	FORM_NATIONALITY_LIST: [
-		{
-			value: "Afghan",
-		},
-		{
-			value: "American",
-		},
-		{
-			value: "Argentine",
-		},
-		{
-			value: "Australian",
-		},
-		{
-			value: "Bangladeshi",
-		},
-		{
-			value: "Brazilian",
-		},
-		{
-			value: "British",
-		},
-		{
-			value: "Canadian",
-		},
-		{
-			value: "Chinese",
-		},
-		{
-			value: "Egyptian",
-		},
-		{
-			value: "Filipino",
-		},
-		{
-			value: "Finnish",
-		},
-		{
-			value: "French",
-		},
-	],
-
 	FORM_SLOT_LIST: [
 		{
 			value: "AM",
@@ -249,6 +208,336 @@ const spiels = {
 	// Tabs
 	PERSONAL_INFO: "Personal Info",
 	MEDICAL_HISTORY: "Medical History",
+
+	// Dental Chart Legend
+	DENTAL_CHART_LEGEND_COLUMN_ONE: [
+		{
+			label: "✓",
+			value: "Present Teeth",
+		},
+		{
+			label: "D",
+			value: "Decayed",
+		},
+		{
+			label: "M",
+			value: "Missing due to Caries",
+		},
+		{
+			label: "MO",
+			value: "Missing due to Other Causes",
+		},
+		{
+			label: "Im",
+			value: "Impacted Tooth",
+		},
+		{
+			label: "Sp",
+			value: "Supermumerary Tooth",
+		},
+		{
+			label: "Rf",
+			value: "Root Fragment",
+		},
+	],
+
+	DENTAL_CHART_LEGEND_COLUMN_TWO: [
+		{
+			label: "Un",
+			value: "Unerupted",
+		},
+		{
+			label: "Am",
+			value: "Amaigam Filling",
+		},
+		{
+			label: "Co",
+			value: "Composite Filling",
+		},
+		{
+			label: "JC",
+			value: "Jacket Crown",
+		},
+		{
+			label: "Ab",
+			value: "Abutment",
+		},
+		{
+			label: "Att",
+			value: "Attachment",
+		},
+		{
+			label: "P",
+			value: "Pontic",
+		},
+	],
+
+	DENTAL_CHART_LEGEND_COLUMN_THREE: [
+		{
+			label: "In",
+			value: "Inlay",
+		},
+		{
+			label: "Imp",
+			value: "Implant",
+		},
+		{
+			label: "S",
+			value: "Sealants",
+		},
+		{
+			label: "Rm",
+			value: "Removable Denture",
+		},
+		{
+			label: "X",
+			value: "Extraction Due to Caries",
+		},
+		{
+			label: "XO",
+			value: "Extraction Due to Other Causes",
+		},
+	],
+
+	// Dental Chart Checkbox
+	DC_CHECKBOXES: [
+		// Periodontal Screening
+		{
+			value: "Gingivitis",
+			key: 1,
+		},
+		{
+			value: "Early Periodontitis",
+			key: 1,
+		},
+		{
+			value: "Moderate Periodontitis",
+			key: 1,
+		},
+		{
+			value: "Advanced Periodontitis",
+			key: 1,
+		},
+
+		// Occlusion
+		{
+			value: "Class (Molar)",
+			key: 2,
+		},
+		{
+			value: "Overjet",
+			key: 2,
+		},
+		{
+			value: "Overbite",
+			key: 2,
+		},
+		{
+			value: "Midline Deviation",
+			key: 2,
+		},
+		{
+			value: "Crossbite",
+			key: 2,
+		},
+
+		// Appliances
+		{
+			value: "Orthodontic",
+			key: 3,
+		},
+		{
+			value: "Stayplate",
+			key: 3,
+		},
+
+		// TMD
+		{
+			value: "Clenching",
+			key: 4,
+		},
+		{
+			value: "Clicking",
+			key: 4,
+		},
+		{
+			value: "Trismus",
+			key: 4,
+		},
+		{
+			value: "Muscle Spasm",
+			key: 4,
+		},
+
+		// X-ray Taken
+		{
+			value: "Periapical",
+			key: 5,
+		},
+		{
+			value: "Panoramic",
+			key: 5,
+		},
+		{
+			value: "Cephalometric",
+			key: 5,
+		},
+		{
+			value: "Occlusal",
+			key: 5,
+		},
+	],
+
+	// Conditions Tab
+	CONDITIONS_TAB: {
+		// Conditions
+		CONDITIONS_ROW: [
+			{
+				value: "Do you use tobacco products",
+			},
+			{
+				value: "Do you use alcohol, cocaine, or other dangerous drugs?",
+			},
+		],
+
+		ALLERGIES_ROW: [
+			// Allergies
+			{
+				value: "Local Anesthetic (ex. Lidocaine)",
+			},
+			{
+				value: "Penicilin, Antibiotics",
+			},
+			{
+				value: "Latex",
+			},
+			{
+				value: "Sulfa Drugs",
+			},
+			{
+				value: "Aspirin",
+			},
+			{
+				value: "Other: ",
+			},
+		],
+
+		MEDICAL_CONDITIONS_ROW: {
+			MEDICAL_CONDITIONS_ROW_COLUMN_ONE: [
+				{
+					value: "High Blood Pressure",
+				},
+				{
+					value: "AIDS or HIV Infection",
+				},
+				{
+					value: "Stomach Troubles/Ulcers",
+				},
+				{
+					value: "Joint Replacement/Implant",
+				},
+				{
+					value: "Thyroid Problem",
+				},
+				{
+					value: "Hepatitis/Liver Disease",
+				},
+				{
+					value: "Respiratory Problems",
+				},
+				{
+					value: "Swollen Ankles",
+				},
+				{
+					value: "Chest Pain",
+				},
+				{
+					value: "Anemia",
+				},
+				{
+					value: "Emphysema",
+				},
+				{
+					value: "Head Injuries",
+				},
+			],
+
+			MEDICAL_CONDITIONS_ROW_COLUMN_TWO: [
+				{
+					value: "Low Blood Pressure",
+				},
+				{
+					value: "Sexually Transmitted Disease",
+				},
+				{
+					value: "Rapid Weight Loss",
+				},
+				{
+					value: "Heart Surgery",
+				},
+				{
+					value: "Heart Disease",
+				},
+				{
+					value: "Rheumatic Fever",
+				},
+				{
+					value: "Hepatitis/Jaundice",
+				},
+				{
+					value: "Kidney Disease",
+				},
+				{
+					value: "Stroke",
+				},
+				{
+					value: "Angina",
+				},
+				{
+					value: "Bleeding Problems",
+				},
+				{
+					value: "Arthritis/Rheumatism",
+				},
+			],
+
+			MEDICAL_CONDITIONS_ROW_COLUMN_THREE: [
+				{
+					value: "Epilepsy/Convulsions",
+				},
+				{
+					value: "Fainting Seizure",
+				},
+				{
+					value: "Radiation Theraphy",
+				},
+				{
+					value: "Heart Attack",
+				},
+				{
+					value: "Heart Murmur",
+				},
+				{
+					value: "Hay Fever/Allergies",
+				},
+				{
+					value: "Tuberculosis",
+				},
+				{
+					value: "Diabetes",
+				},
+				{
+					value: "Cancer/Tumors",
+				},
+				{
+					value: "Asthma",
+				},
+				{
+					value: "Blood Diseases",
+				},
+			],
+		},
+	},
 };
 
 export default spiels;

@@ -19,6 +19,8 @@ import React, { useState } from "react";
 import AddHistoryTab from "./AddHistoryTab";
 import spiels from "../../../constants/spiels";
 import AddPersonalInfoTab from "./AddPersonalInfoTab";
+import ConditionsTab from "./ConditionsTab";
+import DentalChartTab from "./DentalChartTab";
 
 import { createRecord, createMedicalHistory } from "../engine/record.mutations";
 import { recordSchema, medicalSchema } from "../model/record.model";
@@ -145,7 +147,7 @@ const AddRecordTab = () => {
 				position="relative"
 				rounded="lg"
 				shadow="lg"
-				w="2xl"
+				w="4xl"
 			>
 				<Card p={4}>
 					<CardBody>
@@ -157,6 +159,8 @@ const AddRecordTab = () => {
 							<TabList>
 								<Tab>{spiels.PERSONAL_INFO}</Tab>
 								<Tab>{spiels.MEDICAL_HISTORY}</Tab>
+								<Tab>{spiels.CONDITIONS}</Tab>
+								<Tab>{spiels.DENTAL_CHART}</Tab>
 							</TabList>
 
 							<TabPanels>
@@ -179,6 +183,21 @@ const AddRecordTab = () => {
 											}
 										/>
 									</FormikProvider>
+								</TabPanel>
+								<TabPanel>
+									<ConditionsTab
+										switchToNextTab={() => setCurrentTab(3)}
+										switchToPreviousTab={() =>
+											setCurrentTab(1)
+										}
+									/>
+								</TabPanel>
+								<TabPanel>
+									<DentalChartTab
+										switchToPreviousTab={() =>
+											setCurrentTab(2)
+										}
+									/>
 								</TabPanel>
 							</TabPanels>
 						</Tabs>
