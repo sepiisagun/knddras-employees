@@ -321,7 +321,7 @@ const AddRecordTab = () => {
 				position="relative"
 				rounded="lg"
 				shadow="lg"
-				w="4xl"
+				w="fit-content"
 			>
 				<Card p={4}>
 					<CardBody>
