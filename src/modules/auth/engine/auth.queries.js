@@ -8,3 +8,7 @@ export const retrieveUserDetails = () => {
 export const retrievePatientAccounts = () => {
 	return api.get(`${API_ENDPOINTS.PATIENTS}/patients`).then((data) => data);
 };
+
+export const retrieveDoctorAccounts = () => {
+	return api.get(`${API_ENDPOINTS.PATIENTS}/doctors`).then((data) => data);
+};

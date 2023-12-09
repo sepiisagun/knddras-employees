@@ -27,6 +27,7 @@ export const API_ENDPOINTS = {
 	AUTH: "/api/auth",
 	MEDICAL: "/api/medicals",
 	PATIENTS: "/api/users-permissions/users",
+	PROCEDURES: "/api/procedures",
 	RECORDS: "/api/records",
 	REQUESTS: "/api/requests",
 	TOOTH: "/api/teeth",
