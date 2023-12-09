@@ -4,8 +4,10 @@
 import { useEffect, useState } from "react";
 import _ from "lodash";
 
-import { Badge, Button, Flex, Td, Text, Tr } from "@chakra-ui/react";
+import { Badge, Button, Flex, Td, Text, Tr, useDisclosure} from "@chakra-ui/react";
 import { DateTime } from "luxon";
+
+import ViewRequestModal from "../modules/request/components/ViewRequestModal";
 
 const TableRow = ({
 	action = [],
@@ -16,6 +18,7 @@ const TableRow = ({
 }) => {
 	const [price, setPrice] = useState(0);
 	const [mobileNumber, setMobileNumber] = useState("");
+	const { isOpen: isOpenView, onClose: onCloseView, onOpen: onOpenView } = useDisclosure();
 
 	const renderAction = (status, actionItem) => {
 		if (
@@ -23,16 +26,7 @@ const TableRow = ({
 			(!status && actionItem === "View")
 		) {
 			return (
-				<Button bg="transparent" p="0px" variant="no-hover">
-					<Text
-						color="gray.400"
-						cursor="pointer"
-						fontSize="md"
-						fontWeight="bold"
-					>
-						View
-					</Text>
-				</Button>
+				<ViewRequestModal id={_.get(data, "id")} isOpen={isOpenView} onClose={onCloseView} onOpen={onOpenView} />
 			);
 		}
 		if (actionItem === "Edit") {
@@ -90,7 +84,11 @@ const TableRow = ({
 			setPrice(_.get(data, "procedure.price"), 0);
 		}
 		if (!_.isEmpty(data) && (!_.isEmpty(_.get(data, "patient")) || _.has(data, "mobileNumber"))) {
-			setMobileNumber(_.get(data, "patient.data.mobileNumber"), "");
+			if (!_.isEmpty(_.get(data, "patient.data.mobileNumber"))) {
+				setMobileNumber(_.get(data, "patient.data.mobileNumber"), "");
+			} else {
+				setMobileNumber(_.get(data, 'mobileNumber'));
+			}
 		}
 	}, [data]);
 
@@ -98,11 +96,11 @@ const TableRow = ({
 		<Tr>
 			{!_.isEmpty(data) &&
 				headerTitles.map((title, index) => {
-					if (_.isObject(data[_.toLower(title)]) || title === "Assigned To" || title === "Name") {
+					if (_.isObject(data[_.toLower(title)]) || title === "Assigned To" || title === "Name" || title === "Procedure") {
 						if (title === "Patient" || title === "Assigned To" || title === "Name") {
-							if (_.has(_.get(data, `${_.toLower(title)}.data`), "username") || _.has(_.get(data, "doctor.data"), "username") || _.has(data, "username")) {
+							if (_.has(_.get(data, 'patient.data'), "username") || _.has(_.get(data, "doctor.data"), "username") || _.has(data, "username")) {
 								let user;
-								if (_.has(_.get(data, `${_.toLower(title)}.data`), "username")) user = data[_.toLower(title)].data;
+								if (_.has(_.get(data, 'patient.data'), "username") && (title === "Name" || title === "Patient")) user = _.get(data, 'patient.data');
 								else if (_.has(data, "username")) user = data;
 								else user = _.get(data, 'doctor.data');
 								return (
@@ -147,13 +145,16 @@ const TableRow = ({
 							}
 						}
 						if (
-							_.has(data, "purpose") ||
-							_.has(data, "procedure")
+							(title === "Procedure" || title === "Purpose") && (_.has(data, "purpose") ||
+							_.has(data, "procedure"))
 						) {
+							let dataTitle;
+							if (_.has(data, 'procedure')) dataTitle = 'procedure';
+							else dataTitle = 'purpose';
 							if (
-								data[_.toLower(title)].data &&
+								data[`${dataTitle}`].data &&
 								_.has(
-									data[_.toLower(title)].data,
+									data[`${dataTitle}`].data,
 									"readableName",
 								)
 							) {
@@ -177,7 +178,7 @@ const TableRow = ({
 													minWidth="100%"
 												>
 													{
-														data[_.toLower(title)]
+														data[`${dataTitle}`]
 															.data.readableName
 													}
 												</Text>
@@ -187,7 +188,7 @@ const TableRow = ({
 													fontWeight="normal"
 												>
 													{
-														data[_.toLower(title)]
+														data[`${dataTitle}`]
 															.data.name
 													}
 												</Text>
@@ -332,8 +333,9 @@ const TableRow = ({
 							);
 						}
 						if (
-							title === "MobileNumber" || title === "Contact Number"
+							title === "Mobile Number" || title === "Contact Number"
 						) {
+							console.log(data, "test");
 							return (
 								<Td
 									key={index}

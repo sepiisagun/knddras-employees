@@ -22,8 +22,6 @@ const AppointmentsTable = () => {
 		],
 	});
 
-	console.log(data);
-
 	return (
 		<Card borderRadius="3xl" mb={3} variant="outline">
 			<CardBody px="5px">

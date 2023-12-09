@@ -45,7 +45,7 @@ const RequestScreen = () => {
 		initialData: [],
 		placeholderData: [],
 		queryFn: retrievePatientAccounts,
-		queryKey: ["total-patient-count"],
+		queryKey: ["total-patient-count", { populate: "*" }],
 	});
 
 	const RECORDS_COUNTERS = [

@@ -14,7 +14,6 @@ import {
 	ModalHeader,
 	ModalOverlay,
 	Select,
-	useDisclosure,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import spiels from "../../../constants/spiels";
@@ -24,11 +23,10 @@ import {
 } from "../../../constants/temporaryValues";
 import AppointmentRequestHeader from "../../../components/Modals/AppointmentRequestHeader";
 
-const ViewRequestModal = () => {
+const ViewRequestModal = ({ isOpen, onClose, onOpen }) => {
 	const [date, setDate] = useState("");
 	const handleDateChange = (e) => setDate(e.target.value);
 	const isDateError = date === "";
-	const { isOpen, onClose, onOpen } = useDisclosure();
 	return (
 		<>
 			<Button

@@ -20,7 +20,6 @@ const StrapiTable = ({ action, data = [], headerTitles = [], limit = 10 }) => {
 					</Thead>
 					<Tbody>
 						{data.map((row, index) => {
-							console.log(row);
 							if (index <= limit) {
 								return (
 									<TableRow
