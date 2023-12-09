@@ -1,9 +1,13 @@
+import { FormikProvider, useFormik } from "formik";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { DateTime } from "luxon";
+import _ from "lodash";
+
 import {
 	Box,
 	Button,
 	FormControl,
 	FormErrorMessage,
-	FormHelperText,
 	FormLabel,
 	Input,
 	Modal,
@@ -23,10 +27,89 @@ import {
 } from "../../../constants/temporaryValues";
 import AppointmentRequestHeader from "../../../components/Modals/AppointmentRequestHeader";
 
-const ViewRequestModal = ({ isOpen, onClose, onOpen }) => {
-	const [date, setDate] = useState("");
-	const handleDateChange = (e) => setDate(e.target.value);
-	const isDateError = date === "";
+import { updateRequest } from "../engine/request.mutations";
+import { retrieveDoctorAccounts } from "../../auth/engine/auth.queries";
+import { retrieveProcedures } from "../../../utils/engine/procedure.queries";
+import { retrieveRequest } from "../engine/request.queries";
+
+const ViewRequestModal = ({ id, isOpen, onClose, onOpen }) => {
+	const queryClient = useQueryClient();
+	const updateRequestMutation = useMutation(updateRequest);
+
+	const {
+		data: { data: requestData = [] },
+	} = useQuery({
+		initialData: [],
+		placeholderData: [],
+		queryFn: retrieveRequest,
+		queryKey: ["request-data", id],
+	});
+
+	const {
+		data: { data: procedureData = [] },
+	} = useQuery({
+		initialData: [],
+		placeholderData: [],
+		queryFn: retrieveProcedures,
+		queryKey: ["procedure-data"],
+	});
+
+	const {
+		data: { data: doctorData = [] },
+	} = useQuery({
+		initialData: [],
+		placeholderData: [],
+		queryFn: retrieveDoctorAccounts,
+		queryKey: ["doctor-data"],
+	});
+
+	const formik = useFormik({
+		enableReinitialize: true,
+		initialValues: {
+			date: "",
+			doctor: "",
+			patient: "",
+			purpose: "",
+			time: "",
+		},
+		onSubmit: async (data, { resetForm }) => {
+			const date = DateTime.fromISO(data.date).toFormat("yyyy-MM-dd");
+			const time = DateTime.fromISO(data.date).toFormat("HH:mm:ss");
+			const payload = {
+				date,
+				doctor: data.doctor,
+				patient: data.patient,
+				purpose: data.purpose,
+				time,
+			};
+			updateRequestMutation
+				.mutateAsync({ data: payload, id: requestData.id })
+				.then(() => {
+					queryClient.invalidateQueries({
+						queryKey: "medical-record",
+					});
+					resetForm();
+
+					// go to success page
+				})
+				.catch((error) => {
+					// display error
+					// eslint-disable-next-line no-console
+					console.log(error);
+				});
+		},
+	});
+
+	const {
+		errors,
+		handleBlur,
+		handleChange,
+		handleSubmit,
+		resetForm,
+		touched,
+		values,
+	} = formik;
+
 	return (
 		<>
 			<Button
@@ -49,7 +132,103 @@ const ViewRequestModal = ({ isOpen, onClose, onOpen }) => {
 						<AppointmentRequestHeader
 							patient={PATIENT_INFORMATION_VIEW_REQUEST}
 						/>
-						<FormControl my={5}>
+						<FormikProvider value={formik}>
+							<FormControl
+								isInvalid={touched.date && errors.date}
+							>
+								<FormLabel>{spiels.FORM_DATE}</FormLabel>
+								<Input
+									borderRadius="md"
+									data-testid="date"
+									fontSize="sm"
+									id="date"
+									ms="4px"
+									name="date"
+									onBlur={handleBlur}
+									onChange={handleChange}
+									size="lg"
+									type="datetime-local"
+									value={values.date}
+								/>
+								<FormErrorMessage mb="24px" px={2}>
+									{touched.date && errors.date}
+								</FormErrorMessage>
+							</FormControl>
+
+							<FormControl
+								isInvalid={touched.purpose && errors.purpose}
+								mb={2}
+							>
+								<Box>
+									<FormLabel>
+										{spiels.FORM_PROCEDURE}
+									</FormLabel>
+									<Select
+										data-testid="purpose"
+										id="purpose"
+										name="purpose"
+										onBlur={handleBlur}
+										onChange={handleChange}
+										placeholder="- Select Procedure -"
+										value={values.purpose}
+									>
+										{procedureData.map((procedure) => (
+											<option
+												key={procedure.id}
+												value={procedure.id}
+											>
+												{_.get(
+													procedure,
+													"readableName",
+												)}
+											</option>
+										))}
+									</Select>
+								</Box>
+								<FormErrorMessage mb="24px" px={2}>
+									{touched.purpose && errors.purpose}
+								</FormErrorMessage>
+							</FormControl>
+
+							<FormControl
+								isInvalid={touched.doctor && errors.doctor}
+							>
+								<Box>
+									<FormLabel>
+										{spiels.FORM_ASSIGN_DENTIST}
+									</FormLabel>
+									<Select
+										data-testid="doctor"
+										id="doctor"
+										name="doctor"
+										onBlur={handleBlur}
+										onChange={handleChange}
+										placeholder="- Select Dentist -"
+										value={values.doctor}
+									>
+										{doctorData.map((dentist) => {
+											return (
+												<option
+													key={dentist.id}
+													value={dentist.id}
+												>
+													Dr.{" "}
+													{_.get(
+														dentist,
+														"firstName",
+													)}{" "}
+													{_.get(dentist, "lastName")}
+												</option>
+											);
+										})}
+									</Select>
+								</Box>
+								<FormErrorMessage mb="24px" px={2}>
+									{touched.doctor && errors.doctor}
+								</FormErrorMessage>
+							</FormControl>
+						</FormikProvider>
+						{/* <FormControl my={5}>
 							<Box>
 								<FormLabel fontWeight="semibold">
 									{spiels.FORM_ASSIGN_DENTIST}
@@ -87,10 +266,15 @@ const ViewRequestModal = ({ isOpen, onClose, onOpen }) => {
 									Error Message
 								</FormErrorMessage>
 							)}
-						</FormControl>
+						</FormControl> */}
 					</ModalBody>
 					<ModalFooter>
-						<Button colorScheme="blue" mx={1} variant="solid">
+						<Button
+							colorScheme="blue"
+							mx={1}
+							onClick={handleSubmit}
+							variant="solid"
+						>
 							{spiels.BUTTON_ACCEPT}
 						</Button>
 						<Button colorScheme="red" mx={1} variant="solid">
