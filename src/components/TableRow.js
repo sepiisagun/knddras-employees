@@ -22,7 +22,7 @@ const TableRow = ({
 
 	const renderAction = (status, actionItem) => {
 		if (
-			(status === "REJECTED" && actionItem === "View") ||
+			(status === "PENDING" && actionItem === "View") ||
 			(!status && actionItem === "View")
 		) {
 			return (
