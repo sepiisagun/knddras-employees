@@ -1,3 +1,5 @@
+import { useQuery } from "react-query";
+
 import {
 	Box,
 	Card,
@@ -5,13 +7,47 @@ import {
 	Grid,
 	useColorModeValue,
 } from "@chakra-ui/react";
+// import { DateTime } from "luxon";
+
 import ProfileLayout from "../../../layout/ProfileLayout";
 import StrapiTable from "../../../components/Table";
 import MiniStatistics from "../../../components/MiniStatisticsCount";
 import WalletIcon from "../../../components/Icons/Icons";
 import SearchBar from "../components/SearchBar";
 
+import { retrieveRecords } from "../engine/record.queries";
+import { retrievePatientAccounts } from "../../auth/engine/auth.queries";
+
 const RequestScreen = () => {
+	// const today = DateTime.now().minus({ month: 1 }).toISO();
+	const {
+		data: { data, total: recordTotal },
+	} = useQuery({
+		initialData: [],
+		placeholderData: [],
+		queryFn: retrieveRecords,
+		queryKey: [
+			"total-records-count",
+			{
+				// filters: {
+				// 	createdAt: {
+				// 		$gte: today,
+				// 	},
+				// },
+				populate: "*",
+			},
+		],
+	});
+
+	const {
+		data: { data: patientData, total: patientTotal },
+	} = useQuery({
+		initialData: [],
+		placeholderData: [],
+		queryFn: retrievePatientAccounts,
+		queryKey: ["total-patient-count"],
+	});
+
 	const RECORDS_COUNTERS = [
 		{
 			title: "New Records",
@@ -19,7 +55,7 @@ const RequestScreen = () => {
 		},
 		{
 			title: "Total Records",
-			value: "3,500",
+			value: recordTotal,
 		},
 		{
 			title: "Inactive",
@@ -34,9 +70,9 @@ const RequestScreen = () => {
 					gap="2"
 					templateColumns={{ sm: "5fr", xl: "repeat(3, 1fr)" }}
 				>
-					{RECORDS_COUNTERS.map((counterValue) => (
+					{RECORDS_COUNTERS.map((counterValue, index) => (
 						<Card
-							key={counterValue}
+							key={index}
 							borderRadius="3xl"
 							h="120px"
 							mb={2}
@@ -61,13 +97,13 @@ const RequestScreen = () => {
 				</Grid>
 				<SearchBar />
 				<StrapiTable
-					action={["Edit"]}
+					action={[]}
+					data={patientData}
 					headerTitles={[
 						"Name",
 						"Contact Number",
 						"Last Visit",
 						"Status",
-						"Action",
 					]}
 				/>
 			</Box>

@@ -38,17 +38,6 @@ export const APPOINTMENT_USERS = [
 	},
 ];
 
-export const PATIENT_ACCOUNT = [
-	{
-		email: "johndoe@gmail.com",
-	},
-	{
-		email: "johndoe1@gmail.com",
-	},
-	{
-		email: "johndoe2@gmail.com",
-	},
-];
 export const PATIENT_CHECKUP_HISTORY = [
 	{
 		action: "View",

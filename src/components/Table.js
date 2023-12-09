@@ -2,7 +2,7 @@ import { Card, CardBody, Table, Tbody, Th, Thead, Tr } from "@chakra-ui/react";
 
 import TableRow from "./TableRow";
 
-const StrapiTable = ({ action, data = [], headerTitles = [] }) => {
+const StrapiTable = ({ action, data = [], headerTitles = [], limit = 10 }) => {
 	return (
 		<Card overflowX={{ sm: "scroll", xl: "hidden" }} w="full">
 			<CardBody>
@@ -20,14 +20,18 @@ const StrapiTable = ({ action, data = [], headerTitles = [] }) => {
 					</Thead>
 					<Tbody>
 						{data.map((row, index) => {
-							return (
-								<TableRow
-									key={index}
-									action={action}
-									data={row}
-									headerTitles={headerTitles}
-								/>
-							);
+							console.log(row);
+							if (index <= limit) {
+								return (
+									<TableRow
+										key={index}
+										action={action}
+										data={row}
+										headerTitles={headerTitles}
+									/>
+								);
+							}
+							return null;
 						})}
 					</Tbody>
 				</Table>

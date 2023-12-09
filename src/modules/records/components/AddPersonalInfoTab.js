@@ -1,225 +1,260 @@
+import { useFormikContext } from "formik";
+
 import {
 	Box,
-	Button,
 	Checkbox,
 	Divider,
 	FormControl,
 	FormErrorMessage,
-	FormHelperText,
 	FormLabel,
 	Input,
 	Select,
 	SimpleGrid,
 	Stack,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+
 import spiels from "../../../constants/spiels";
-import { PATIENT_ACCOUNT } from "../../../constants/temporaryValues";
 
-const AddPersonalInfoTab = ({ currentTab, switchToNextTab }) => {
-	const [fnameInput, setFNameInput] = useState("");
-	const [lnameInput, setLNameInput] = useState("");
-	const [initialInput, setInitialInput] = useState("");
-	const [birthdateInput, setBirthdateInput] = useState("");
-	const [addressInput, setAddressInput] = useState("");
-	const [guardianInput, setGuardianInput] = useState("");
-	const [occupationInput, setOccupationInput] = useState("");
-	const [relationshipInput, setRelationshipInput] = useState("");
-
-	const handleFNameInputChange = (e) => setFNameInput(e.target.value);
-	const handleLNameInputChange = (e) => setLNameInput(e.target.value);
-	const handleInitialInputChange = (e) => setInitialInput(e.target.value);
-	const handleBirthdateInputChange = (e) => setBirthdateInput(e.target.value);
-	const handleAddressInputChange = (e) => setAddressInput(e.target.value);
-	const handleGuardianInputChange = (e) => setGuardianInput(e.target.value);
-	const handleOccupationInputChange = (e) =>
-		setOccupationInput(e.target.value);
-	const handleRelationshipInputChange = (e) =>
-		setRelationshipInput(e.target.value);
-
-	const isFNameError = fnameInput === "";
-	const isLNameError = lnameInput === "";
-	const isInitialError = initialInput === "";
-	const isBirthdateError = birthdateInput === "";
-	const isAddressError = addressInput === "";
-	const isGuardianError = guardianInput === "";
-	const isOccupationError = occupationInput === "";
-	const isRelationshipError = relationshipInput === "";
+const AddPersonalInfoTab = () => {
+	const { errors, handleBlur, handleChange, touched, values } =
+		useFormikContext();
 
 	return (
 		<>
 			<SimpleGrid columns={2} spacing={10}>
-				<FormControl isInvalid={isFNameError}>
+				<FormControl isInvalid={touched.firstName && errors.firstName}>
 					<Box>
 						<FormLabel>{spiels.FORM_FNAME}</FormLabel>
 						<Input
-							onChange={handleFNameInputChange}
+							data-testid="firstName"
+							id="firstName"
+							name="firstName"
+							onBlur={handleBlur}
+							onChange={handleChange}
 							type="text"
-							value={fnameInput}
+							value={values.firstName}
 						/>
-						{!isFNameError ? (
-							<FormHelperText />
-						) : (
-							<FormErrorMessage>Error Message</FormErrorMessage>
-						)}
+						<FormErrorMessage>
+							{touched.firstName && errors.firstName}
+						</FormErrorMessage>
 					</Box>
 				</FormControl>
-				<FormControl isInvalid={isLNameError}>
+				<FormControl isInvalid={touched.lastName && errors.lastName}>
 					<Box>
 						<FormLabel>{spiels.FORM_LNAME}</FormLabel>
 						<Input
-							onChange={handleLNameInputChange}
+							data-testid="lastName"
+							id="lastName"
+							name="lastName"
+							onBlur={handleBlur}
+							onChange={handleChange}
 							type="text"
-							value={lnameInput}
+							value={values.lastName}
 						/>
-						{!isLNameError ? (
-							<FormHelperText />
-						) : (
-							<FormErrorMessage>Error Message</FormErrorMessage>
-						)}
+						<FormErrorMessage>
+							{touched.lastName && errors.lastName}
+						</FormErrorMessage>
 					</Box>
 				</FormControl>
 			</SimpleGrid>
 
 			<SimpleGrid columns={3} pt={2} spacing={10}>
-				<FormControl isInvalid={isInitialError}>
+				<FormControl
+					isInvalid={touched.middleInitial && errors.middleInitial}
+				>
 					<Box>
 						<FormLabel>{spiels.FORM_INITIAL}</FormLabel>
 						<Input
-							onChange={handleInitialInputChange}
+							data-testid="middleInitial"
+							id="middleInitial"
+							name="middleInitial"
+							onBlur={handleBlur}
+							onChange={handleChange}
 							type="text"
-							value={initialInput}
+							value={values.middleInitial}
 						/>
-						{!isInitialError ? (
-							<FormHelperText />
-						) : (
-							<FormErrorMessage>Error Message</FormErrorMessage>
-						)}
+						<FormErrorMessage>
+							{touched.middleInitial && errors.middleInitial}
+						</FormErrorMessage>
 					</Box>
 				</FormControl>
 
-				<FormControl>
+				<FormControl isInvalid={touched.sex && errors.sex}>
 					<Box>
 						<FormLabel>{spiels.FORM_GENDER}</FormLabel>
-						<Select>
-							<option value="male">Male</option>
-							<option value="female">Female</option>
+						<Select
+							data-testid="sex"
+							id="sex"
+							name="sex"
+							onBlur={handleBlur}
+							onChange={handleChange}
+							placeholder="- Select Gender -"
+							value={values.sex}
+						>
+							<option value="MALE">Male</option>
+							<option value="FEMALE">Female</option>
+							<option value="OTHER">Other</option>
 						</Select>
 					</Box>
+					<FormErrorMessage>
+						{touched.sex && errors.sex}
+					</FormErrorMessage>
 				</FormControl>
 
-				<FormControl isInvalid={isBirthdateError}>
+				<FormControl isInvalid={touched.birthdate && errors.birthdate}>
 					<Box>
 						<FormLabel>{spiels.FORM_BIRTHDATE}</FormLabel>
 						<Input
-							onChange={handleBirthdateInputChange}
+							data-testid="birthdate"
+							id="birthdate"
+							name="birthdate"
+							onBlur={handleBlur}
+							onChange={handleChange}
 							type="date"
-							value={birthdateInput}
+							value={values.birthdate}
 						/>
-						{!isBirthdateError ? (
-							<FormHelperText />
-						) : (
-							<FormErrorMessage>Error Message</FormErrorMessage>
-						)}
+						<FormErrorMessage>
+							{touched.birthdate && errors.birthdate}
+						</FormErrorMessage>
 					</Box>
 				</FormControl>
 			</SimpleGrid>
 
-			<FormControl>
-				<Box>
-					<FormLabel>{spiels.FORM_PATIENT_ACCOUNT}</FormLabel>
-					<Select>
-						{PATIENT_ACCOUNT.map((account) => (
-							<option key={account.email} value={account.email}>
-								{account.email}
-							</option>
-						))}
-					</Select>
-				</Box>
-			</FormControl>
-			<FormControl isInvalid={isAddressError}>
+			<FormControl isInvalid={touched.address && errors.address}>
 				<Box pt={2}>
 					<FormLabel>{spiels.FORM_ADDRESS}</FormLabel>
 					<Input
-						onChange={handleAddressInputChange}
+						data-testid="address"
+						id="address"
+						name="address"
+						onBlur={handleBlur}
+						onChange={handleChange}
 						type="text"
-						value={addressInput}
+						value={values.address}
 					/>
-					{!isAddressError ? (
-						<FormHelperText />
-					) : (
-						<FormErrorMessage>Error Message</FormErrorMessage>
-					)}
+					<FormErrorMessage>
+						{touched.address && errors.address}
+					</FormErrorMessage>
+				</Box>
+			</FormControl>
+
+			<FormControl isInvalid={touched.email && errors.email}>
+				<Box pt={2}>
+					<FormLabel>{spiels.FORM_EMAIL_ADDRESS}</FormLabel>
+					<Input
+						data-testid="email"
+						id="email"
+						name="email"
+						onBlur={handleBlur}
+						onChange={handleChange}
+						type="email"
+						value={values.email}
+					/>
+					<FormErrorMessage>
+						{touched.email && errors.email}
+					</FormErrorMessage>
+				</Box>
+			</FormControl>
+			<FormControl
+				isInvalid={touched.mobileNumber && errors.mobileNumber}
+			>
+				<Box pt={2}>
+					<FormLabel>{spiels.FORM_CONTACT_NO}</FormLabel>
+					<Input
+						data-testid="mobileNumber"
+						id="mobileNumber"
+						name="mobileNumber"
+						onBlur={handleBlur}
+						onChange={handleChange}
+						type="number"
+						value={values.mobileNumber}
+					/>
+					<FormErrorMessage>
+						{touched.mobileNumber && errors.mobileNumber}
+					</FormErrorMessage>
 				</Box>
 			</FormControl>
 
 			<Divider mt={4} />
 			<Stack direction="row">
-				<Checkbox defaultChecked pt={2}>
-					Is the patient minor?
+				<Checkbox
+					data-testid="minor"
+					id="minor"
+					isChecked={values.minor}
+					name="minor"
+					onChange={handleChange}
+					pt={2}
+					value={values.minor}
+				>
+					Minor?
 				</Checkbox>
 			</Stack>
 
-			<FormControl isInvalid={isGuardianError}>
-				<Box pt={2}>
-					<FormLabel>{spiels.FORM_GUARDIAN}</FormLabel>
-					<Input
-						onChange={handleGuardianInputChange}
-						type="text"
-						value={guardianInput}
-					/>
-					{!isGuardianError ? (
-						<FormHelperText />
-					) : (
-						<FormErrorMessage>Error Message</FormErrorMessage>
-					)}
-				</Box>
-			</FormControl>
-
-			<SimpleGrid columns={2} py={2} spacing={10}>
-				<FormControl isInvalid={isOccupationError}>
-					<Box>
-						<FormLabel>{spiels.FORM_OCCUPATION}</FormLabel>
-						<Input
-							onChange={handleOccupationInputChange}
-							type="text"
-							value={occupationInput}
-						/>
-						{!isOccupationError ? (
-							<FormHelperText />
-						) : (
-							<FormErrorMessage>Error Message</FormErrorMessage>
-						)}
-					</Box>
-				</FormControl>
-				<FormControl isInvalid={isRelationshipError}>
-					<Box>
-						<FormLabel>{spiels.FORM_RELATIONSHIP}</FormLabel>
-						<Input
-							onChange={handleRelationshipInputChange}
-							type="text"
-							value={relationshipInput}
-						/>
-						{!isRelationshipError ? (
-							<FormHelperText />
-						) : (
-							<FormErrorMessage>Error Message</FormErrorMessage>
-						)}
-					</Box>
-				</FormControl>
-			</SimpleGrid>
-
-			<Button
-				colorScheme="blue"
-				float="right"
-				isDisabled={currentTab !== 0}
-				mt={10}
-				onClick={switchToNextTab}
-				size="sm"
-				variant="solid"
-			>
-				{spiels.BUTTON_NEXT}
-			</Button>
+			{values.minor && (
+				<>
+					<FormControl
+						isInvalid={touched.guardianName && errors.guardianName}
+					>
+						<Box pt={2}>
+							<FormLabel>{spiels.FORM_GUARDIAN}</FormLabel>
+							<Input
+								data-testid="guardianName"
+								id="guardianName"
+								name="guardianName"
+								onBlur={handleBlur}
+								onChange={handleChange}
+								type="text"
+								value={values.guardianName}
+							/>
+							<FormErrorMessage>
+								{touched.guardianName && errors.guardianName}
+							</FormErrorMessage>
+						</Box>
+					</FormControl>
+					<SimpleGrid columns={2} py={2} spacing={10}>
+						<FormControl
+							isInvalid={touched.occupation && errors.occupation}
+						>
+							<Box>
+								<FormLabel>{spiels.FORM_OCCUPATION}</FormLabel>
+								<Input
+									data-testid="occupation"
+									id="occupation"
+									name="occupation"
+									onBlur={handleBlur}
+									onChange={handleChange}
+									type="text"
+									value={values.occupation}
+								/>
+								<FormErrorMessage>
+									{touched.occupation && errors.occupation}
+								</FormErrorMessage>
+							</Box>
+						</FormControl>
+						<FormControl
+							isInvalid={touched.relation && errors.relation}
+						>
+							<Box>
+								<FormLabel>
+									{spiels.FORM_RELATIONSHIP}
+								</FormLabel>
+								<Input
+									data-testid="relation"
+									id="relation"
+									name="relation"
+									onBlur={handleBlur}
+									onChange={handleChange}
+									type="text"
+									value={values.relation}
+								/>
+								<FormErrorMessage>
+									{touched.relation && errors.relation}
+								</FormErrorMessage>
+							</Box>
+						</FormControl>
+					</SimpleGrid>
+				</>
+			)}
 		</>
 	);
 };
