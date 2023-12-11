@@ -1,10 +1,24 @@
-import { Box, Flex, HStack, Image, Spacer } from "@chakra-ui/react";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
-import { isLoggedInSelector } from "../modules/auth/engine/auth.selectors";
+import { Box, Flex, HStack, Image, Spacer } from "@chakra-ui/react";
+
+import {
+	isLoggedInSelector,
+	tokenSelector,
+} from "../modules/auth/engine/auth.selectors";
+
+import { attachToken } from "../utils/api";
 
 const NavBar = () => {
 	const isLoggedIn = useSelector(isLoggedInSelector);
+	const token = useSelector(tokenSelector);
+
+	useEffect(() => {
+		if (isLoggedIn) {
+			attachToken(token);
+		}
+	}, []);
 	const iconsize = "4vh";
 	const px = "10px";
 	const py = "15px";
