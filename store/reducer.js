@@ -26,7 +26,7 @@ export const authSlice = createSlice({
 		RETRIEVE_USER_DETAILS_SUCCESS: (state, action) => {
 			return {
 				...state,
-				user: get(action, "data", {}),
+				user: get(action, "data.data", {}),
 			};
 		},
 	},

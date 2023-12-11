@@ -335,7 +335,6 @@ const TableRow = ({
 						if (
 							title === "Mobile Number" || title === "Contact Number"
 						) {
-							console.log(data, "test");
 							return (
 								<Td
 									key={index}

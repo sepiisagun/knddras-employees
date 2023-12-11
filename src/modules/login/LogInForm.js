@@ -39,7 +39,7 @@ const LogInForm = () => {
 				attachToken(data.jwt);
 
 				return Promise.all([retrieveUserDetails()]).then((result) => {
-					dispatch(loginAction(result));
+					dispatch(loginAction({ jwt: data.jwt, result: data }));
 
 					return result;
 				});

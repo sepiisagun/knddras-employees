@@ -102,8 +102,6 @@ const AppointmentsScreen = () => {
 		},
 	];
 
-	console.log(data);
-
 	const iconBoxInside = useColorModeValue("white", "white");
 	return (
 		<ProfileLayout>

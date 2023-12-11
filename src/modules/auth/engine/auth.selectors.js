@@ -12,9 +12,9 @@ export const isLoggedInSelector = createSelector(
 );
 
 export const userDetailsSelector = createSelector(
-	(state) => state.auth.user.data,
+	(state) => state.auth.user,
 	(user) => user,
 );
 
 export const userRoleTypeSelector = (state) =>
-	get(state, "auth.user.data.role.type", "public");
+	get(state, "auth.user.role.type", "public");
