@@ -63,6 +63,7 @@ const ViewRequestModal = ({ id, isOpen, onClose, onOpen }) => {
 		queryKey: ["doctor-data"],
 	});
 
+	console.log("ee", requestData);
 	const formik = useFormik({
 		enableReinitialize: true,
 		initialValues: {
@@ -73,17 +74,15 @@ const ViewRequestModal = ({ id, isOpen, onClose, onOpen }) => {
 			time: "",
 		},
 		onSubmit: async (data, { resetForm }) => {
-			const date = DateTime.fromISO(data.date).toFormat("yyyy-MM-dd");
-			const time = DateTime.fromISO(data.date).toFormat("HH:mm:ss");
 			const payload = {
-				date,
+				date: data.date,
 				doctor: data.doctor,
 				patient: data.patient,
 				purpose: data.purpose,
-				time,
+				time: data.date,
 			};
 			updateRequestMutation
-				.mutateAsync({ data: payload, id: requestData.id })
+				.mutateAsync({ data: payload, id: requestData.data.id })
 				.then(() => {
 					queryClient.invalidateQueries({
 						queryKey: "medical-record",
