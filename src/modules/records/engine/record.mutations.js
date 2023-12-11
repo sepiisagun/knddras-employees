@@ -40,3 +40,43 @@ export const createMedicalHistory = (context) => {
 		})
 		.then(defaultThen);
 };
+
+export const updateConditions = (context) => {
+	const { data, id } = context;
+
+	return api
+		.put(`${API_ENDPOINTS.CONDITIONS}/${id}`, {
+			data,
+		})
+		.then(defaultThen);
+};
+
+export const createConditions = (context) => {
+	const { data } = context;
+
+	return api
+		.post(API_ENDPOINTS.CONDITIONS, {
+			data,
+		})
+		.then(defaultThen);
+};
+
+export const updateDentalRecords = (context) => {
+	const { data, id } = context;
+
+	return api
+		.put(`${API_ENDPOINTS.DENTAL_RECORDS}/${id}`, {
+			data,
+		})
+		.then(defaultThen);
+};
+
+export const createDentalRecords = (context) => {
+	const { data } = context;
+
+	return api
+		.post(API_ENDPOINTS.DENTAL_RECORDS, {
+			data,
+		})
+		.then(defaultThen);
+};

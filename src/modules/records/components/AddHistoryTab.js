@@ -12,6 +12,10 @@ import {
 	Input,
 	Select,
 	SimpleGrid,
+	Stack,
+	Table,
+	Td,
+	Text,
 } from "@chakra-ui/react";
 import spiels from "../../../constants/spiels";
 
@@ -147,136 +151,144 @@ const AddHistoryTab = () => {
 				</FormControl>
 			</SimpleGrid>
 
-			<Divider mt={4} />
+			<Divider my={4} />
 			<Heading as="h2" size="sm">
 				Allergies
 			</Heading>
-			<SimpleGrid columns={2} pt={2} spacing={10}>
-				<FormControl
-					isInvalid={touched.anesthetics && errors.anesthetics}
-				>
-					<Flex align="center">
-						<Checkbox
-							data-testid="anesthetics"
-							id="anesthetics"
-							isChecked={values.anesthetics}
-							mr={2}
-							name="anesthetics"
-							onBlur={handleBlur}
-							onChange={handleChange}
-							value={values.anesthetics}
-						/>
-						<FormLabel>
-							{spiels.FORM_ALLERGIES_ANESTHETICS}
-						</FormLabel>
-						<FormErrorMessage>
-							{touched.anesthetics && errors.anesthetics}
-						</FormErrorMessage>
-					</Flex>
-				</FormControl>
+			<Table>
+				<Td pl={0}>
+					<Stack>
+						<FormControl
+							isInvalid={
+								touched.anesthetics && errors.anesthetics
+							}
+						>
+							<Checkbox
+								data-testid="anesthetics"
+								id="anesthetics"
+								isChecked={values.anesthetics}
+								name="anesthetics"
+								onBlur={handleBlur}
+								onChange={handleChange}
+								value={values.anesthetics}
+							>
+								{spiels.FORM_ALLERGIES_ANESTHETICS}
+							</Checkbox>
+							<FormErrorMessage>
+								{touched.anesthetics && errors.anesthetics}
+							</FormErrorMessage>
+						</FormControl>
 
-				<FormControl
-					isInvalid={touched.antibiotics && errors.antibiotics}
-				>
-					<Flex align="center">
-						<Checkbox
-							data-testid="antibiotics"
-							id="antibiotics"
-							isChecked={values.antibiotics}
-							mr={2}
-							name="antibiotics"
-							onBlur={handleBlur}
-							onChange={handleChange}
-							value={values.antibiotics}
-						/>
-						<FormLabel>
-							{spiels.FORM_ALLERGIES_ANTIBIOTICS}
-						</FormLabel>
-						<FormErrorMessage>
-							{touched.antibiotics && errors.antibiotics}
-						</FormErrorMessage>
-					</Flex>
-				</FormControl>
-			</SimpleGrid>
+						<FormControl
+							isInvalid={
+								touched.antibiotics && errors.antibiotics
+							}
+						>
+							<Flex align="center">
+								<Checkbox
+									data-testid="antibiotics"
+									id="antibiotics"
+									isChecked={values.antibiotics}
+									name="antibiotics"
+									onBlur={handleBlur}
+									onChange={handleChange}
+									value={values.antibiotics}
+								>
+									{spiels.FORM_ALLERGIES_ANTIBIOTICS}
+								</Checkbox>
+								<FormErrorMessage>
+									{touched.antibiotics && errors.antibiotics}
+								</FormErrorMessage>
+							</Flex>
+						</FormControl>
 
-			<SimpleGrid columns={2} pt={2} spacing={10}>
-				<FormControl isInvalid={touched.latex && errors.latex}>
-					<Flex align="center">
-						<Checkbox
-							data-testid="latex"
-							id="latex"
-							isChecked={values.latex}
-							mr={2}
-							name="latex"
-							onBlur={handleBlur}
-							onChange={handleChange}
-							value={values.latex}
-						/>
-						<FormLabel>{spiels.FORM_ALLERGIES_LATEX}</FormLabel>
-						<FormErrorMessage>
-							{touched.latex && errors.latex}
-						</FormErrorMessage>
-					</Flex>
-				</FormControl>
+						<FormControl isInvalid={touched.latex && errors.latex}>
+							<Flex align="center">
+								<Checkbox
+									data-testid="latex"
+									id="latex"
+									isChecked={values.latex}
+									name="latex"
+									onBlur={handleBlur}
+									onChange={handleChange}
+									value={values.latex}
+								>
+									{spiels.FORM_ALLERGIES_LATEX}
+								</Checkbox>
+								<FormErrorMessage>
+									{touched.latex && errors.latex}
+								</FormErrorMessage>
+							</Flex>
+						</FormControl>
+					</Stack>
+				</Td>
 
-				<FormControl isInvalid={touched.sulfa && errors.sulfa}>
-					<Flex align="center">
-						<Checkbox
-							data-testid="sulfa"
-							id="sulfa"
-							isChecked={values.sulfa}
-							mr={2}
-							name="sulfa"
-							onBlur={handleBlur}
-							onChange={handleChange}
-							value={values.sulfa}
-						/>
-						<FormLabel>{spiels.FORM_ALLERGIES_SULFA}</FormLabel>
-						<FormErrorMessage>
-							{touched.sulfa && errors.sulfa}
-						</FormErrorMessage>
-					</Flex>
-				</FormControl>
-			</SimpleGrid>
+				<Td>
+					<Stack>
+						<FormControl isInvalid={touched.sulfa && errors.sulfa}>
+							<Flex align="center">
+								<Checkbox
+									data-testid="sulfa"
+									id="sulfa"
+									isChecked={values.sulfa}
+									mr={2}
+									name="sulfa"
+									onBlur={handleBlur}
+									onChange={handleChange}
+									value={values.sulfa}
+								>
+									{spiels.FORM_ALLERGIES_SULFA}
+								</Checkbox>
+								<FormErrorMessage>
+									{touched.sulfa && errors.sulfa}
+								</FormErrorMessage>
+							</Flex>
+						</FormControl>
 
-			<SimpleGrid columns={2} pt={2} spacing={10}>
-				<FormControl isInvalid={touched.aspirin && errors.aspirin}>
-					<Flex align="center">
-						<Checkbox
-							data-testid="aspirin"
-							id="aspirin"
-							isChecked={values.aspirin}
-							mr={2}
-							name="aspirin"
-							onBlur={handleBlur}
-							onChange={handleChange}
-							value={values.aspirin}
-						/>
-						<FormLabel>{spiels.FORM_ALLERGIES_ASPIRIN}</FormLabel>
-						<FormErrorMessage>
-							{touched.aspirin && errors.aspirin}
-						</FormErrorMessage>
-					</Flex>
-				</FormControl>
+						<FormControl
+							isInvalid={touched.aspirin && errors.aspirin}
+						>
+							<Flex align="center">
+								<Checkbox
+									data-testid="aspirin"
+									id="aspirin"
+									isChecked={values.aspirin}
+									mr={2}
+									name="aspirin"
+									onBlur={handleBlur}
+									onChange={handleChange}
+									value={values.aspirin}
+								>
+									{spiels.FORM_ALLERGIES_ASPIRIN}
+								</Checkbox>
+								<FormErrorMessage>
+									{touched.aspirin && errors.aspirin}
+								</FormErrorMessage>
+							</Flex>
+						</FormControl>
 
-				<FormControl isInvalid={touched.other && errors.other}>
-					<Box>
-						<FormLabel>{spiels.FORM_OTHER}</FormLabel>
-						<Input
-							data-testid="other"
-							id="other"
-							name="other"
-							onBlur={handleBlur}
-							onChange={handleChange}
-							type="text"
-							value={values.other}
-						/>
-						<FormErrorMessage>
-							{touched.other && errors.other}
-						</FormErrorMessage>
-					</Box>
-				</FormControl>
-			</SimpleGrid>
+						<FormControl isInvalid={touched.other && errors.other}>
+							<Text key="1">
+								{spiels.FORM_OTHER}{" "}
+								<Input
+									data-testid="other"
+									id="other"
+									name="other"
+									onBlur={handleBlur}
+									onChange={handleChange}
+									size="sm"
+									type="text"
+									value={values.other}
+									width="auto"
+								/>
+								<FormErrorMessage>
+									{touched.other && errors.other}
+								</FormErrorMessage>
+							</Text>
+						</FormControl>
+					</Stack>
+				</Td>
+			</Table>
 		</>
 	);
 };

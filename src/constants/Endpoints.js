@@ -25,6 +25,8 @@ export const API_ENDPOINTS = {
 	// sample
 	APPOINTMENTS: "/api/appointments",
 	AUTH: "/api/auth",
+	CONDITIONS: "/api/conditions",
+	DENTAL_RECORDS: "/api/dental-records",
 	MEDICAL: "/api/medicals",
 	PATIENTS: "/api/users-permissions/users",
 	PROCEDURES: "/api/procedures",

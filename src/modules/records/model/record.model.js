@@ -20,9 +20,9 @@ export const recordSchema = object().shape({
 		is: true,
 		then: () => string().required("Please enter your Guardian's full name"),
 	}),
-	lastName: string().required("Please enter your first name"),
+	lastName: string().required("Please enter your last name"),
 	middleInitial: string()
-		.required("Please enter your middleInitial")
+		.required("Please enter your middle initial")
 		.max(1, "Maximum of one letter only"),
 	minor: boolean(),
 	mobileNumber: string()
@@ -41,7 +41,7 @@ export const recordSchema = object().shape({
 	religion: string().nullable(),
 	sex: string()
 		.oneOf(["MALE", "FEMALE", "OTHER"], "Invalid selection")
-		.required("Please select your sex."),
+		.required("Please select your sex"),
 });
 
 export const medicalSchema = object().shape({
@@ -51,10 +51,10 @@ export const medicalSchema = object().shape({
 		.required("Please select your blood type."),
 	lastVisit: date().nullable(),
 	physicianAddress: string().required(
-		"Please enter your previous dentist's name",
+		"Please enter your previous physician's office address",
 	),
 	physicianName: string().required(
-		"Please enter your previous dentist's name",
+		"Please enter your previous physician's name",
 	),
 	previousDentist: string().required(
 		"Please enter your previous dentist's name",
