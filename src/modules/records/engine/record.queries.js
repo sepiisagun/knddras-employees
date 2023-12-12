@@ -18,3 +18,7 @@ export const retrieveRecord = (context) => {
 
 	return api.get(`${API_ENDPOINTS.RECORDS}/${id}`).then(defaultThen);
 };
+
+export const retrieveUserAccounts = () => {
+	return api.get(`${API_ENDPOINTS.RECORDS}/fetchUsers`).then(defaultThen);
+};

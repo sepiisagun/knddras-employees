@@ -5,6 +5,7 @@ import _ from "lodash";
 import {
 	Box,
 	Button,
+	Checkbox,
 	FormControl,
 	FormErrorMessage,
 	FormLabel,
@@ -17,45 +18,40 @@ import {
 	ModalHeader,
 	ModalOverlay,
 	Select,
+	Stack,
+	Textarea,
 } from "@chakra-ui/react";
+
 import spiels from "../../../constants/spiels";
+// to be removed
+// import { APPOINTMENT_USERS } from "../../../constants/temporaryValues";
+
 import AppointmentRequestHeader from "../../../components/Modals/AppointmentRequestHeader";
 
-import { updateRequest } from "../engine/request.mutations";
+import { acceptRequest, rejectRequest } from "../engine/request.mutations";
 import { retrieveDoctorAccounts } from "../../auth/engine/auth.queries";
 import { retrieveProcedures } from "../../../utils/engine/procedure.queries";
-import { retrieveRequests } from "../engine/request.queries";
+import { retrieveRequest } from "../engine/request.queries";
 
 const ViewRequestModal = ({ id, isOpen, onClose, onOpen }) => {
 	const queryClient = useQueryClient();
-	const updateRequestMutation = useMutation(updateRequest);
-	const requestId = id;
+	const acceptRequestMutation = useMutation(acceptRequest);
+	const rejectRequestMutation = useMutation(rejectRequest);
 
 	const {
 		data: { data: requestData = [] },
 	} = useQuery({
 		initialData: [],
 		placeholderData: [],
-		queryFn: retrieveRequests,
+		queryFn: retrieveRequest,
 		queryKey: [
-			"requests",
+			"request-data",
+			id,
 			{
-				filters: {
-					id: requestId,
-				},
-				populate: ["purpose", "patient"],
+				populate: "patient",
 			},
 		],
 	});
-
-	// const {
-	// 	data: { data: requestData = [] },
-	// } = useQuery({
-	// 	initialData: [],
-	// 	placeholderData: [],
-	// 	queryFn: retrieveRequest,
-	// 	queryKey: ["request-data", id],
-	// });
 
 	const {
 		data: { data: procedureData = [] },
@@ -74,7 +70,8 @@ const ViewRequestModal = ({ id, isOpen, onClose, onOpen }) => {
 		queryFn: retrieveDoctorAccounts,
 		queryKey: ["doctor-data"],
 	});
-	const formik = useFormik({
+
+	const formikAccept = useFormik({
 		enableReinitialize: true,
 		initialValues: {
 			date: "",
@@ -87,17 +84,18 @@ const ViewRequestModal = ({ id, isOpen, onClose, onOpen }) => {
 			const payload = {
 				date: data.date,
 				doctor: data.doctor,
-				patient: data.patient,
+				patient: _.get(requestData, "patient.data.id"),
 				purpose: data.purpose,
 				time: data.date,
 			};
-			updateRequestMutation
+			acceptRequestMutation
 				.mutateAsync({ data: payload, id: requestData.data.id })
 				.then(() => {
 					queryClient.invalidateQueries({
-						queryKey: "medical-record",
+						queryKey: "requests",
 					});
 					resetForm();
+					onClose();
 
 					// go to success page
 				})
@@ -109,37 +107,59 @@ const ViewRequestModal = ({ id, isOpen, onClose, onOpen }) => {
 		},
 	});
 
-	const { errors, handleBlur, handleChange, handleSubmit, touched, values } =
-		formik;
+	const {
+		errors,
+		handleBlur,
+		handleChange,
+		handleSubmit,
+		resetForm,
+		touched,
+		values,
+	} = formikAccept;
 
-	let fullName;
-	let procedureName;
-	let mobileNumber;
-	let dateAndSlot;
+	const formikReject = useFormik({
+		enableReinitialize: true,
+		initialValues: {
+			reason: "",
+			reject: false,
+		},
+		onSubmit: async (data, { resetForm: resetFormReject }) => {
+			const payload = {
+				reason: data.reason,
+			};
+			rejectRequestMutation
+				.mutateAsync({ data: payload, id: requestData.data.id })
+				.then(() => {
+					queryClient.invalidateQueries({
+						queryKey: "requests",
+					});
+					resetFormReject();
+					onClose();
 
-	if (!_.isEmpty(requestData)) {
-		fullName = `${_.get(
-			requestData[0],
-			"patient.data.firstName",
-			"",
-		)} ${_.get(requestData[0], "patient.data.lastName", "")}`;
+					// go to success page
+				})
+				.catch((error) => {
+					// display error
+					// eslint-disable-next-line no-console
+					console.log(error);
+				});
+		},
+	});
 
-		procedureName = _.get(requestData[0], "purpose.data.readableName", "");
+	const {
+		errors: errorsReject,
+		handleBlur: handleBlurReject,
+		handleChange: handleChangeReject,
+		handleSubmit: handleSubmitReject,
+		resetForm: resetFormReject,
+		touched: touchedReject,
+		values: valuesReject,
+	} = formikReject;
 
-		mobileNumber = _.get(requestData[0], "patient.data.mobileNumber", "");
-
-		dateAndSlot = `${_.get(requestData[0], "date", "")} ${_.get(
-			requestData[0],
-			"slot",
-			"",
-		)}`;
-	}
 	return (
 		<>
 			<Button
 				colorScheme="blue"
-				float="right"
-				mx={1}
 				onClick={onOpen}
 				size="md"
 				variant="link"
@@ -153,13 +173,8 @@ const ViewRequestModal = ({ id, isOpen, onClose, onOpen }) => {
 					<ModalHeader>{spiels.APPOINTMENT_REQUEST}</ModalHeader>
 					<ModalCloseButton mt={2} />
 					<ModalBody>
-						<AppointmentRequestHeader
-							dateAndSlot={dateAndSlot}
-							fullName={fullName}
-							mobileNumber={mobileNumber}
-							procedureName={procedureName}
-						/>
-						<FormikProvider value={formik}>
+						<AppointmentRequestHeader data={requestData} />
+						<FormikProvider value={formikAccept}>
 							<FormControl
 								isInvalid={touched.date && errors.date}
 							>
@@ -167,6 +182,7 @@ const ViewRequestModal = ({ id, isOpen, onClose, onOpen }) => {
 								<Input
 									borderRadius="md"
 									data-testid="date"
+									disabled={valuesReject.reject}
 									fontSize="sm"
 									id="date"
 									ms="4px"
@@ -192,6 +208,7 @@ const ViewRequestModal = ({ id, isOpen, onClose, onOpen }) => {
 									</FormLabel>
 									<Select
 										data-testid="purpose"
+										disabled={valuesReject.reject}
 										id="purpose"
 										name="purpose"
 										onBlur={handleBlur}
@@ -226,6 +243,7 @@ const ViewRequestModal = ({ id, isOpen, onClose, onOpen }) => {
 									</FormLabel>
 									<Select
 										data-testid="doctor"
+										disabled={valuesReject.reject}
 										id="doctor"
 										name="doctor"
 										onBlur={handleBlur}
@@ -255,59 +273,79 @@ const ViewRequestModal = ({ id, isOpen, onClose, onOpen }) => {
 								</FormErrorMessage>
 							</FormControl>
 						</FormikProvider>
-						{/* <FormControl my={5}>
-							<Box>
-								<FormLabel fontWeight="semibold">
-									{spiels.FORM_ASSIGN_DENTIST}
-								</FormLabel>
-								<Select>
-									{APPOINTMENT_USERS.map((dentist) => (
-										<option
-											key={dentist.dentist}
-											value={dentist.dentist}
-										>
-											{dentist.dentist}
-										</option>
-									))}
-								</Select>
-							</Box>
-						</FormControl>
-
-						<FormControl isInvalid={isDateError} my={5}>
-							<FormLabel fontWeight="semibold">
-								{spiels.FORM_DATE}
-							</FormLabel>
-							<Input
-								borderRadius="md"
-								fontSize="sm"
-								ms="4px"
-								onChange={handleDateChange}
-								size="lg"
-								type="datetime-local"
-								value={date}
-							/>
-							{!isDateError ? (
-								<FormHelperText />
-							) : (
-								<FormErrorMessage mb="24px" px={2}>
-									Error Message
-								</FormErrorMessage>
+						<FormikProvider value={formikReject}>
+							<Stack direction="row">
+								<Checkbox
+									data-testid="reject"
+									id="reject"
+									isChecked={values.reject}
+									name="reject"
+									onChange={handleChangeReject}
+									pt={2}
+									value={values.reject}
+								>
+									Rejected?
+								</Checkbox>
+							</Stack>
+							{valuesReject.reject && (
+								<FormControl
+									isInvalid={
+										touchedReject.reason &&
+										errorsReject.reason
+									}
+									isRequired
+									mb={2}
+								>
+									<Box>
+										<FormLabel>
+											{spiels.FORM_REASON}
+										</FormLabel>
+										<Textarea
+											data-testid="reason"
+											id="reason"
+											name="reason"
+											onBlur={handleBlurReject}
+											onChange={handleChangeReject}
+											placeholder=". . . "
+											value={valuesReject.reason}
+										/>
+									</Box>
+									<FormErrorMessage>
+										{touchedReject.reason &&
+											errorsReject.reason}
+									</FormErrorMessage>
+								</FormControl>
 							)}
-						</FormControl> */}
+						</FormikProvider>
 					</ModalBody>
 					<ModalFooter>
 						<Button
 							colorScheme="blue"
+							isDisabled={valuesReject.reject}
 							mx={1}
 							onClick={handleSubmit}
 							variant="solid"
 						>
 							{spiels.BUTTON_ACCEPT}
 						</Button>
-						<Button colorScheme="red" mx={1} variant="solid">
+						<Button
+							colorScheme="red"
+							isDisabled={!valuesReject.reject}
+							mx={1}
+							onClick={handleSubmitReject}
+							variant="solid"
+						>
 							{spiels.BUTTON_REJECT}
 						</Button>
-						<Button colorScheme="gray" mx={1} onClick={onClose}>
+						<Button
+							colorScheme="gray"
+							mx={1}
+							onClick={() => {
+								resetForm();
+								resetFormReject();
+								onClose();
+							}}
+						>
 							{spiels.BUTTON_CANCEL}
 						</Button>
 					</ModalFooter>

@@ -13,11 +13,11 @@ import {
 } from "@chakra-ui/react";
 import spiels from "../../../../constants/spiels";
 import { TRANSACTION_AMOUNT } from "../../../../constants/temporaryValues";
-import StrapiTable from "../../../../components/Table";
+// import StrapiTable from "../../../../components/Table";
 import TreatmentHeader from "./TreatmentHeader";
 import TreatmentBreakdownFee from "./TreatmentBreakdownFee";
 
-const ViewTreatment = () => {
+const ViewTreatment = ({ data }) => {
 	const { isOpen, onClose, onOpen } = useDisclosure();
 	const total = TRANSACTION_AMOUNT[2];
 	return (
@@ -41,7 +41,7 @@ const ViewTreatment = () => {
 					<ModalBody>
 						<TableContainer>
 							<TreatmentHeader />
-							<StrapiTable
+							{/* <StrapiTable
 								action={["View"]}
 								headerTitles={[
 									"Tooth No.",
@@ -49,7 +49,7 @@ const ViewTreatment = () => {
 									"Cost",
 								]}
 								title="ViewTreatment"
-							/>
+							/> */}
 							<StackDivider />
 							<Table mt={6} size="sm">
 								<TreatmentBreakdownFee

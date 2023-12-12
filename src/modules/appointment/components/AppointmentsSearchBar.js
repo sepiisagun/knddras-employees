@@ -13,10 +13,10 @@ import React, { useState } from "react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { MdFilterList } from "react-icons/md";
 import spiels from "../../../constants/spiels";
-import SetAppointmentModal from "./SetAppointmentModal";
+import SetAppointmentModal from "../../../components/Modals/SetAppointmentModal";
 
 const AppointmentsSearchBar = () => {
-	const { onOpen: onOpenForgot } = useDisclosure();
+	// const { onOpen: onOpenForgot } = useDisclosure();
 	const {
 		isOpen: isOpenModal,
 		onClose: onCloseModal,
@@ -47,10 +47,9 @@ const AppointmentsSearchBar = () => {
 				<Box justifyContent="center">{spiels.TEXT_FILTER}</Box>
 			</Button>
 			<SetAppointmentModal
-				isOpenModal={isOpenModal}
-				onCloseModal={onCloseModal}
-				onOpenForgot={onOpenForgot}
-				onOpenModal={onOpenModal}
+				isOpenSetAppointment={isOpenModal}
+				onCloseSetAppointment={onCloseModal}
+				onOpenSetAppointment={onOpenModal}
 			/>
 		</HStack>
 	);

@@ -34,7 +34,7 @@ const RedirectBanner = () => {
 					<Button
 						colorScheme="blue"
 						onClick={() => {
-							window.location.replace(
+							window.open(
 								`${process.env.NEXT_PUBLIC_CLIENT_BASE_URL}`,
 							);
 						}}

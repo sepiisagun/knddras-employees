@@ -152,6 +152,7 @@ const spiels = {
 	FORM_DATE: "Appointment Date",
 	FORM_DENTAL_VISIT: "Last Dental Visit",
 	FORM_EMAIL_ADDRESS: "Email Address",
+	FORM_PATIENT: "Patient Account",
 	FORM_FNAME: "First Name",
 	FORM_FORGOT_PASSWORD: "Forgot Password",
 	FORM_GENDER: "Gender",
@@ -166,7 +167,6 @@ const spiels = {
 	FORM_OCCUPATION: "Occupation",
 	FORM_OLD_PASSWORD: "Old Password",
 	FORM_PASSWORD: "Password",
-	FORM_PATIENT_ACCOUNT: "Patient Account Email Address",
 	FORM_PHYSICIAN_NAME: "Name of Physician",
 	FORM_PREV_DENTIST: "Previous Dentist",
 	FORM_PROCEDURE: "Procedure",
@@ -182,6 +182,7 @@ const spiels = {
 	FORM_ALLERGIES_SULFA: "Sulfa Drugs",
 	FORM_ALLERGIES_ASPIRIN: "Aspirin",
 	FORM_OTHER: "Other:",
+	FORM_REASON: "Reason",
 
 	// Column 1
 	FORM_HIGH_BLOOD_PRESSURE: "High Blood Pressure",

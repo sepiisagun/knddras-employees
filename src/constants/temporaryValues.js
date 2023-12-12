@@ -1,8 +1,3 @@
-import { FaRegCalendar } from "react-icons/fa";
-import { FaUserDoctor } from "react-icons/fa6";
-import { IoNewspaperOutline } from "react-icons/io5";
-import { TbMessage2 } from "react-icons/tb";
-
 export const APPOINTMENT_USERS = [
 	{
 		date: "April 01, 2023",
@@ -145,77 +140,6 @@ export const VIEW_TREATMENT = [
 	},
 ];
 
-export const PATIENT_INFORMATION = [
-	{
-		address: "Street #, Barangay, City, Region",
-		birthDate: "December 1, 2000",
-		contactNumber: "09123456789",
-		email: "juandelacruz@sample.com",
-		lastVisit: "January 1, 2023",
-		name: "Juan dela Cruz",
-		nationality: "Pipino",
-		religion: "Roman Alcoholic",
-		sex: "Male",
-	},
-];
-
-export const PATIENT_INFORMATION_LABEL_LEFT = [
-	{
-		label: "Address: ",
-		value: "Street #, Barangay, City, Region",
-	},
-	{
-		label: "Contact Number: ",
-		value: "09123456789",
-	},
-	{
-		label: "Email Address: ",
-		value: "juandelacruz@sample.com",
-	},
-];
-
-export const PATIENT_INFORMATION_LABEL_RIGHT = [
-	{
-		label: "Birthdate: ",
-		value: "December 1, 2000",
-	},
-	{
-		label: "Last Visit: ",
-		value: "January 1, 2023",
-	},
-	{
-		label: "Sex: ",
-		value: "Male",
-	},
-];
-
-export const APPOINTMENT_USER_ONE = [
-	{
-		icon: FaRegCalendar,
-		key: 1,
-		subValue: "March 01, 2020",
-		value: "10:00 AM - 11: 00 AM",
-	},
-	{
-		icon: FaUserDoctor,
-		key: 2,
-		subValue: "",
-		value: "Dr. John Doe",
-	},
-	{
-		icon: IoNewspaperOutline,
-		key: 3,
-		subValue: "",
-		value: "Composite Restoration",
-	},
-	{
-		icon: TbMessage2,
-		key: 4,
-		subValue: "",
-		value: "No concerns mentioned...",
-	},
-];
-
 export const TRANSACTION_AMOUNT = [
 	{
 		label: "Subtotal",
@@ -250,25 +174,6 @@ export const PATIENT_INFORMATION_REBOOK_APPOINTMENT = [
 	},
 	{
 		label: "Original Schedule: ",
-		value: "April 01, 2023 at 10:00 AM - 11:00 AM",
-	},
-];
-
-export const PATIENT_INFORMATION_VIEW_REQUEST = [
-	{
-		label: "Name: ",
-		value: "Juan Dela Cruz",
-	},
-	{
-		label: "Procedure: ",
-		value: "Root Canal Theraphy",
-	},
-	{
-		label: "Contact Number: ",
-		value: "09123456789",
-	},
-	{
-		label: "Prospect Schedule: ",
 		value: "April 01, 2023 at 10:00 AM - 11:00 AM",
 	},
 ];

@@ -5,8 +5,13 @@ export const retrieveUserDetails = () => {
 	return api.get(`${API_ENDPOINTS.USERS}/me`).then((data) => data);
 };
 
-export const retrievePatientAccounts = () => {
-	return api.get(`${API_ENDPOINTS.PATIENTS}/patients`).then((data) => data);
+export const retrievePatientAccounts = (context) => {
+	const { queryKey } = context;
+	const [, params] = queryKey;
+
+	return api
+		.get(`${API_ENDPOINTS.PATIENTS}/patients`, { params })
+		.then((data) => data);
 };
 
 export const retrieveDoctorAccounts = () => {

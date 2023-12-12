@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { FormikProvider, useFormik } from "formik";
 import _ from "lodash";
+import { usePathname } from "next/navigation";
 
 import {
 	Box,
@@ -42,6 +43,7 @@ const SetAppointmentModal = ({
 	onOpenSetAppointment,
 }) => {
 	const iconBoxInside = useColorModeValue("white", "white");
+	const currentPath = usePathname();
 
 	const queryClient = useQueryClient();
 	const {
@@ -95,7 +97,11 @@ const SetAppointmentModal = ({
 				.mutateAsync({ data: payload })
 				.then(() => {
 					queryClient.invalidateQueries({
-						queryKey: "medical-record",
+						queryKey: [
+							"appointments-data",
+							"total-appointments-count",
+							"upcoming-appointments-count",
+						],
 					});
 					resetForm();
 					onCloseSetAppointment();
@@ -122,30 +128,40 @@ const SetAppointmentModal = ({
 
 	return (
 		<>
-			<Card
-				_hover={{
-					bgColor: "gray.50",
-				}}
-				borderRadius="3xl"
-				cursor="pointer"
-				h="120px"
-				onClick={onOpenSetAppointment}
-				p="16px"
-				variant="outline"
-			>
-				<CardHeader mb="1px">
-					<MiniStatistics
-						icon={
-							<WalletIcon
-								color={iconBoxInside}
-								h="24px"
-								w="24px"
-							/>
-						}
-						title={spiels.COUNTER_ADD_APPOINTMENT}
-					/>
-				</CardHeader>
-			</Card>
+			{currentPath === "/dashboard" ? (
+				<Card
+					_hover={{
+						bgColor: "gray.50",
+					}}
+					borderRadius="3xl"
+					cursor="pointer"
+					h="80px"
+					onClick={onOpenSetAppointment}
+					variant="outline"
+				>
+					<CardHeader mb="1px">
+						<MiniStatistics
+							icon={
+								<WalletIcon
+									color={iconBoxInside}
+									h="24px"
+									w="24px"
+								/>
+							}
+							title={spiels.COUNTER_ADD_APPOINTMENT}
+						/>
+					</CardHeader>
+				</Card>
+			) : (
+				<Button
+					colorScheme="teal"
+					onClick={onOpenSetAppointment}
+					px={5}
+					w="fit-content"
+				>
+					{spiels.BUTTON_ADD_APPOINTMENT}
+				</Button>
+			)}
 
 			<Modal
 				isCentered

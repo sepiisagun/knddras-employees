@@ -49,14 +49,7 @@ const AppointmentsScreen = () => {
 	} = useQuery({
 		initialData: [],
 		queryFn: retrieveAppointments,
-		queryKey: [
-			"total-appointments-count",
-			{
-				filters: {
-					status: "ACCEPTED",
-				},
-			},
-		],
+		queryKey: ["total-appointments-count"],
 	});
 
 	const {
@@ -83,6 +76,7 @@ const AppointmentsScreen = () => {
 			"appointments-data",
 			{
 				populate: "*",
+				sort: "date:desc",
 			},
 		],
 	});
@@ -114,9 +108,9 @@ const AppointmentsScreen = () => {
 						<Card
 							key={counterValue}
 							borderRadius="3xl"
-							h="120px"
+							h="90px"
 							mb={2}
-							p="16px"
+							px="4px"
 							variant="outline"
 						>
 							<CardHeader mb="1px">
@@ -137,13 +131,14 @@ const AppointmentsScreen = () => {
 				</Grid>
 				<AppointmentsSearchBar />
 				<StrapiTable
-					action={["Edit"]}
+					action={["View", "Edit"]}
 					data={data}
 					headerTitles={[
 						"Patient",
 						"Purpose",
 						"Assigned To",
 						"Schedule",
+						"Status",
 						"Action",
 					]}
 				/>

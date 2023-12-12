@@ -2,12 +2,18 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable consistent-return */
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import { useRouter } from "next/router";
 import _ from "lodash";
 
 import { Badge, Button, Flex, Td, Text, Tr, useDisclosure} from "@chakra-ui/react";
 import { DateTime } from "luxon";
 
 import ViewRequestModal from "../modules/request/components/ViewRequestModal";
+import ViewAppointmentModal from "../modules/appointment/components/ViewAppointmentModal";
+import ViewTreatment from "../modules/records/components/Treatment/ViewTreatment";
+
+import { ENDPOINTS } from "../constants/Endpoints";
 
 const TableRow = ({
 	action = [],
@@ -18,18 +24,43 @@ const TableRow = ({
 }) => {
 	const [price, setPrice] = useState(0);
 	const [mobileNumber, setMobileNumber] = useState("");
+	const currentPath = usePathname();
 	const { isOpen: isOpenView, onClose: onCloseView, onOpen: onOpenView } = useDisclosure();
+	const router = useRouter();
 
 	const renderAction = (status, actionItem) => {
-		if (
-			(status === "PENDING" && actionItem === "View") ||
-			(!status && actionItem === "View")
+		if (actionItem === "View" &&
+			(status === "PENDING" ||
+			!status  ||
+			(currentPath === "/appointments" && (status === "CANCELLED" || status === "ACCEPTED")))
 		) {
+			if (currentPath === "/appointments") {
+				return (<ViewAppointmentModal data={data} />);
+			}
+			if (currentPath === "/records") {
+				return (
+					<Button bg="transparent" p="0px" variant="no-hover">
+						<Text
+							color="gray.400"
+							cursor="pointer"
+							fontSize="md"
+							fontWeight="bold"
+							onClick={() => router.push(`${ENDPOINTS.RECORDS}/${_.get(data, "id")}`)}
+						>
+							View
+						</Text>
+					</Button>
+				);
+			}
+			if (_.includes(currentPath, "/records/")) {
+				return <ViewTreatment data={data} />
+			}
 			return (
 				<ViewRequestModal id={_.get(data, "id")} isOpen={isOpenView} onClose={onCloseView} onOpen={onOpenView} />
 			);
+			
 		}
-		if (actionItem === "Edit") {
+		if (actionItem === "Edit" && status === "REBOOKING") {
 			return (
 				<Button bg="transparent" p="0px" variant="no-hover">
 					<Text
@@ -106,14 +137,11 @@ const TableRow = ({
 								return (
 									<Td
 										key={index}
-										minWidth={{ sm: "250px" }}
-										pl="0px"
 									>
 										<Flex
 											align="center"
 											flexWrap="nowrap"
 											minWidth="100%"
-											py=".8rem"
 										>
 											<Flex direction="column">
 												<Text
@@ -161,14 +189,11 @@ const TableRow = ({
 								return (
 									<Td
 										key={index}
-										minWidth={{ sm: "250px" }}
-										pl="0px"
 									>
 										<Flex
 											align="center"
 											flexWrap="nowrap"
 											minWidth="100%"
-											py=".8rem"
 										>
 											<Flex direction="column">
 												<Text
@@ -201,14 +226,11 @@ const TableRow = ({
 								return (
 									<Td
 										key={index}
-										minWidth={{ sm: "250px" }}
-										pl="0px"
 									>
 										<Flex
 											align="center"
 											flexWrap="nowrap"
 											minWidth="100%"
-											py=".8rem"
 										>
 											<Flex direction="column">
 												<Text
@@ -240,14 +262,11 @@ const TableRow = ({
 							return (
 								<Td
 									key={index}
-									minWidth={{ sm: "250px" }}
-									pl="0px"
 								>
 									<Flex
 										align="center"
 										flexWrap="nowrap"
 										minWidth="100%"
-										py=".8rem"
 									>
 										<Flex direction="column">
 											<Text
@@ -265,6 +284,11 @@ const TableRow = ({
 						}
 					} else if (!_.isObject(data[_.toLower(title)])) {
 						if (title === "Date" || title === "Schedule") {
+							let titleName;
+							if (title === "Date" && _.has(data, "Date")) titleName = "Date";
+							else titleName = "Schedule";
+							if (title === "Schedule" && _.has(data, "Schedule")) titleName = "Schedule";
+							else titleName = "Date";
 							return (
 								<Td key={index}>
 									<Flex direction="column">
@@ -273,9 +297,9 @@ const TableRow = ({
 											fontSize="md"
 											fontWeight="bold"
 										>
-											{!_.isEmpty(data[_.toLower(title)])
+											{!_.isEmpty(data[_.toLower(titleName)])
 												? DateTime.fromSQL(
-													data[_.toLower(title)],
+													data[_.toLower(titleName)],
 												  ).toFormat("MMMM d, yyyy")
 												: DateTime.fromISO(
 													data.createdAt,
@@ -325,7 +349,6 @@ const TableRow = ({
 										color="gray.700"
 										fontSize="md"
 										fontWeight="bold"
-										pb=".5rem"
 									>
 										{`₱ ${price.toLocaleString()}`}
 									</Text>
@@ -338,14 +361,11 @@ const TableRow = ({
 							return (
 								<Td
 									key={index}
-									minWidth={{ sm: "250px" }}
-									pl="0px"
 								>
 									<Flex
 										align="center"
 										flexWrap="nowrap"
 										minWidth="100%"
-										py=".8rem"
 									>
 										<Flex direction="column">
 											<Text
@@ -375,7 +395,6 @@ const TableRow = ({
 									color="gray.700"
 									fontSize="md"
 									fontWeight="bold"
-									pb=".5rem"
 								>
 									{data[_.toLower(title)]}
 								</Text>

@@ -1,4 +1,6 @@
+import { useQuery } from "react-query";
 import { useFormikContext } from "formik";
+import _ from "lodash";
 
 import {
 	Box,
@@ -11,13 +13,25 @@ import {
 	Select,
 	SimpleGrid,
 	Stack,
+	Tooltip,
 } from "@chakra-ui/react";
+
+import { retrieveUserAccounts } from "../engine/record.queries";
 
 import spiels from "../../../constants/spiels";
 
 const AddPersonalInfoTab = () => {
-	const { errors, handleBlur, handleChange, touched, values } =
+	const { errors, handleBlur, handleChange, setFieldValue, touched, values } =
 		useFormikContext();
+
+	const {
+		data: { data = [] },
+	} = useQuery({
+		initialData: [],
+		placeholderData: [],
+		queryFn: retrieveUserAccounts,
+		queryKey: ["users-email-data"],
+	});
 
 	return (
 		<>
@@ -138,23 +152,57 @@ const AddPersonalInfoTab = () => {
 				</Box>
 			</FormControl>
 
-			<FormControl isInvalid={touched.email && errors.email}>
-				<Box pt={2}>
-					<FormLabel>{spiels.FORM_EMAIL_ADDRESS}</FormLabel>
-					<Input
-						data-testid="email"
-						id="email"
-						name="email"
-						onBlur={handleBlur}
-						onChange={handleChange}
-						type="email"
-						value={values.email}
-					/>
-					<FormErrorMessage>
-						{touched.email && errors.email}
-					</FormErrorMessage>
-				</Box>
-			</FormControl>
+			<SimpleGrid columns={2} spacing={10}>
+				<FormControl isInvalid={touched.patient && errors.patient}>
+					<Box pt={2}>
+						<FormLabel>{spiels.FORM_PATIENT}</FormLabel>
+						<Select
+							data-testid="patient"
+							id="patient"
+							name="patient"
+							onBlur={handleBlur}
+							onChange={(e) => {
+								const user = _.find(
+									data,
+									(item) => item.id == e.target.value,
+								);
+								setFieldValue("patient", _.get(user, "id"));
+								setFieldValue("email", _.get(user, "email"));
+							}}
+							placeholder="- Select Patient -"
+							value={values.patient}
+						>
+							{data.map((patient) => (
+								<option key={patient.id} value={patient.id}>
+									{_.get(patient, "firstName")}{" "}
+									{_.get(patient, "lastName")}
+								</option>
+							))}
+						</Select>
+						<FormErrorMessage>
+							{touched.patient && errors.patient}
+						</FormErrorMessage>
+					</Box>
+				</FormControl>
+				<FormControl isInvalid={touched.email && errors.email}>
+					<Box pt={2}>
+						<FormLabel>{spiels.FORM_EMAIL_ADDRESS}</FormLabel>
+						<Tooltip hasArrow label="Automatically filled">
+							<Input
+								data-testid="email"
+								id="email"
+								isReadOnly
+								name="email"
+								type="email"
+								value={values.email}
+							/>
+						</Tooltip>
+						<FormErrorMessage>
+							{touched.email && errors.email}
+						</FormErrorMessage>
+					</Box>
+				</FormControl>
+			</SimpleGrid>
 			<FormControl
 				isInvalid={touched.mobileNumber && errors.mobileNumber}
 			>

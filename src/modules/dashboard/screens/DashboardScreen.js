@@ -19,7 +19,7 @@ const DashboardScreen = () => {
 	const ago = DateTime.now().minus({ month: 1 }).toFormat("yyyy-MM-dd");
 
 	const {
-		data: { count: monthAppointment },
+		data: { total: monthAppointment },
 	} = useQuery({
 		initialData: {},
 		placeholderData: [],
@@ -35,8 +35,9 @@ const DashboardScreen = () => {
 			},
 		],
 	});
+
 	const {
-		data: { count: pendingRequestCount },
+		data: { total: pendingRequestCount },
 	} = useQuery({
 		initialData: {},
 		placeholderData: [],
@@ -50,8 +51,9 @@ const DashboardScreen = () => {
 			},
 		],
 	});
+
 	const {
-		data: { count: upcomingAppointmentCount },
+		data: { total: upcomingAppointmentCount },
 	} = useQuery({
 		initialData: {},
 		placeholderData: [],
@@ -74,13 +76,14 @@ const DashboardScreen = () => {
 			},
 		],
 	});
+
 	const DASHBOARD_COUNTERS = [
 		{
 			title: "Pending Requests",
 			value: pendingRequestCount,
 		},
 		{
-			title: "Total Appointment This Month",
+			title: "Appointment in the last Month",
 			value: monthAppointment,
 		},
 		{
@@ -88,6 +91,7 @@ const DashboardScreen = () => {
 			value: upcomingAppointmentCount,
 		},
 	];
+
 	return (
 		<ProfileLayout>
 			<Box maxW="auto" p={{ base: 4, md: 5 }}>

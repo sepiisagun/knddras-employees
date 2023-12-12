@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 
-import { Card, CardBody, Divider, Stack, Text } from "@chakra-ui/react";
+import { Card, CardBody, Stack, Text } from "@chakra-ui/react";
 
 // import spiels from "../../../constants/spiels";
 
@@ -17,7 +17,14 @@ const AppointmentsTable = () => {
 		queryKey: [
 			"appointments-data",
 			{
+				filter: {
+					status: "ACCEPTED",
+				},
+				pagination: {
+					limit: 5,
+				},
 				populate: "*",
+				sort: "date:desc",
 			},
 		],
 	});
@@ -27,7 +34,7 @@ const AppointmentsTable = () => {
 			<CardBody px="5px">
 				<Stack direction="row" h="100px" p={6}>
 					<Text as="b" fontSize="3xl">
-						Appointments
+						Upcoming Appointments
 					</Text>
 				</Stack>
 				<StrapiTable

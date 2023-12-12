@@ -1,22 +1,20 @@
 import { API_ENDPOINTS } from "../../../constants/Endpoints";
 import api, { defaultThen } from "../../../utils/api";
 
-export const retrieveRequests = (context) => {
+export const retrieveTransactions = (context) => {
 	const { queryKey } = context;
 	const [, params] = queryKey;
 
 	return api
-		.get(API_ENDPOINTS.REQUESTS, {
+		.get(API_ENDPOINTS.TREATMENTS, {
 			params,
 		})
 		.then(defaultThen);
 };
 
-export const retrieveRequest = (context) => {
+export const retrieveTransaction = (context) => {
 	const { queryKey } = context;
-	const [, id, params] = queryKey;
+	const [, id] = queryKey;
 
-	return api
-		.get(`${API_ENDPOINTS.REQUESTS}/${id}`, { params })
-		.then(defaultThen);
+	return api.get(`${API_ENDPOINTS.TREATMENTS}/${id}`).then(defaultThen);
 };

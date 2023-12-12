@@ -1,4 +1,5 @@
 import { useQuery } from "react-query";
+import _ from "lodash";
 
 import {
 	Box,
@@ -21,7 +22,7 @@ import { retrievePatientAccounts } from "../../auth/engine/auth.queries";
 const RequestScreen = () => {
 	// const today = DateTime.now().minus({ month: 1 }).toISO();
 	const {
-		data: { data, total: recordTotal },
+		data: { total: recordTotal },
 	} = useQuery({
 		initialData: [],
 		placeholderData: [],
@@ -29,18 +30,13 @@ const RequestScreen = () => {
 		queryKey: [
 			"total-records-count",
 			{
-				// filters: {
-				// 	createdAt: {
-				// 		$gte: today,
-				// 	},
-				// },
 				populate: "*",
 			},
 		],
 	});
 
 	const {
-		data: { data: patientData, total: patientTotal },
+		data: { data: patientData },
 	} = useQuery({
 		initialData: [],
 		placeholderData: [],
@@ -50,8 +46,8 @@ const RequestScreen = () => {
 
 	const RECORDS_COUNTERS = [
 		{
-			title: "New Records",
-			value: "25",
+			title: "Total Users",
+			value: _.size(patientData),
 		},
 		{
 			title: "Total Records",
@@ -59,7 +55,7 @@ const RequestScreen = () => {
 		},
 		{
 			title: "Inactive",
-			value: "1, 250",
+			value: "-",
 		},
 	];
 	const iconBoxInside = useColorModeValue("white", "white");
@@ -74,9 +70,9 @@ const RequestScreen = () => {
 						<Card
 							key={index}
 							borderRadius="3xl"
-							h="120px"
+							h="90px"
 							mb={2}
-							p="16px"
+							px="4px"
 							variant="outline"
 						>
 							<CardHeader mb="1px">
@@ -97,13 +93,14 @@ const RequestScreen = () => {
 				</Grid>
 				<SearchBar />
 				<StrapiTable
-					action={[]}
+					action={["View"]}
 					data={patientData}
 					headerTitles={[
 						"Name",
 						"Contact Number",
 						"Last Visit",
 						"Status",
+						"Action",
 					]}
 				/>
 			</Box>

@@ -16,17 +16,8 @@ const RequestScreen = () => {
 		queryKey: [
 			"requests",
 			{
-				// filters: {
-				// 	patient: {
-				// 		id: _.get(user, "id", 0),
-				// 	},
-				// },
-				// paginate: {
-				// 	page: 1,
-				// 	pageSize: 10,
-				// },
 				populate: ["purpose", "patient"],
-				// sort: ["date:desc"],
+				sort: ["date:desc"],
 			},
 		],
 	});
@@ -39,7 +30,6 @@ const RequestScreen = () => {
 					data={requestData}
 					headerTitles={[
 						"Name",
-						"Procedure",
 						"Contact Number",
 						"Schedule",
 						"Status",

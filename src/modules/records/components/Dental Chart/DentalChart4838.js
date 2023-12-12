@@ -50,7 +50,7 @@ const DentalChart4838 = () => {
 										borderWidth="1px"
 									>
 										<Image
-											alt="Dan Abramov"
+											// alt="Dan Abramov"
 											boxSize={8}
 											margin="auto"
 											maxW="32px"

@@ -10,6 +10,7 @@ export const ENDPOINTS = {
 	APPOINTMENTS: "appointments",
 	CALENDAR: "calendar",
 	DASHBOARD: "dashboard",
+	EMPLOYEES: "employees",
 	LOG_OUT: "logout",
 	RECORDS: "records",
 	REQUEST: "request",

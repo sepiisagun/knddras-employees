@@ -1,39 +1,42 @@
-import { Table, Tbody, Td, Text, Tr } from "@chakra-ui/react";
-import spiels from "../../constants/spiels";
+import _ from "lodash";
+import { DateTime } from "luxon";
 
-const AppointmentRequestHeader = ({
-	dateAndSlot,
-	fullName,
-	mobileNumber,
-	procedureName,
-}) => {
+import { Table, Tbody, Td, Text, Tr } from "@chakra-ui/react";
+
+const AppointmentRequestHeader = ({ data }) => {
+	const { data: patient } = data;
 	return (
 		<Table variant="simple">
 			<Tbody>
 				<Tr>
 					<Td pb={4} pt={0} px={1}>
 						<Text fontWeight="bold">
-							{spiels.LABEL_NAME}
+							Name:{" "}
 							<Text as="b" fontWeight="normal">
-								{fullName}
+								{_.get(patient, "patient.data.firstName")}{" "}
+								{_.get(patient, "patient.data.lastName")}
 							</Text>
 						</Text>
 						<Text fontWeight="bold">
-							{spiels.LABEL_PROCEDURE}
+							Contact Number:{" "}
 							<Text as="b" fontWeight="normal">
-								{procedureName}
+								{_.get(patient, "patient.data.mobileNumber")}
 							</Text>
 						</Text>
 						<Text fontWeight="bold">
-							{spiels.LABEL_MOBILE}
+							Prospect Schedule:{" "}
 							<Text as="b" fontWeight="normal">
-								{mobileNumber}
+								{DateTime.fromSQL(
+									_.get(patient, "date"),
+								).toFormat("MMMM d, yyyy")}
+								{", "}
+								{_.get(patient, "slot")}
 							</Text>
 						</Text>
 						<Text fontWeight="bold">
-							{spiels.LABEL_SCHEDULE}
+							Reason:{" "}
 							<Text as="b" fontWeight="normal">
-								{dateAndSlot}
+								{_.get(patient, "notes")}
 							</Text>
 						</Text>
 					</Td>

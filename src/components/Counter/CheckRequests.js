@@ -15,8 +15,7 @@ const CheckRequests = () => {
 			}}
 			borderRadius="3xl"
 			cursor="pointer"
-			h="120px"
-			p="16px"
+			h="80px"
 			variant="outline"
 		>
 			<CardHeader mb="1px">

@@ -1,15 +1,11 @@
-import { boolean, date, object, ref, string } from "yup";
+import { boolean, date, number, object, string } from "yup";
 
 export const phoneLength = /^[-]*(?:.[-]*){7,12}$/;
-const lowerCaseRegex = /^(?=.*[a-z])/;
-const upperCaseRegex = /^(?=.*[A-Z])/;
-const numericRegex = "^(?=.*[0-9])";
-const specialCharacterRegex = /^(?=.*[.!@#$%^&*])/;
 
 export const phoneRegExp =
 	/^((\\+[1-9]{1,4}[ \\-]?)|(\\([0-9]{2,3}\\)[ \\-]?)|([0-9]{2,4})[ \\-]?)*?[0-9]{3,4}?[ \\-]?[0-9]{3,4}?$/;
 
-export const recordSchema = object().shape({
+const recordSchema = {
 	address: string().required("Please enter your address"),
 	birthdate: date().required("Please enter your birthdate"),
 	email: string()
@@ -31,6 +27,7 @@ export const recordSchema = object().shape({
 		.required("Please enter your contact number"),
 	nationality: string().nullable(),
 	occupation: string().nullable(),
+	patient: number().required("Please select patient account."),
 	relation: string().when("minor", {
 		is: true,
 		then: () =>
@@ -42,9 +39,9 @@ export const recordSchema = object().shape({
 	sex: string()
 		.oneOf(["MALE", "FEMALE", "OTHER"], "Invalid selection")
 		.required("Please select your sex"),
-});
+};
 
-export const medicalSchema = object().shape({
+const medicalSchema = {
 	bleedTime: string().nullable(),
 	bloodType: string()
 		.oneOf(["A", "B", "AB", "O"], "Invalid blood type")
@@ -59,4 +56,91 @@ export const medicalSchema = object().shape({
 	previousDentist: string().required(
 		"Please enter your previous dentist's name",
 	),
+};
+
+export const fullRecordSchema = object().shape({
+	...medicalSchema,
+	...recordSchema,
 });
+
+export const initialValues = {
+	address: "",
+	advancedPeriodontitis: false,
+	aidsHiv: false,
+	anemia: false,
+	anesthetics: false,
+	angina: false,
+	antibiotics: false,
+	arthritisRheumatism: false,
+	aspirin: false,
+	asthma: false,
+	birthdate: "",
+	bleedTime: "",
+	bleedingProblems: false,
+	bloodDiseases: false,
+	bloodType: "",
+	cancerTumors: false,
+	cephalometric: false,
+	chestPain: false,
+	clenching: false,
+	clicking: false,
+	crossbite: false,
+	diabetes: false,
+	earlyPeriodontitis: false,
+	email: "",
+	emphysema: false,
+	epilepsyConvulsions: false,
+	faintingSeizure: false,
+	firstName: "",
+	gingivitis: false,
+	guardianName: "",
+	hayFever: false,
+	headInjuries: false,
+	heartAttack: false,
+	heartDisease: false,
+	heartMurmur: false,
+	heartSurgery: false,
+	hepatitisJaundice: false,
+	hepatitisLiverDisease: false,
+	highBloodPressure: false,
+	jointReplacementImplant: false,
+	kidneyDisease: false,
+	lastName: "",
+	lastVisit: "",
+	latex: false,
+	lowBloodPressure: false,
+	middleInitial: "",
+	midlineDeviation: false,
+	minor: false,
+	mobileNumber: "",
+	moderatePeriodontitis: false,
+	molar: false,
+	muscleSpasm: false,
+	occlusal: false,
+	occupation: "",
+	orthodontic: false,
+	other: "",
+	overbite: false,
+	overjet: false,
+	panoramic: false,
+	patient: "",
+	periapical: false,
+	physicianAddress: "",
+	physicianName: "",
+	previousDentist: "",
+	radiationTheraphy: false,
+	rapidWeightLoss: false,
+	relation: "",
+	respiratoryProblems: false,
+	rheumaticFever: false,
+	sex: "",
+	stayplate: false,
+	std: false,
+	stomachTroublesUlcers: false,
+	stroke: false,
+	sulfa: false,
+	swollenAnkles: false,
+	thyroidProblem: false,
+	trismus: false,
+	tuberculosis: false,
+};
