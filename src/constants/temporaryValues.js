@@ -140,6 +140,20 @@ export const VIEW_TREATMENT = [
 	},
 ];
 
+export const PATIENT_INFORMATION = [
+	{
+		address: "Street #, Barangay, City, Region",
+		birthDate: "December 1, 2000",
+		contactNumber: "09123456789",
+		email: "juandelacruz@sample.com",
+		lastVisit: "January 1, 2023",
+		name: "Juan dela Cruz",
+		nationality: "Pipino",
+		religion: "Roman Alcoholic",
+		sex: "Male",
+	},
+];
+
 export const TRANSACTION_AMOUNT = [
 	{
 		label: "Subtotal",
