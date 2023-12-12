@@ -164,6 +164,7 @@ const AddPersonalInfoTab = () => {
 							onChange={(e) => {
 								const user = _.find(
 									data,
+									// eslint-disable-next-line eqeqeq
 									(item) => item.id == e.target.value,
 								);
 								setFieldValue("patient", _.get(user, "id"));

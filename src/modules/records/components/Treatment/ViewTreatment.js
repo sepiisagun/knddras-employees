@@ -18,6 +18,8 @@ import TreatmentHeader from "./TreatmentHeader";
 import TreatmentBreakdownFee from "./TreatmentBreakdownFee";
 
 const ViewTreatment = ({ data }) => {
+	// eslint-disable-next-line no-console
+	console.log(data);
 	const { isOpen, onClose, onOpen } = useDisclosure();
 	const total = TRANSACTION_AMOUNT[2];
 	return (
