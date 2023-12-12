@@ -112,28 +112,28 @@ const ViewRequestModal = ({ id, isOpen, onClose, onOpen }) => {
 	const { errors, handleBlur, handleChange, handleSubmit, touched, values } =
 		formik;
 
-	const fullName =
-		requestData.length > 0
-			? `${requestData[0]?.patient?.data?.firstName} ${requestData[0]?.patient?.data?.lastName}`
-			: "wala po";
-	const procedureName =
-		requestData.length > 0
-			? requestData[0]?.purpose?.data?.readableName
-			: "waley";
-	const mobileNumber =
-		requestData.length > 0
-			? requestData[0]?.patient?.data?.mobileNumber
-			: "hala wala";
-	const dateAndSlot =
-		requestData.length > 0
-			? `${requestData[0]?.date} ${requestData[0]?.slot}`
-			: "luh wala";
+	let fullName;
+	let procedureName;
+	let mobileNumber;
+	let dateAndSlot;
 
-	// console.log(id, requestData);
-	// console.log(fullName);
-	// console.log(procedureName);
-	// console.log(mobileNumber);
-	// console.log(dateAndSlot);
+	if (!_.isEmpty(requestData)) {
+		fullName = `${_.get(
+			requestData[0],
+			"patient.data.firstName",
+			"",
+		)} ${_.get(requestData[0], "patient.data.lastName", "")}`;
+
+		procedureName = _.get(requestData[0], "purpose.data.readableName", "");
+
+		mobileNumber = _.get(requestData[0], "patient.data.mobileNumber", "");
+
+		dateAndSlot = `${_.get(requestData[0], "date", "")} ${_.get(
+			requestData[0],
+			"slot",
+			"",
+		)}`;
+	}
 	return (
 		<>
 			<Button
