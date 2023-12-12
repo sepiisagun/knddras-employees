@@ -1,6 +1,5 @@
 import { FormikProvider, useFormik } from "formik";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { DateTime } from "luxon";
 import _ from "lodash";
 
 import {
@@ -19,31 +18,44 @@ import {
 	ModalOverlay,
 	Select,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
 import spiels from "../../../constants/spiels";
-import {
-	APPOINTMENT_USERS,
-	PATIENT_INFORMATION_VIEW_REQUEST,
-} from "../../../constants/temporaryValues";
 import AppointmentRequestHeader from "../../../components/Modals/AppointmentRequestHeader";
 
 import { updateRequest } from "../engine/request.mutations";
 import { retrieveDoctorAccounts } from "../../auth/engine/auth.queries";
 import { retrieveProcedures } from "../../../utils/engine/procedure.queries";
-import { retrieveRequest } from "../engine/request.queries";
+import { retrieveRequests } from "../engine/request.queries";
 
 const ViewRequestModal = ({ id, isOpen, onClose, onOpen }) => {
 	const queryClient = useQueryClient();
 	const updateRequestMutation = useMutation(updateRequest);
+	const requestId = id;
 
 	const {
 		data: { data: requestData = [] },
 	} = useQuery({
 		initialData: [],
 		placeholderData: [],
-		queryFn: retrieveRequest,
-		queryKey: ["request-data", id],
+		queryFn: retrieveRequests,
+		queryKey: [
+			"requests",
+			{
+				filters: {
+					id: requestId,
+				},
+				populate: ["purpose", "patient"],
+			},
+		],
 	});
+
+	// const {
+	// 	data: { data: requestData = [] },
+	// } = useQuery({
+	// 	initialData: [],
+	// 	placeholderData: [],
+	// 	queryFn: retrieveRequest,
+	// 	queryKey: ["request-data", id],
+	// });
 
 	const {
 		data: { data: procedureData = [] },
@@ -62,8 +74,6 @@ const ViewRequestModal = ({ id, isOpen, onClose, onOpen }) => {
 		queryFn: retrieveDoctorAccounts,
 		queryKey: ["doctor-data"],
 	});
-
-	console.log("ee", requestData);
 	const formik = useFormik({
 		enableReinitialize: true,
 		initialValues: {
@@ -99,16 +109,31 @@ const ViewRequestModal = ({ id, isOpen, onClose, onOpen }) => {
 		},
 	});
 
-	const {
-		errors,
-		handleBlur,
-		handleChange,
-		handleSubmit,
-		resetForm,
-		touched,
-		values,
-	} = formik;
+	const { errors, handleBlur, handleChange, handleSubmit, touched, values } =
+		formik;
 
+	const fullName =
+		requestData.length > 0
+			? `${requestData[0]?.patient?.data?.firstName} ${requestData[0]?.patient?.data?.lastName}`
+			: "wala po";
+	const procedureName =
+		requestData.length > 0
+			? requestData[0]?.purpose?.data?.readableName
+			: "waley";
+	const mobileNumber =
+		requestData.length > 0
+			? requestData[0]?.patient?.data?.mobileNumber
+			: "hala wala";
+	const dateAndSlot =
+		requestData.length > 0
+			? `${requestData[0]?.date} ${requestData[0]?.slot}`
+			: "luh wala";
+
+	// console.log(id, requestData);
+	// console.log(fullName);
+	// console.log(procedureName);
+	// console.log(mobileNumber);
+	// console.log(dateAndSlot);
 	return (
 		<>
 			<Button
@@ -129,7 +154,10 @@ const ViewRequestModal = ({ id, isOpen, onClose, onOpen }) => {
 					<ModalCloseButton mt={2} />
 					<ModalBody>
 						<AppointmentRequestHeader
-							patient={PATIENT_INFORMATION_VIEW_REQUEST}
+							dateAndSlot={dateAndSlot}
+							fullName={fullName}
+							mobileNumber={mobileNumber}
+							procedureName={procedureName}
 						/>
 						<FormikProvider value={formik}>
 							<FormControl
