@@ -17,7 +17,7 @@ const Links = [
 		title: "Dashboard",
 	},
 	{
-		allowed: ["dental_assistant", "dentist", "associate_dentist"],
+		allowed: ["dental_assistant"],
 		href: `${ENDPOINTS.REQUEST}`,
 		icon: MdOutlinePhotoFilter,
 		location: "appointments",
@@ -52,7 +52,7 @@ const Links = [
 		title: "Transactions",
 	},
 	{
-		allowed: ["dental_assistant", "dentist", "associate_dentist"],
+		allowed: ["dental_assistant", "dentist", "associate_dentist", "admin"],
 		icon: MdOutlineMultipleStop,
 		location: "logout",
 		title: "Logout",

@@ -384,6 +384,11 @@ const spiels = {
 			},
 		],
 	},
+
+	// Page Error
+	ERROR_403: "403",
+	ERROR_403_FORBIDDEN_ACCES: "Forbidden Access",
+	ERROR_GO_BACK: "Go back to home page",
 };
 
 export default spiels;
