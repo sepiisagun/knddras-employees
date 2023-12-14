@@ -1,3 +1,6 @@
+import { useQuery } from "react-query";
+import { useState } from "react";
+
 import {
 	Box,
 	Card,
@@ -10,8 +13,27 @@ import StrapiTable from "../../../components/Table";
 import MiniStatistics from "../../../components/MiniStatisticsCount";
 import WalletIcon from "../../../components/Icons/Icons";
 import TransactionsSearchBar from "../components/TransactionsSearchBar";
+import { retrieveTransactions } from "../engine/transaction.queries";
 
 const TransactionsScreen = () => {
+	const [searchInput, setSearchInput] = useState();
+	const {
+		data: { data: transactionData },
+		refetch,
+	} = useQuery({
+		initialData: [],
+		placeholderData: [],
+		queryFn: retrieveTransactions,
+		queryKey: [
+			"total-transactions-data",
+			{
+				filters: {
+					...searchInput,
+				},
+				populate: "*",
+			},
+		],
+	});
 	const TRANSACTION_COUNTERS = [
 		{
 			title: "Transactions this Month",
@@ -59,9 +81,13 @@ const TransactionsScreen = () => {
 						</Card>
 					))}
 				</Grid>
-				<TransactionsSearchBar />
+				<TransactionsSearchBar
+					refetch={refetch}
+					setValue={(e) => setSearchInput(e)}
+				/>
 				<StrapiTable
 					action={["View"]}
+					data={transactionData}
 					headerTitles={[
 						"Name",
 						"Procedure",
