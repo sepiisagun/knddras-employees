@@ -1,91 +1,131 @@
+import { useQuery } from "react-query";
+import _ from "lodash";
+
 import { Image } from "@chakra-ui/image";
-import { Box } from "@chakra-ui/layout";
+import { Box, FormControl, Text, Select } from "@chakra-ui/react";
 import { Table, TableContainer, Tbody, Td, Tr } from "@chakra-ui/table";
-import React from "react";
+
+import {
+	retrieveTeeth,
+	retrieveToothStatus,
+} from "../../engine/record.queries";
 
 const DentalChart4838 = () => {
-	const test = [
-		{ toothID: 48 },
-		{ toothID: 47 },
-		{ toothID: 46 },
-		{ toothID: 45 },
-		{ toothID: 44 },
-		{ toothID: 43 },
-		{ toothID: 42 },
-		{ toothID: 41 },
-		{ toothID: 31 },
-		{ toothID: 32 },
-		{ toothID: 33 },
-		{ toothID: 34 },
-		{ toothID: 35 },
-		{ toothID: 36 },
-		{ toothID: 37 },
-		{ toothID: 38 },
-	];
+	const imgPath = "/tooth.png";
+	const {
+		data: { data: { data } = {} },
+		isFetched,
+	} = useQuery({
+		initialData: {},
+		queryFn: retrieveTeeth,
+		queryKey: [
+			"teeth-data",
+			{
+				fields: ["sectionThree"],
+			},
+		],
+	});
+
+	const { data: { data: statusData = [] } = {} } = useQuery({
+		initialData: {},
+		queryFn: retrieveToothStatus,
+		queryKey: ["teeth-status-data"],
+	});
+
 	return (
 		<Box>
-			<TableContainer>
-				<Table size="sm" width="fit-content">
-					<Tbody>
-						<Tr>
-							{test.map((item) => {
-								return (
-									<Td
-										key={item.toothID}
-										borderColor="gray.500"
-										borderWidth="1px"
-										textAlign="center"
-									>
-										{item.toothID}
-									</Td>
-								);
-							})}
-						</Tr>
-						<Tr>
-							{test.map((item) => {
-								return (
-									<Td
-										key={item.toothID}
-										borderColor="gray.500"
-										borderWidth="1px"
-									>
-										<Image
-											// alt="Dan Abramov"
-											boxSize={8}
-											margin="auto"
-											maxW="32px"
-											objectFit="cover"
-											src="./ToothICON.png"
-										/>
-									</Td>
-								);
-							})}
-						</Tr>
-						<Tr height={8}>
-							{test.map((item) => {
-								return (
-									<Td
-										key={item.toothID}
-										borderColor="gray.500"
-										borderWidth="1px"
-									/>
-								);
-							})}
-						</Tr>
-						<Tr height={8}>
-							{test.map((item) => {
-								return (
-									<Td
-										key={item.toothID}
-										borderColor="gray.500"
-										borderWidth="1px"
-									/>
-								);
-							})}
-						</Tr>
-					</Tbody>
-				</Table>
-			</TableContainer>
+			{isFetched && (
+				<TableContainer>
+					<Table size="sm" width="fit-content">
+						<Tbody>
+							<Tr>
+								{_.get(data, "sectionThree").map((item) => {
+									return (
+										<Td
+											key={item}
+											borderColor="gray.500"
+											borderWidth="1px"
+										>
+											<Image
+												boxSize={8}
+												margin="auto"
+												maxW="32px"
+												objectFit="cover"
+												src={imgPath}
+											/>
+										</Td>
+									);
+								})}
+							</Tr>
+							<Tr>
+								{_.get(data, "sectionThree").map((item) => {
+									return (
+										<Td
+											key={item}
+											borderColor="gray.500"
+											borderWidth="1px"
+											m="0px"
+											p="0px"
+											textAlign="center"
+										>
+											<Text
+												color="gray.700"
+												fontSize="sm"
+												fontWeight="bold"
+											>
+												{item}
+											</Text>
+										</Td>
+									);
+								})}
+							</Tr>
+
+							<Tr>
+								{_.get(data, "sectionThree").map((item) => {
+									return (
+										<Td
+											key={item}
+											borderColor="gray.500"
+											borderWidth="1px"
+											m="0px"
+											p="0px"
+										>
+											<FormControl>
+												<Select
+													data-testid={`${item}`}
+													id={`${item}`}
+													name={`${item}`}
+													// onBlur={handleBlur}
+													// onChange={handleChange}
+													// value={values.sex}
+													placeholder="-"
+													size="xs"
+													value=""
+												>
+													{statusData.map(
+														(status) => (
+															<option
+																key={
+																	status.code
+																}
+																value={
+																	status.code
+																}
+															>
+																{status.status}
+															</option>
+														),
+													)}
+												</Select>
+											</FormControl>
+										</Td>
+									);
+								})}
+							</Tr>
+						</Tbody>
+					</Table>
+				</TableContainer>
+			)}
 		</Box>
 	);
 };

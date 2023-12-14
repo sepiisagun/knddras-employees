@@ -7,7 +7,7 @@ import DentalChart85757 from "./DentalChart85757";
 
 const DentalChart = () => {
 	return (
-		<Box paddingY={8}>
+		<Box py={32}>
 			<Center>
 				<DentalChart5565 />
 			</Center>

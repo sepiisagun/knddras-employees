@@ -1,91 +1,130 @@
+import { useQuery } from "react-query";
+import _ from "lodash";
+
 import { Image } from "@chakra-ui/image";
-import { Box } from "@chakra-ui/layout";
+import { Box, FormControl, Text, Select } from "@chakra-ui/react";
 import { Table, TableContainer, Tbody, Td, Tr } from "@chakra-ui/table";
-import React from "react";
+
+import {
+	retrieveTeeth,
+	retrieveToothStatus,
+} from "../../engine/record.queries";
 
 const DentalChart1828 = () => {
-	const test = [
-		{ toothID: 18 },
-		{ toothID: 17 },
-		{ toothID: 16 },
-		{ toothID: 15 },
-		{ toothID: 14 },
-		{ toothID: 13 },
-		{ toothID: 12 },
-		{ toothID: 11 },
-		{ toothID: 21 },
-		{ toothID: 22 },
-		{ toothID: 23 },
-		{ toothID: 24 },
-		{ toothID: 25 },
-		{ toothID: 26 },
-		{ toothID: 27 },
-		{ toothID: 28 },
-	];
+	const imgPath = "/tooth.png";
+	const {
+		data: { data: { data } = {} },
+		isFetched,
+	} = useQuery({
+		initialData: {},
+		queryFn: retrieveTeeth,
+		queryKey: [
+			"teeth-data",
+			{
+				fields: ["sectionTwo"],
+			},
+		],
+	});
+
+	const { data: { data: statusData = [] } = {} } = useQuery({
+		initialData: {},
+		queryFn: retrieveToothStatus,
+		queryKey: ["teeth-status-data"],
+	});
+
 	return (
 		<Box>
-			<TableContainer>
-				<Table size="sm" width="fit-content">
-					<Tbody>
-						<Tr height={8}>
-							{test.map((item) => {
-								return (
-									<Td
-										key={item.toothID}
-										borderColor="gray.500"
-										borderWidth="1px"
-									/>
-								);
-							})}
-						</Tr>
-						<Tr height={8}>
-							{test.map((item) => {
-								return (
-									<Td
-										key={item.toothID}
-										borderColor="gray.500"
-										borderWidth="1px"
-									/>
-								);
-							})}
-						</Tr>
-						<Tr>
-							{test.map((item) => {
-								return (
-									<Td
-										key={item.toothID}
-										borderColor="gray.500"
-										borderWidth="1px"
-										textAlign="center"
-									>
-										{item.toothID}
-									</Td>
-								);
-							})}
-						</Tr>
-						<Tr>
-							{test.map((item) => {
-								return (
-									<Td
-										key={item.toothID}
-										borderColor="gray.500"
-										borderWidth="1px"
-									>
-										<Image
-											// alt="Dan Abramov"
-											boxSize={8}
-											margin="auto"
-											maxW="32px"
-											objectFit="cover"
-											src="./ToothICON.png"
-										/>
-									</Td>
-								);
-							})}
-						</Tr>
-					</Tbody>
-				</Table>
-			</TableContainer>
+			{isFetched && (
+				<TableContainer>
+					<Table size="sm" width="fit-content">
+						<Tbody>
+							<Tr>
+								{_.get(data, "sectionTwo").map((item) => {
+									return (
+										<Td
+											key={item}
+											borderColor="gray.500"
+											borderWidth="1px"
+											m="0px"
+											p="0px"
+										>
+											<FormControl>
+												<Select
+													data-testid={`${item}`}
+													id={`${item}`}
+													name={`${item}`}
+													// onBlur={handleBlur}
+													// onChange={handleChange}
+													// value={values.sex}
+													placeholder="-"
+													size="xs"
+													value=""
+												>
+													{statusData.map(
+														(status) => (
+															<option
+																key={
+																	status.code
+																}
+																value={
+																	status.code
+																}
+															>
+																{status.status}
+															</option>
+														),
+													)}
+												</Select>
+											</FormControl>
+										</Td>
+									);
+								})}
+							</Tr>
+							<Tr>
+								{_.get(data, "sectionTwo").map((item) => {
+									return (
+										<Td
+											key={item}
+											borderColor="gray.500"
+											borderWidth="1px"
+											m="0px"
+											p="0px"
+											textAlign="center"
+										>
+											<Text
+												color="gray.700"
+												fontSize="sm"
+												fontWeight="bold"
+											>
+												{item}
+											</Text>
+										</Td>
+									);
+								})}
+							</Tr>
+							<Tr>
+								{_.get(data, "sectionTwo").map((item) => {
+									return (
+										<Td
+											key={item}
+											borderColor="gray.500"
+											borderWidth="1px"
+										>
+											<Image
+												boxSize={8}
+												margin="auto"
+												maxW="32px"
+												objectFit="cover"
+												src={imgPath}
+											/>
+										</Td>
+									);
+								})}
+							</Tr>
+						</Tbody>
+					</Table>
+				</TableContainer>
+			)}
 		</Box>
 	);
 };

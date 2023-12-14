@@ -35,7 +35,8 @@ export const API_ENDPOINTS = {
 	PROCEDURES: "/api/procedures",
 	RECORDS: "/api/records",
 	REQUESTS: "/api/requests",
-	TOOTH: "/api/teeth",
+	TOOTH: "/api/tooth",
+	TOOTH_STATUS: "/api/tooth-statuses",
 	TREATMENTS: "/api/treatments",
 	USERS: "/api/users",
 };

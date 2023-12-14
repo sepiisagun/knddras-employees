@@ -61,3 +61,17 @@ export const retrieveGuardians = (context) => {
 
 	return api.get(API_ENDPOINTS.GUARDIANS, { params }).then(defaultThen);
 };
+
+export const retrieveTeeth = (context) => {
+	const { queryKey } = context;
+	const [, params] = queryKey;
+
+	return api.get(API_ENDPOINTS.TOOTH, { params }).then(defaultThen);
+};
+
+export const retrieveToothStatus = (context) => {
+	const { queryKey } = context;
+	const [, params] = queryKey;
+
+	return api.get(API_ENDPOINTS.TOOTH_STATUS, { params }).then(defaultThen);
+};
