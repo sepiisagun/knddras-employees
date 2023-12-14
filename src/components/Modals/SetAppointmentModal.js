@@ -21,6 +21,7 @@ import {
 	ModalOverlay,
 	Select,
 	useColorModeValue,
+	useToast,
 } from "@chakra-ui/react";
 import { DateTime } from "luxon";
 
@@ -36,6 +37,11 @@ import {
 
 import { retrieveProcedures } from "../../utils/engine/procedure.queries";
 import { createAppointment } from "../../modules/appointment/engine/appointment.mutations";
+import { showSuccess } from "../../utils/notification";
+import {
+	notifSpiels,
+	toastCreateMessage,
+} from "../../constants/notificationSpiels";
 
 const SetAppointmentModal = ({
 	isOpenSetAppointment,
@@ -44,6 +50,7 @@ const SetAppointmentModal = ({
 }) => {
 	const iconBoxInside = useColorModeValue("white", "white");
 	const currentPath = usePathname();
+	const toast = useToast();
 
 	const queryClient = useQueryClient();
 	const {
@@ -105,6 +112,11 @@ const SetAppointmentModal = ({
 					});
 					resetForm();
 					onCloseSetAppointment();
+					showSuccess(
+						toast,
+						toastCreateMessage("appointment"),
+						notifSpiels.SUCCESS,
+					);
 
 					// go to success page
 				})

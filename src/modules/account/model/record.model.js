@@ -9,7 +9,7 @@ const specialCharacterRegex = /^(?=.*[.!@#$%^&*])/;
 export const phoneRegExp =
 	/^((\\+[1-9]{1,4}[ \\-]?)|(\\([0-9]{2,3}\\)[ \\-]?)|([0-9]{2,4})[ \\-]?)*?[0-9]{3,4}?[ \\-]?[0-9]{3,4}?$/;
 
-export const recordSchema = object().shape({
+export const accountSchema = object().shape({
 	email: string()
 		.email("Please enter a valid email address")
 		.required("Please enter your email address"),

@@ -6,6 +6,7 @@ import {
 	MdOutlineTopic,
 	MdOutlineMultipleStop,
 	MdAccountCircle,
+	MdLogout,
 } from "react-icons/md";
 import { ENDPOINTS } from "./Endpoints";
 
@@ -54,7 +55,7 @@ const Links = [
 	},
 	{
 		allowed: ["dental_assistant", "dentist", "associate_dentist", "admin"],
-		icon: MdOutlineMultipleStop,
+		icon: MdLogout,
 		location: "logout",
 		title: "Logout",
 	},
