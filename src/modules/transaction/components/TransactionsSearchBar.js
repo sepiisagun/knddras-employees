@@ -91,22 +91,6 @@ const TransactionsSearchBar = ({ setValue }) => {
 										],
 									},
 								},
-								{
-									doctor: {
-										$or: [
-											{
-												firstName: {
-													$containsi: e.target.value,
-												},
-											},
-											{
-												lastName: {
-													$containsi: e.target.value,
-												},
-											},
-										],
-									},
-								},
 							],
 						});
 						queryClient.invalidateQueries({ queryKey: "requests" });
