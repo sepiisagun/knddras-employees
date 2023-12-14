@@ -8,16 +8,19 @@ import {
 	InputGroup,
 	InputLeftElement,
 } from "@chakra-ui/react";
+
+import { useQueryClient } from "react-query";
 import React, { useState } from "react";
 import { SearchIcon } from "@chakra-ui/icons";
 
 import { MdFilterList } from "react-icons/md";
-import Link from "next/link";
-
 import spiels from "../../../constants/spiels";
 
-const RequestSearchBar = () => {
+const RequestSearchBar = ({ setValue }) => {
 	const [showFilter, setShowFilter] = useState(false);
+	const [searchValue, setSearchValue] = useState("");
+	const queryClient = useQueryClient();
+
 	return (
 		<HStack py={3}>
 			<InputGroup>
@@ -26,8 +29,29 @@ const RequestSearchBar = () => {
 				</InputLeftElement>
 				<Input
 					borderRadius="xl"
+					onChange={(e) => {
+						setSearchValue(e.target.value);
+						setValue({
+							patient: {
+								$or: [
+									{
+										firstName: {
+											$contains: e.target.value,
+										},
+									},
+									{
+										lastName: {
+											$contains: e.target.value,
+										},
+									},
+								],
+							},
+						});
+						queryClient.invalidateQueries({ queryKey: "requests" });
+					}}
 					placeholder={spiels.PLACEHOLDER_SEARCH}
 					type="text"
+					value={searchValue}
 				/>
 			</InputGroup>
 
@@ -41,11 +65,6 @@ const RequestSearchBar = () => {
 				</Flex>
 				<Box justifyContent="center">{spiels.TEXT_FILTER}</Box>
 			</Button>
-			<Link href="/" passHref>
-				<Button colorScheme="teal" onClick={() => setShowFilter(false)}>
-					{spiels.BUTTON_SEARCH}
-				</Button>
-			</Link>
 		</HStack>
 	);
 };
