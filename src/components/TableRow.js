@@ -31,9 +31,10 @@ const TableRow = ({
 
 	const renderAction = (status, actionItem) => {
 		if (actionItem === "View" &&
-			(status === "PENDING" ||
+			((status === "PENDING" || status === true || status === false) ||
 			!status  ||
-			(currentPath === "/appointments" && (status === "CANCELLED" || status === "ACCEPTED")))
+			(currentPath === "/appointments" && (status === "CANCELLED" || status === "ACCEPTED")) ||
+			(_.includes(currentPath, "/records/")))
 		) {
 			if (currentPath === "/appointments") {
 				return (<ViewAppointmentModal data={data} />);

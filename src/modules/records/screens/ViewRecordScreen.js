@@ -35,6 +35,9 @@ const ViewRecordScreen = () => {
 		queryKey: [
 			"appointments-data",
 			{
+				filters: {
+					patient: id,
+				},
 				populate: "*",
 				sort: "date:desc",
 			},
