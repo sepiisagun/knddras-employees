@@ -119,9 +119,8 @@ const TableRow = ({
 		if (!_.isEmpty(data) && !_.isEmpty(_.get(data, "purpose"))) {
 			setPrice(_.get(data, "purpose.data.price"), 0);
 		} else if (!_.isEmpty(data) && !_.isEmpty(_.get(data, "procedure"))) {
-			// console.log(_.get(data, 'procedure.price'),);
-			setPrice(_.get(data, "procedure.price"), 0);
-			// console.log(price);
+			if (_.has(data, "procedure.data")) setPrice(_.get(data, "procedure.data.price"), 0);
+			else setPrice(_.get(data, "procedure.price"), 0);
 		}
 		if (!_.isEmpty(data) && (!_.isEmpty(_.get(data, "patient")) || _.has(data, "mobileNumber"))) {
 			if (!_.isEmpty(_.get(data, "patient.data.mobileNumber"))) {
