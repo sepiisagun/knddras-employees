@@ -20,11 +20,7 @@ import { retrieveRequests } from "../../request/engine/request.queries";
 
 const AppointmentsScreen = () => {
 	const today = DateTime.now().toFormat("yyyy-MM-dd");
-	const [searchInput, setSearchInput] = useState({
-		patient: {
-			// firstName: "Lyndsy",
-		},
-	});
+	const [searchInput, setSearchInput] = useState();
 	const {
 		data: { total: upcomingTotal },
 	} = useQuery({
