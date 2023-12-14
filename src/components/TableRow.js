@@ -12,6 +12,7 @@ import { DateTime } from "luxon";
 import ViewRequestModal from "../modules/request/components/ViewRequestModal";
 import ViewAppointmentModal from "../modules/appointment/components/ViewAppointmentModal";
 import ViewTreatment from "../modules/records/components/Treatment/ViewTreatment";
+import EmployeeModal from "./Modals/EmployeeModal";
 
 import { ENDPOINTS } from "../constants/Endpoints";
 
@@ -60,19 +61,25 @@ const TableRow = ({
 			);
 			
 		}
-		if (actionItem === "Edit" && status === "REBOOKING") {
-			return (
-				<Button bg="transparent" p="0px" variant="no-hover">
-					<Text
-						color="gray.400"
-						cursor="pointer"
-						fontSize="md"
-						fontWeight="bold"
-					>
-						Edit
-					</Text>
-				</Button>
-			);
+		if (actionItem === "Edit") {
+			if (status === "REBOOKING") {
+				return (
+					<Button bg="transparent" p="0px" variant="no-hover">
+						<Text
+							color="gray.400"
+							cursor="pointer"
+							fontSize="md"
+							fontWeight="bold"
+						>
+							Edit
+						</Text>
+					</Button>
+				);
+			}
+			if (currentPath === "/employees") {
+				// Change to edit user modal
+				return <EmployeeModal location="Edit" userData={data} />;
+			}
 		}
 		if (
 			(status === "PENDING" && actionItem === "Cancel") ||
@@ -276,6 +283,30 @@ const TableRow = ({
 												minWidth="100%"
 											>
 												-
+											</Text>
+										</Flex>
+									</Flex>
+								</Td>
+							);
+						}
+						if (title === "Role") {
+							return (
+								<Td
+									key={index}
+								>
+									<Flex
+										align="center"
+										flexWrap="nowrap"
+										minWidth="100%"
+									>
+										<Flex direction="column">
+											<Text
+												color="gray.700"
+												fontSize="md"
+												fontWeight="bold"
+												minWidth="100%"
+											>
+												{_.capitalize(data[_.toLower(title)].name)}
 											</Text>
 										</Flex>
 									</Flex>

@@ -9,7 +9,6 @@ import {
 	Grid,
 	useColorModeValue,
 } from "@chakra-ui/react";
-// import { DateTime } from "luxon";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import ProfileLayout from "../../../layout/ProfileLayout";
@@ -22,6 +21,7 @@ import { retrieveRecords } from "../engine/record.queries";
 import { retrievePatientAccounts } from "../../auth/engine/auth.queries";
 
 const generatePDF = (patientData, header) => {
+	// eslint-disable-next-line new-cap
 	const pdf = new jsPDF();
 	pdf.text("KNDDRAS Records", 15, 10);
 	const tableData = patientData.map((row) => [
@@ -30,7 +30,7 @@ const generatePDF = (patientData, header) => {
 		"", // "Last Visit"
 		"", // "Status"
 	]);
-	pdf.autoTable({
+	autoTable(pdf, {
 		body: tableData,
 		head: [header],
 		startY: 20,
@@ -39,7 +39,6 @@ const generatePDF = (patientData, header) => {
 };
 
 const RequestScreen = () => {
-	// const today = DateTime.now().minus({ month: 1 }).toISO();
 	const {
 		data: { total: recordTotal },
 	} = useQuery({

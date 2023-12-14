@@ -10,6 +10,7 @@ import {
 } from "../../modules/auth/engine/auth.selectors";
 
 import Links from "../../constants/Links";
+import { ADMIN } from "../../constants/userRoles";
 import SideBarMenuItem from "./SideBarMenuItem";
 
 const SideBarContent = () => {
@@ -39,9 +40,15 @@ const SideBarContent = () => {
 						}
 						return null;
 					})}
-					<Box fontWeight="bold" textTransform="uppercase" w={minW}>
-						APPOINTMENTS
-					</Box>
+					{userRole !== ADMIN && (
+						<Box
+							fontWeight="bold"
+							textTransform="uppercase"
+							w={minW}
+						>
+							APPOINTMENTS
+						</Box>
+					)}
 					{/* // Appointments Item */}
 					{Links.map((headerItem) => {
 						if (
@@ -59,10 +66,16 @@ const SideBarContent = () => {
 						}
 						return null;
 					})}
+					{userRole !== ADMIN && (
+						<Box
+							fontWeight="bold"
+							textTransform="uppercase"
+							w={minW}
+						>
+							RECORDS AND TRANSACTION
+						</Box>
+					)}
 					{/* Records and Transaction Item */}
-					<Box fontWeight="bold" textTransform="uppercase" w={minW}>
-						RECORDS AND TRANSACTION
-					</Box>
 					{Links.map((headerItem) => {
 						if (
 							headerItem.location === "records" &&

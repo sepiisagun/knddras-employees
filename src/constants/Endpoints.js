@@ -24,12 +24,12 @@ export const ENDPOINTS = {
  */
 export const API_ENDPOINTS = {
 	// sample
+	ACCOUNTS: "/api/users-permissions/users",
 	APPOINTMENTS: "/api/appointments",
 	AUTH: "/api/auth",
 	CONDITIONS: "/api/conditions",
 	DENTAL_RECORDS: "/api/dental-records",
 	MEDICAL: "/api/medicals",
-	PATIENTS: "/api/users-permissions/users",
 	PROCEDURES: "/api/procedures",
 	RECORDS: "/api/records",
 	REQUESTS: "/api/requests",

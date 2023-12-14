@@ -17,9 +17,7 @@ import { TRANSACTION_AMOUNT } from "../../../../constants/temporaryValues";
 import TreatmentHeader from "./TreatmentHeader";
 import TreatmentBreakdownFee from "./TreatmentBreakdownFee";
 
-const ViewTreatment = ({ data }) => {
-	// eslint-disable-next-line no-console
-	console.log(data);
+const ViewTreatment = () => {
 	const { isOpen, onClose, onOpen } = useDisclosure();
 	const total = TRANSACTION_AMOUNT[2];
 	return (
@@ -43,15 +41,6 @@ const ViewTreatment = ({ data }) => {
 					<ModalBody>
 						<TableContainer>
 							<TreatmentHeader />
-							{/* <StrapiTable
-								action={["View"]}
-								headerTitles={[
-									"Tooth No.",
-									"Procedure",
-									"Cost",
-								]}
-								title="ViewTreatment"
-							/> */}
 							<StackDivider />
 							<Table mt={6} size="sm">
 								<TreatmentBreakdownFee

@@ -14,8 +14,9 @@ import { MdFilterList } from "react-icons/md";
 import Link from "next/link";
 import spiels from "../../../constants/spiels";
 import { ENDPOINTS } from "../../../constants/Endpoints";
+import EmployeeModal from "../../../components/Modals/EmployeeModal";
 
-const SearchBar = () => {
+const SearchBar = ({ location = "default" }) => {
 	const [showFilter, setShowFilter] = useState(false);
 	return (
 		<HStack py={3}>
@@ -40,11 +41,17 @@ const SearchBar = () => {
 				</Flex>
 				<Box justifyContent="center">{spiels.TEXT_FILTER}</Box>
 			</Button>
-			<Link href={`${ENDPOINTS.ADD_RECORD}`} passHref>
-				<Button colorScheme="teal" onClick={() => setShowFilter(false)}>
-					{spiels.BUTTON_ADD_RECORD}
-				</Button>
-			</Link>
+			{location === "Employees" && <EmployeeModal location="Add" />}
+			{location === "default" && (
+				<Link href={`${ENDPOINTS.ADD_RECORD}`} passHref>
+					<Button
+						colorScheme="teal"
+						onClick={() => setShowFilter(false)}
+					>
+						{spiels.BUTTON_ADD_RECORD}
+					</Button>
+				</Link>
+			)}
 		</HStack>
 	);
 };

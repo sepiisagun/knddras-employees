@@ -132,6 +132,7 @@ const spiels = {
 	BUTTON_VIEW: "View",
 	BUTTON_VIEW_ALL: "View all",
 	BUTTON_VIEW_RECORD: "View Record",
+	BUTTON_ADD_EMPLOYEE: "Add Employee",
 
 	// Banner
 	REDIRECT_SUBHEADER: "Built by developers",
@@ -276,6 +277,26 @@ const spiels = {
 		},
 		{
 			value: "PM",
+		},
+	],
+
+	// Add Employe
+	FORM_ADD_EMPLOYEE: "Add Employee",
+	FORM_EDIT_EMPLOYEE: "Edit Employee",
+	FORM_SELECT_ROLE: "Select Role",
+
+	FORM_EMPLOYEE_ROLES: [
+		{
+			label: "Associate Dentist",
+			value: 4,
+		},
+		{
+			label: "Dentist",
+			value: 7,
+		},
+		{
+			label: "Dental Assistant",
+			value: 5,
 		},
 	],
 
