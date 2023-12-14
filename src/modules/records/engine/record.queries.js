@@ -22,3 +22,14 @@ export const retrieveRecord = (context) => {
 export const retrieveUserAccounts = () => {
 	return api.get(`${API_ENDPOINTS.RECORDS}/fetchUsers`).then(defaultThen);
 };
+
+export const retrieveUserAppointments = (context) => {
+	const { queryKey } = context;
+	const [, params] = queryKey;
+
+	return api
+		.get(API_ENDPOINTS.APPOINTMENTS, {
+			params,
+		})
+		.then(defaultThen);
+};

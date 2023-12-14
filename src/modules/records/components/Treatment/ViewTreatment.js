@@ -26,7 +26,7 @@ const ViewTreatment = ({ data }) => {
 		<>
 			<Button
 				colorScheme="blue"
-				float="right"
+				// float="right"
 				mx={1}
 				onClick={onOpen}
 				size="md"
