@@ -111,6 +111,7 @@ const spiels = {
 	BUTTON_DELETE_ACCOUNT: "Delete Account",
 	BUTTON_DELETE: "Delete",
 	BUTTON_EDIT_RECORD: "Edit Record",
+	BUTTON_GENERATE_RECORD: "Generate Record",
 	BUTTON_LOGIN: "Login",
 	BUTTON_NEXT: "Next",
 	BUTTON_NEW_PROCEDURE: "New Procedure",
