@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useQuery } from "react-query";
 import { Box } from "@chakra-ui/react";
 import ProfileLayout from "../../../layout/ProfileLayout";
@@ -7,8 +8,14 @@ import StrapiTable from "../../../components/Table";
 import { retrieveRequests } from "../engine/request.queries";
 
 const RequestScreen = () => {
+	const [searchInput, setSearchInput] = useState({
+		patient: {
+			// firstName: "Lyndsy",
+		},
+	});
 	const {
 		data: { data: requestData },
+		refetch,
 	} = useQuery({
 		initialData: [],
 		placeholderData: [],
@@ -16,6 +23,12 @@ const RequestScreen = () => {
 		queryKey: [
 			"requests",
 			{
+				filters: {
+					// patient: {
+					// 	firstName: searchInput,
+					// },
+					...searchInput,
+				},
 				populate: ["purpose", "patient"],
 				sort: ["date:desc"],
 			},
@@ -24,7 +37,10 @@ const RequestScreen = () => {
 	return (
 		<ProfileLayout>
 			<Box maxW="auto" p={{ base: 4, md: 5 }}>
-				<RequestSearchBar />
+				<RequestSearchBar
+					refetch={refetch}
+					setValue={(e) => setSearchInput(e)}
+				/>
 				<StrapiTable
 					action={["View"]}
 					data={requestData}
