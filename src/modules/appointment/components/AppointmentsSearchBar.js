@@ -43,12 +43,12 @@ const AppointmentsSearchBar = ({ setValue }) => {
 										$or: [
 											{
 												firstName: {
-													$contains: e.target.value,
+													$containsi: e.target.value,
 												},
 											},
 											{
 												lastName: {
-													$contains: e.target.value,
+													$containsi: e.target.value,
 												},
 											},
 										],
@@ -59,12 +59,12 @@ const AppointmentsSearchBar = ({ setValue }) => {
 										$or: [
 											{
 												firstName: {
-													$contains: e.target.value,
+													$containsi: e.target.value,
 												},
 											},
 											{
 												lastName: {
-													$contains: e.target.value,
+													$containsi: e.target.value,
 												},
 											},
 										],
@@ -75,12 +75,12 @@ const AppointmentsSearchBar = ({ setValue }) => {
 										$or: [
 											{
 												name: {
-													$contains: e.target.value,
+													$containsi: e.target.value,
 												},
 											},
 											{
 												readableName: {
-													$contains: e.target.value,
+													$containsi: e.target.value,
 												},
 											},
 										],

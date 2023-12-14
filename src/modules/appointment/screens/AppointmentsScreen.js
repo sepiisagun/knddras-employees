@@ -82,9 +82,6 @@ const AppointmentsScreen = () => {
 			"appointments-data",
 			{
 				filters: {
-					// patient: {
-					// 	firstName: searchInput,
-					// },
 					...searchInput,
 				},
 				populate: "*",
