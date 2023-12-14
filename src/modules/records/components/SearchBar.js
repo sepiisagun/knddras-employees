@@ -9,6 +9,7 @@ import {
 	InputLeftElement,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { useQueryClient } from "react-query";
 import { SearchIcon } from "@chakra-ui/icons";
 import { MdFilterList } from "react-icons/md";
 import Link from "next/link";
@@ -16,8 +17,10 @@ import spiels from "../../../constants/spiels";
 import { ENDPOINTS } from "../../../constants/Endpoints";
 import EmployeeModal from "../../../components/Modals/EmployeeModal";
 
-const SearchBar = ({ location = "default" }) => {
+const SearchBar = ({ location = "default", setValue }) => {
 	const [showFilter, setShowFilter] = useState(false);
+	const [searchValue, setSearchValue] = useState("");
+	const queryClient = useQueryClient();
 	return (
 		<HStack py={3}>
 			<InputGroup>
@@ -26,8 +29,36 @@ const SearchBar = ({ location = "default" }) => {
 				</InputLeftElement>
 				<Input
 					borderRadius="xl"
+					onChange={(e) => {
+						setSearchValue(e.target.value);
+						setValue({
+							$or: [
+								{
+									firstName: {
+										$containsi: e.target.value,
+									},
+								},
+								{
+									lastName: {
+										$containsi: e.target.value,
+									},
+								},
+								{
+									role: {
+										name: {
+											$containsi: e.target.value,
+										},
+									},
+								},
+							],
+						});
+						queryClient.invalidateQueries({
+							queryKey: "total-patient-count",
+						});
+					}}
 					placeholder={spiels.PLACEHOLDER_SEARCH}
 					type="text"
+					value={searchValue}
 				/>
 			</InputGroup>
 

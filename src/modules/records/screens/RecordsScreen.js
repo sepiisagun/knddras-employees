@@ -1,4 +1,5 @@
 import { useQuery } from "react-query";
+import { useState } from "react";
 import _ from "lodash";
 
 import {
@@ -39,6 +40,7 @@ const generatePDF = (patientData, header) => {
 };
 
 const RequestScreen = () => {
+	const [searchInput, setSearchInput] = useState();
 	const {
 		data: { total: recordTotal },
 	} = useQuery({
@@ -55,11 +57,20 @@ const RequestScreen = () => {
 
 	const {
 		data: { data: patientData },
+		refetch,
 	} = useQuery({
 		initialData: [],
 		placeholderData: [],
 		queryFn: retrievePatientAccounts,
-		queryKey: ["total-patient-count", { populate: "*" }],
+		queryKey: [
+			"total-patient-count",
+			{
+				filters: {
+					...searchInput,
+				},
+				populate: "*",
+			},
+		],
 	});
 
 	const RECORDS_COUNTERS = [
@@ -111,7 +122,10 @@ const RequestScreen = () => {
 						</Card>
 					))}
 				</Grid>
-				<SearchBar />
+				<SearchBar
+					refetch={refetch}
+					setValue={(e) => setSearchInput(e)}
+				/>
 				<StrapiTable
 					action={["View"]}
 					data={patientData}

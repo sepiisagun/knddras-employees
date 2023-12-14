@@ -36,12 +36,12 @@ const RequestSearchBar = ({ setValue }) => {
 								$or: [
 									{
 										firstName: {
-											$contains: e.target.value,
+											$containsi: e.target.value,
 										},
 									},
 									{
 										lastName: {
-											$contains: e.target.value,
+											$containsi: e.target.value,
 										},
 									},
 								],

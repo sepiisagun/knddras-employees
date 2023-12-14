@@ -9,14 +9,18 @@ import {
 	InputLeftElement,
 	useDisclosure,
 } from "@chakra-ui/react";
+import { useQueryClient } from "react-query";
+
 import React, { useState } from "react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { MdFilterList } from "react-icons/md";
 import spiels from "../../../constants/spiels";
 import TransactionPrintModal from "./TransactionPrintModal";
 
-const TransactionsSearchBar = () => {
+const TransactionsSearchBar = ({ setValue }) => {
 	const { onOpen: onOpenForgot } = useDisclosure();
+	const [searchValue, setSearchValue] = useState("");
+	const queryClient = useQueryClient();
 	const {
 		isOpen: isOpenModal,
 		onClose: onCloseModal,
@@ -31,8 +35,85 @@ const TransactionsSearchBar = () => {
 				</InputLeftElement>
 				<Input
 					borderRadius="xl"
+					onChange={(e) => {
+						setSearchValue(e.target.value);
+						setValue({
+							$or: [
+								{
+									procedure: {
+										$or: [
+											{
+												name: {
+													$containsi: e.target.value,
+												},
+											},
+											{
+												readableName: {
+													$containsi: e.target.value,
+												},
+											},
+										],
+									},
+								},
+								{
+									record: {
+										$or: [
+											{
+												firstName: {
+													$containsi: e.target.value,
+												},
+											},
+											{
+												lastName: {
+													$containsi: e.target.value,
+												},
+											},
+											{
+												patient: {
+													$or: [
+														{
+															firstName: {
+																$containsi:
+																	e.target
+																		.value,
+															},
+														},
+														{
+															lastName: {
+																$containsi:
+																	e.target
+																		.value,
+															},
+														},
+													],
+												},
+											},
+										],
+									},
+								},
+								{
+									doctor: {
+										$or: [
+											{
+												firstName: {
+													$containsi: e.target.value,
+												},
+											},
+											{
+												lastName: {
+													$containsi: e.target.value,
+												},
+											},
+										],
+									},
+								},
+							],
+						});
+						queryClient.invalidateQueries({ queryKey: "requests" });
+					}}
 					placeholder={spiels.PLACEHOLDER_SEARCH}
 					type="text"
+					value={searchValue}
 				/>
 			</InputGroup>
 
