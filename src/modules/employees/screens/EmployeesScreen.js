@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-
+import { useState } from "react";
 import { Box } from "@chakra-ui/react";
 
 import { retrieveEmployeeAccounts } from "../../auth/engine/auth.queries";
@@ -9,8 +9,10 @@ import SearchBar from "../../records/components/SearchBar";
 import StrapiTable from "../../../components/Table";
 
 const EmployeesScreen = () => {
+	const [searchInput, setSearchInput] = useState();
 	const {
 		data: { data: employeeData },
+		refetch,
 	} = useQuery({
 		initialData: [],
 		placeholderData: [],
@@ -26,6 +28,9 @@ const EmployeesScreen = () => {
 					"mobileNumber",
 					"username",
 				],
+				filters: {
+					...searchInput,
+				},
 				populate: "*",
 			},
 		],
@@ -34,7 +39,11 @@ const EmployeesScreen = () => {
 	return (
 		<ProfileLayout>
 			<Box maxW="auto" p={{ base: 4, md: 5 }}>
-				<SearchBar location="Employees" />
+				<SearchBar
+					location="Employees"
+					refetch={refetch}
+					setValue={(e) => setSearchInput(e)}
+				/>
 				<StrapiTable
 					action={["Edit"]}
 					data={employeeData}
