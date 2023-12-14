@@ -1,3 +1,5 @@
+import { useQuery } from "react-query";
+
 import {
 	Box,
 	Card,
@@ -11,7 +13,17 @@ import MiniStatistics from "../../../components/MiniStatisticsCount";
 import WalletIcon from "../../../components/Icons/Icons";
 import TransactionsSearchBar from "../components/TransactionsSearchBar";
 
+import { retrieveTransactions } from "../engine/transaction.queries";
+
 const TransactionsScreen = () => {
+	const {
+		data: { data: transactionData },
+	} = useQuery({
+		initialData: [],
+		placeholderData: [],
+		queryFn: retrieveTransactions,
+		queryKey: ["total-transactions-data", { populate: "*" }],
+	});
 	const TRANSACTION_COUNTERS = [
 		{
 			title: "Transactions this Month",
@@ -26,6 +38,7 @@ const TransactionsScreen = () => {
 			value: "1,250",
 		},
 	];
+
 	const iconBoxInside = useColorModeValue("white", "white");
 	return (
 		<ProfileLayout>
@@ -62,10 +75,11 @@ const TransactionsScreen = () => {
 				<TransactionsSearchBar />
 				<StrapiTable
 					action={["View"]}
+					data={transactionData}
 					headerTitles={[
-						"Name",
+						"Patient",
 						"Procedure",
-						"Assigned To",
+						"Assigned To", // to fix
 						"Transaction Date",
 						"Total Fee",
 						"Action",

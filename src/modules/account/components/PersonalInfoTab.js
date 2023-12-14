@@ -17,6 +17,8 @@ import {
 
 import { userDetailsSelector } from "../../auth/engine/auth.selectors";
 
+import { updateUser } from "../../auth/engine/auth.mutations";
+
 import { recordSchema } from "../model/record.model";
 
 import spiels from "../../../constants/spiels";
@@ -25,8 +27,7 @@ const PersonalInfoTab = () => {
 	const user = useSelector(userDetailsSelector);
 	const queryClient = useQueryClient();
 
-	// const updateRecordMutation = useMutation(updateRecord);
-	// const createRecordMutation = useMutation(createRecord);
+	const updateAccountMutation = useMutation(updateUser);
 
 	const formik = useFormik({
 		enableReinitialize: true,
@@ -37,35 +38,18 @@ const PersonalInfoTab = () => {
 			mobileNumber: _.get(user, "mobileNumber"),
 		},
 		onSubmit: async (data, { resetForm }) => {
-			// if (_.isEmpty(recordData)) {
-			// 	createRecordMutation
-			// 		.mutateAsync({ data })
-			// 		.then(() => {
-			// 			queryClient.invalidateQueries({ queryKey: "record" });
-			// 			resetForm();
-			// 			// go to success page
-			// 		})
-			// 		.catch((error) => {
-			// 			// display error
-			// 			// eslint-disable-next-line no-console
-			// 			console.log(error);
-			// 		});
-			// } else {
-			// 	updateRecordMutation
-			// 		.mutateAsync({ data, id: _.get(recordData, "id") })
-			// 		.then(() => {
-			// 			queryClient.invalidateQueries({ queryKey: "record" });
-			// 			resetForm();
-			// 			// go to success page
-			// 		})
-			// 		.catch((error) => {
-			// 			// display error
-			// 			// eslint-disable-next-line no-console
-			// 			console.log(error);
-			// 		});
-			// }
-			// eslint-disable-next-line no-console
-			console.log(data);
+			updateAccountMutation
+				.mutateAsync({ data, id: _.get(user, "id") })
+				.then(() => {
+					queryClient.invalidateQueries({ queryKey: "record" });
+					resetForm();
+					// go to success page
+				})
+				.catch((error) => {
+					// display error
+					// eslint-disable-next-line no-console
+					console.log(error);
+				});
 		},
 		validateOnBlur: true,
 		validateOnMount: true,

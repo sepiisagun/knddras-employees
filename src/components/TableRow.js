@@ -119,7 +119,9 @@ const TableRow = ({
 		if (!_.isEmpty(data) && !_.isEmpty(_.get(data, "purpose"))) {
 			setPrice(_.get(data, "purpose.data.price"), 0);
 		} else if (!_.isEmpty(data) && !_.isEmpty(_.get(data, "procedure"))) {
+			// console.log(_.get(data, 'procedure.price'),);
 			setPrice(_.get(data, "procedure.price"), 0);
+			// console.log(price);
 		}
 		if (!_.isEmpty(data) && (!_.isEmpty(_.get(data, "patient")) || _.has(data, "mobileNumber"))) {
 			if (!_.isEmpty(_.get(data, "patient.data.mobileNumber"))) {
@@ -134,11 +136,12 @@ const TableRow = ({
 		<Tr>
 			{!_.isEmpty(data) &&
 				headerTitles.map((title, index) => {
-					if (_.isObject(data[_.toLower(title)]) || title === "Assigned To" || title === "Name" || title === "Procedure") {
+					if (_.isObject(data[_.toLower(title)]) || title === "Assigned To" || title === "Name" || title === "Procedure" || title === "Patient") {
 						if (title === "Patient" || title === "Assigned To" || title === "Name") {
-							if (_.has(_.get(data, 'patient.data'), "username") || _.has(_.get(data, "doctor.data"), "username") || _.has(data, "username")) {
+							if (_.has(_.get(data, 'patient.data'), "username") || _.has(_.get(data, "doctor.data"), "username") || _.has(data, "username") || _.has(data, 'record')) {
 								let user;
 								if (_.has(_.get(data, 'patient.data'), "username") && (title === "Name" || title === "Patient")) user = _.get(data, 'patient.data');
+								else if (_.has(data, 'record')) user = _.get(data, 'record.data');
 								else if (_.has(data, "username")) user = data;
 								else user = _.get(data, 'doctor.data');
 								return (
@@ -314,12 +317,13 @@ const TableRow = ({
 							);
 						}
 					} else if (!_.isObject(data[_.toLower(title)])) {
-						if (title === "Date" || title === "Schedule") {
+						if (title === "Date" || title === "Schedule" || title === "Transaction Date") {
 							let titleName;
 							if (title === "Date" && _.has(data, "Date")) titleName = "Date";
 							else titleName = "Schedule";
 							if (title === "Schedule" && _.has(data, "Schedule")) titleName = "Schedule";
 							else titleName = "Date";
+							if (title === "Transaction Date") titleName = "createdAt";
 							return (
 								<Td key={index}>
 									<Flex direction="column">
@@ -336,24 +340,29 @@ const TableRow = ({
 													data.createdAt,
 												  ).toFormat("MMMM d, yyyy")}
 										</Text>
-										<Text
-											color="gray.400"
-											fontSize="sm"
-											fontWeight="normal"
-										>
-											{!_.isEmpty(data.time) &&
+										{
+											titleName !== "createdAt" && (
+												<Text
+													color="gray.400"
+													fontSize="sm"
+													fontWeight="normal"
+												>
+													{!_.isEmpty(data.time) &&
 												DateTime.fromSQL(
 													data.time,
 												).toFormat("hh:mm a")}
-											{_.isEmpty(data.time) &&
+													{_.isEmpty(data.time) &&
 												data.slot &&
 												data.slot}
-											{_.isEmpty(data.time) &&
+													{_.isEmpty(data.time) &&
 												_.isEmpty(data.slot) &&
 												DateTime.fromISO(
 													data.createdAt,
 												).toFormat("hh:mm a")}
-										</Text>
+												</Text>
+											)
+										}
+										
 									</Flex>
 								</Td>
 							);
@@ -373,7 +382,7 @@ const TableRow = ({
 								</Td>
 							);
 						}
-						if (title === "Price") {
+						if (title === "Price" || title === "Total Fee") {
 							return (
 								<Td key={index}>
 									<Text
