@@ -21,29 +21,6 @@ const RequestSearchBar = ({ setValue }) => {
 	const [searchValue, setSearchValue] = useState("");
 	const queryClient = useQueryClient();
 
-	// const {
-	// 	data: { data: requestSearchData },
-	// } = useQuery({
-	// 	initialData: [],
-	// 	placeholderData: [],
-	// 	queryFn: retrieveRequests,
-	// 	queryKey: [
-	// 		"requests",
-	// 		{
-	// 			filters: {
-	// 				// patient: {
-	// 				// 	firstName: "Lyndsy",
-	// 				// },
-	// 				...searchInput,
-	// 			},
-	// 			populate: ["purpose", "patient"],
-	// 			sort: ["date:desc"],
-	// 		},
-	// 	],
-	// });
-
-	// eslint-disable-next-line no-console
-	// console.log("search", requestSearchData);
 	return (
 		<HStack py={3}>
 			<InputGroup>

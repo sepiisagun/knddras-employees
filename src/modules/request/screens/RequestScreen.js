@@ -8,11 +8,7 @@ import StrapiTable from "../../../components/Table";
 import { retrieveRequests } from "../engine/request.queries";
 
 const RequestScreen = () => {
-	const [searchInput, setSearchInput] = useState({
-		patient: {
-			// firstName: "Lyndsy",
-		},
-	});
+	const [searchInput, setSearchInput] = useState();
 	const {
 		data: { data: requestData },
 		refetch,
@@ -24,9 +20,6 @@ const RequestScreen = () => {
 			"requests",
 			{
 				filters: {
-					// patient: {
-					// 	firstName: searchInput,
-					// },
 					...searchInput,
 				},
 				populate: ["purpose", "patient"],
