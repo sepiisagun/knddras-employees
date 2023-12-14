@@ -11,6 +11,7 @@ import {
 	FormControl,
 	FormLabel,
 	Switch,
+	useToast,
 } from "@chakra-ui/react";
 
 import { login } from "../auth/engine/auth.mutations";
@@ -27,18 +28,23 @@ import loginValidator from "../auth/models/auth.model";
 import { ENDPOINTS } from "../../constants/Endpoints";
 import spiels from "../../constants/spiels";
 import InputLayout from "../globalComponents/Forms/InputLayout";
+import { loginErrorHandler, showSuccess } from "../../utils/notification";
+import {
+	notifSpiels,
+	toastSuccessfulLoginMessage,
+} from "../../constants/notificationSpiels";
 
 const LogInForm = () => {
 	const dispatch = useDispatch();
 	const router = useRouter();
 	const loginMutation = useMutation(login);
+	const toast = useToast();
 
 	const onSubmit = (values) => {
 		loginMutation
 			.mutateAsync(values)
 			.then((data) => {
 				attachToken(data.jwt);
-
 				return Promise.all([retrieveUserDetails()]).then((result) => {
 					dispatch(loginAction({ jwt: data.jwt, result: data }));
 
@@ -51,12 +57,18 @@ const LogInForm = () => {
 					data: { role },
 				} = details;
 
-				if (_.get(role, "type") !== "authenticated")
+				if (_.get(role, "type") !== "authenticated") {
 					router.push(`${ENDPOINTS.EMPLOYEES}`);
-				else router.push(`${ENDPOINTS.DASHBOARD}`);
+					showSuccess(
+						toast,
+						toastSuccessfulLoginMessage("Logged in"),
+						notifSpiels.SUCCESS,
+					);
+				} else router.push(`${ENDPOINTS.DASHBOARD}`);
 			})
 			.catch((error) => {
 				detachToken();
+				loginErrorHandler(toast);
 				// eslint-disable-next-line no-console
 				console.log(error);
 			});

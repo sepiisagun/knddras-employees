@@ -14,18 +14,23 @@ import {
 	Input,
 	Stack,
 	Tabs,
+	useToast,
 } from "@chakra-ui/react";
 
 import { changePassword } from "../../auth/engine/auth.mutations";
-
+import { showSuccess } from "../../../utils/notification";
 import spiels from "../../../constants/spiels";
 import { ChangePasswordSchema } from "../model/record.model";
 // eslint-disable-next-line no-unused-vars
 import DeactivateAccountModal from "../../../components/Modals/DeactivateAccountModal";
+import {
+	notifSpiels,
+	toastUpdateMessage,
+} from "../../../constants/notificationSpiels";
 
 const PasswordTab = () => {
 	const updatePasswordMutation = useMutation(changePassword);
-
+	const toast = useToast();
 	const formik = useFormik({
 		enableReinitialize: true,
 		initialValues: {
@@ -43,7 +48,11 @@ const PasswordTab = () => {
 				.mutateAsync(payload)
 				.then(() => {
 					resetForm();
-					// go to success page
+					showSuccess(
+						toast,
+						toastUpdateMessage("password"),
+						notifSpiels.SUCCESS,
+					);
 				})
 				.catch((error) => {
 					// display error

@@ -69,7 +69,7 @@ export const updateUser = (context) => {
 	const { data: userData, id } = context;
 
 	return api
-		.put(`${API_ENDPOINTS.ACCOUNTS}/me/${id}`, mapUserPayload(userData))
+		.put(`${API_ENDPOINTS.ACCOUNTS}/update/${id}`, mapUserPayload(userData))
 		.then(({ data }) => data);
 };
 

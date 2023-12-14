@@ -26,6 +26,10 @@ export const showWarning = (toast, message, title) => {
 	show(toast, message, title, "warning");
 };
 
+export const showInfo = (toast, message, title) => {
+	show(toast, message, title, "info");
+};
+
 const parseErrors = (error) => {
 	if (typeof error === "string") return error;
 

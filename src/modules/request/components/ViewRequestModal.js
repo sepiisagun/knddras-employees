@@ -20,6 +20,7 @@ import {
 	Select,
 	Stack,
 	Textarea,
+	useToast,
 } from "@chakra-ui/react";
 
 import spiels from "../../../constants/spiels";
@@ -32,11 +33,18 @@ import { acceptRequest, rejectRequest } from "../engine/request.mutations";
 import { retrieveDoctorAccounts } from "../../auth/engine/auth.queries";
 import { retrieveProcedures } from "../../../utils/engine/procedure.queries";
 import { retrieveRequest } from "../engine/request.queries";
+import { showSuccess } from "../../../utils/notification";
+import {
+	notifSpiels,
+	toastAcceptMessage,
+	toastRejectedMessage,
+} from "../../../constants/notificationSpiels";
 
 const ViewRequestModal = ({ id, isOpen, onClose, onOpen }) => {
 	const queryClient = useQueryClient();
 	const acceptRequestMutation = useMutation(acceptRequest);
 	const rejectRequestMutation = useMutation(rejectRequest);
+	const toast = useToast();
 
 	const {
 		data: { data: requestData = [] },
@@ -96,7 +104,11 @@ const ViewRequestModal = ({ id, isOpen, onClose, onOpen }) => {
 					});
 					resetForm();
 					onClose();
-
+					showSuccess(
+						toast,
+						toastAcceptMessage("Appointment"),
+						notifSpiels.SUCCESS,
+					);
 					// go to success page
 				})
 				.catch((error) => {
@@ -135,6 +147,11 @@ const ViewRequestModal = ({ id, isOpen, onClose, onOpen }) => {
 					});
 					resetFormReject();
 					onClose();
+					showSuccess(
+						toast,
+						toastRejectedMessage("Appointment"),
+						notifSpiels.SUCCESS,
+					);
 
 					// go to success page
 				})
