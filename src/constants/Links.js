@@ -5,6 +5,7 @@ import {
 	MdSchedule,
 	MdOutlineTopic,
 	MdOutlineMultipleStop,
+	MdAccountCircle,
 } from "react-icons/md";
 import { ENDPOINTS } from "./Endpoints";
 
@@ -70,6 +71,13 @@ const Links = [
 		icon: MdOutlineTopic,
 		location: "dashboard",
 		title: "Users",
+	},
+	{
+		allowed: ["dental_assistant", "dentist", "associate_dentist", "admin"],
+		href: `${ENDPOINTS.ACCOUNT}`,
+		icon: MdAccountCircle,
+		location: "records",
+		title: "Account",
 	},
 ];
 

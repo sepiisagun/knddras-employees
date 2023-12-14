@@ -6,6 +6,7 @@ export const CONFIG = {
  * Front-end endpoints
  */
 export const ENDPOINTS = {
+	ACCOUNT: "account",
 	ADD_RECORD: "records/add-record",
 	APPOINTMENTS: "appointments",
 	CALENDAR: "calendar",
