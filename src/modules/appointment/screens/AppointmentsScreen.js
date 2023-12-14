@@ -8,7 +8,7 @@ import {
 	useColorModeValue,
 } from "@chakra-ui/react";
 import { DateTime } from "luxon";
-
+import { useState } from "react";
 import ProfileLayout from "../../../layout/ProfileLayout";
 import StrapiTable from "../../../components/Table";
 import MiniStatistics from "../../../components/MiniStatisticsCount";
@@ -20,6 +20,11 @@ import { retrieveRequests } from "../../request/engine/request.queries";
 
 const AppointmentsScreen = () => {
 	const today = DateTime.now().toFormat("yyyy-MM-dd");
+	const [searchInput, setSearchInput] = useState({
+		patient: {
+			// firstName: "Lyndsy",
+		},
+	});
 	const {
 		data: { total: upcomingTotal },
 	} = useQuery({
@@ -69,12 +74,19 @@ const AppointmentsScreen = () => {
 
 	const {
 		data: { data },
+		refetch,
 	} = useQuery({
 		initialData: [],
 		queryFn: retrieveAppointments,
 		queryKey: [
 			"appointments-data",
 			{
+				filters: {
+					// patient: {
+					// 	firstName: searchInput,
+					// },
+					...searchInput,
+				},
 				populate: "*",
 				sort: "date:desc",
 			},
@@ -129,7 +141,10 @@ const AppointmentsScreen = () => {
 						</Card>
 					))}
 				</Grid>
-				<AppointmentsSearchBar />
+				<AppointmentsSearchBar
+					refetch={refetch}
+					setValue={(e) => setSearchInput(e)}
+				/>
 				<StrapiTable
 					action={["View", "Edit"]}
 					data={data}
