@@ -1,17 +1,28 @@
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 
-import { Flex, Box, Icon, Button } from "@chakra-ui/react";
+import { Flex, Box, Icon, Button, useToast } from "@chakra-ui/react";
 
 import { logout } from "../../modules/auth/engine/auth.actions";
+import { showSuccess } from "../../utils/notification";
+import {
+	notifSpiels,
+	toastSuccessfulLoginMessage,
+} from "../../constants/notificationSpiels";
 
 const SideBarMenuItem = ({ item }) => {
 	const dispatch = useDispatch();
 	const router = useRouter();
+	const toast = useToast();
 
 	const handleLogout = () => {
 		dispatch(logout());
 		router.push("/");
+		showSuccess(
+			toast,
+			toastSuccessfulLoginMessage("Logged out"),
+			notifSpiels.SUCCESS,
+		);
 	};
 
 	return (

@@ -56,14 +56,13 @@ const LogInForm = () => {
 				const {
 					data: { role },
 				} = details;
-
+				showSuccess(
+					toast,
+					toastSuccessfulLoginMessage("Logged in"),
+					notifSpiels.SUCCESS,
+				);
 				if (_.get(role, "type") !== "authenticated") {
 					router.push(`${ENDPOINTS.EMPLOYEES}`);
-					showSuccess(
-						toast,
-						toastSuccessfulLoginMessage("Logged in"),
-						notifSpiels.SUCCESS,
-					);
 				} else router.push(`${ENDPOINTS.DASHBOARD}`);
 			})
 			.catch((error) => {
