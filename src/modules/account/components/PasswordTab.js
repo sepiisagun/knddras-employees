@@ -6,6 +6,7 @@ import {
 	AvatarBadge,
 	Box,
 	Button,
+	// eslint-disable-next-line no-unused-vars
 	Divider,
 	FormControl,
 	FormErrorMessage,
@@ -19,6 +20,7 @@ import { changePassword } from "../../auth/engine/auth.mutations";
 
 import spiels from "../../../constants/spiels";
 import { ChangePasswordSchema } from "../model/record.model";
+// eslint-disable-next-line no-unused-vars
 import DeactivateAccountModal from "../../../components/Modals/DeactivateAccountModal";
 
 const PasswordTab = () => {
@@ -158,9 +160,9 @@ const PasswordTab = () => {
 					</FormControl>
 				</Stack>
 			</FormikProvider>
-
+			{/* 
 			<Divider my={4} />
-			<DeactivateAccountModal />
+			<DeactivateAccountModal /> */}
 		</Tabs>
 	);
 };

@@ -133,7 +133,7 @@ const RequestScreen = () => {
 						"Name",
 						"Contact Number",
 						"Last Visit",
-						"Status",
+						"With Record",
 						"Action",
 					]}
 				/>

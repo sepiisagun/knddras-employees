@@ -367,6 +367,24 @@ const TableRow = ({
 								</Td>
 							);
 						}
+						if (title === "Last Visit") {
+							return (
+								<Td key={index}>
+									<Flex direction="column">
+										<Text
+											color="gray.700"
+											fontSize="md"
+											fontWeight="bold"
+										>
+											{!_.isEmpty(_.get(data, "treatment[0].createdAt")) ? DateTime.fromISO(
+												_.get(data, "treatment[0].createdAt"),
+												  ).toFormat("MMMM d, yyyy")
+												: "No Record"}
+										</Text>
+									</Flex>
+								</Td>
+							);
+						}
 						if (title === "Status") {
 							return (
 								<Td key={index}>
@@ -415,6 +433,32 @@ const TableRow = ({
 												minWidth="100%"
 											>
 												{!_.isEmpty(mobileNumber) ? mobileNumber : '-'}
+											</Text>
+										</Flex>
+									</Flex>
+								</Td>
+							);
+						}
+						if (
+							title === "With Record"
+						) {
+							return (
+								<Td
+									key={index}
+								>
+									<Flex
+										align="center"
+										flexWrap="nowrap"
+										minWidth="100%"
+									>
+										<Flex direction="column">
+											<Text
+												color="gray.700"
+												fontSize="md"
+												fontWeight="bold"
+												minWidth="100%"
+											>
+												{_.get(data, "status") ? "Yes" : "No"}
 											</Text>
 										</Flex>
 									</Flex>
