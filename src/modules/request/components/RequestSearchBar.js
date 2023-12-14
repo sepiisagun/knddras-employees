@@ -12,8 +12,8 @@ import {
 import { useQueryClient } from "react-query";
 import React, { useState } from "react";
 import { SearchIcon } from "@chakra-ui/icons";
+
 import { MdFilterList } from "react-icons/md";
-// import Link from "next/link";
 import spiels from "../../../constants/spiels";
 
 const RequestSearchBar = ({ setValue }) => {

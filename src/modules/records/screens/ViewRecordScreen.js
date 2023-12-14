@@ -1,6 +1,5 @@
 import { useQuery } from "react-query";
 import { useRouter } from "next/router";
-import _ from "lodash";
 
 import { Box } from "@chakra-ui/react";
 
@@ -10,8 +9,10 @@ import ProfileLayout from "../../../layout/ProfileLayout";
 import ViewRecordProfileTable from "../components/ViewRecordProfileTable";
 import ViewRecordSearchBar from "../components/ViewRecordSearchBar";
 
-import { retrieveRecord } from "../engine/record.queries";
-import { retrieveTransactions } from "../../transaction/engine/transaction.queries";
+import {
+	retrieveRecord,
+	retrieveUserAppointments,
+} from "../engine/record.queries";
 
 const ViewRecordScreen = () => {
 	const router = useRouter();
@@ -27,19 +28,15 @@ const ViewRecordScreen = () => {
 	});
 
 	const {
-		data: { data: transactionData = [] },
+		data: { data },
 	} = useQuery({
 		initialData: [],
-		placeholderData: [],
-		queryFn: retrieveTransactions,
+		queryFn: retrieveUserAppointments,
 		queryKey: [
-			"user-transaction-data",
+			"appointments-data",
 			{
-				filters: {
-					patient: {
-						id: _.get(userRecord, "patient.id"),
-					},
-				},
+				populate: "*",
+				sort: "date:desc",
 			},
 		],
 	});
@@ -51,7 +48,7 @@ const ViewRecordScreen = () => {
 				<ViewRecordSearchBar />
 				<StrapiTable
 					action={["View"]}
-					data={transactionData}
+					data={data}
 					headerTitles={["Procedure", "Date", "Price", "Action"]}
 					title="Treatments"
 				/>

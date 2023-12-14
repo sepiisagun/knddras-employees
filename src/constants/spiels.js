@@ -108,6 +108,7 @@ const spiels = {
 	BUTTON_BOOK_NOW: "Book Now",
 	BUTTON_CANCEL: "Cancel",
 	BUTTON_CANCEL_APPOINTMENT: "Cancel Appointment",
+	BUTTON_DEACTIVATE_ACCOUNT: "Deactivate Account",
 	BUTTON_DELETE_ACCOUNT: "Delete Account",
 	BUTTON_DELETE: "Delete",
 	BUTTON_EDIT_RECORD: "Edit Record",

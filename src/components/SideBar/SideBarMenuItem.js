@@ -1,4 +1,4 @@
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 
 import { Flex, Box, Icon, Button } from "@chakra-ui/react";
@@ -13,12 +13,17 @@ const SideBarMenuItem = ({ item }) => {
 		dispatch(logout());
 		router.push("/");
 	};
+
 	return (
 		<Box key={item.key}>
 			<Button
 				key={item.title}
 				_hover={{
-					bg: "gray.200",
+					bg:
+						router.pathname === `/${item.href}`
+							? "teal.600"
+							: "gray.200",
+					borderRadius: "15px",
 				}}
 				alignItems="center"
 				borderRadius="15px"
@@ -36,7 +41,7 @@ const SideBarMenuItem = ({ item }) => {
 				}}
 				py="8px"
 				variant={
-					Router.pathname === `/${item.href}` ? "solid" : "ghost"
+					router.pathname === `/${item.href}` ? "solid" : "ghost"
 				}
 				w="100%"
 			>
