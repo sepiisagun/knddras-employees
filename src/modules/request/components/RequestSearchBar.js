@@ -10,7 +10,10 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { SearchIcon } from "@chakra-ui/icons";
+
 import { MdFilterList } from "react-icons/md";
+import Link from "next/link";
+
 import spiels from "../../../constants/spiels";
 
 const RequestSearchBar = () => {
@@ -38,6 +41,11 @@ const RequestSearchBar = () => {
 				</Flex>
 				<Box justifyContent="center">{spiels.TEXT_FILTER}</Box>
 			</Button>
+			<Link href="/" passHref>
+				<Button colorScheme="teal" onClick={() => setShowFilter(false)}>
+					{spiels.BUTTON_SEARCH}
+				</Button>
+			</Link>
 		</HStack>
 	);
 };
