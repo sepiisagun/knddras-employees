@@ -40,8 +40,13 @@ const SearchBar = () => {
 				</Flex>
 				<Box justifyContent="center">{spiels.TEXT_FILTER}</Box>
 			</Button>
-			<Link href={`${ENDPOINTS.ADD_RECORD}`} passHref>
+			<Link href="/" passHref>
 				<Button colorScheme="teal" onClick={() => setShowFilter(false)}>
+					{spiels.BUTTON_SEARCH}
+				</Button>
+			</Link>
+			<Link href={`${ENDPOINTS.ADD_RECORD}`} passHref>
+				<Button colorScheme="blue" onClick={() => setShowFilter(false)}>
 					{spiels.BUTTON_ADD_RECORD}
 				</Button>
 			</Link>
