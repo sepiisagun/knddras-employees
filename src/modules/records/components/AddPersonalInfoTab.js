@@ -20,7 +20,7 @@ import { retrieveUserAccounts } from "../engine/record.queries";
 
 import spiels from "../../../constants/spiels";
 
-const AddPersonalInfoTab = () => {
+const AddPersonalInfoTab = ({ formType }) => {
 	const { errors, handleBlur, handleChange, setFieldValue, touched, values } =
 		useFormikContext();
 
@@ -152,58 +152,64 @@ const AddPersonalInfoTab = () => {
 				</Box>
 			</FormControl>
 
-			<SimpleGrid columns={2} spacing={10}>
-				<FormControl isInvalid={touched.patient && errors.patient}>
-					<Box pt={2}>
-						<FormLabel>{spiels.FORM_PATIENT}</FormLabel>
-						<Select
-							data-testid="patient"
-							id="patient"
-							name="patient"
-							onBlur={handleBlur}
-							onChange={(e) => {
-								const user = _.find(
-									data,
-									// eslint-disable-next-line eqeqeq
-									(item) => item.id == e.target.value,
-								);
-								setFieldValue("patient", _.get(user, "id"));
-								setFieldValue("email", _.get(user, "email"));
-							}}
-							placeholder="- Select Patient -"
-							value={values.patient}
-						>
-							{data.map((patient) => (
-								<option key={patient.id} value={patient.id}>
-									{_.get(patient, "firstName")}{" "}
-									{_.get(patient, "lastName")}
-								</option>
-							))}
-						</Select>
-						<FormErrorMessage>
-							{touched.patient && errors.patient}
-						</FormErrorMessage>
-					</Box>
-				</FormControl>
-				<FormControl isInvalid={touched.email && errors.email}>
-					<Box pt={2}>
-						<FormLabel>{spiels.FORM_EMAIL_ADDRESS}</FormLabel>
-						<Tooltip hasArrow label="Automatically filled">
-							<Input
-								data-testid="email"
-								id="email"
-								isReadOnly
-								name="email"
-								type="email"
-								value={values.email}
-							/>
-						</Tooltip>
-						<FormErrorMessage>
-							{touched.email && errors.email}
-						</FormErrorMessage>
-					</Box>
-				</FormControl>
-			</SimpleGrid>
+			{formType !== "Edit" && (
+				<SimpleGrid columns={2} spacing={10}>
+					<FormControl isInvalid={touched.patient && errors.patient}>
+						<Box pt={2}>
+							<FormLabel>{spiels.FORM_PATIENT}</FormLabel>
+							<Select
+								data-testid="patient"
+								id="patient"
+								name="patient"
+								onBlur={handleBlur}
+								onChange={(e) => {
+									const user = _.find(
+										data,
+										// eslint-disable-next-line eqeqeq
+										(item) => item.id == e.target.value,
+									);
+									setFieldValue("patient", _.get(user, "id"));
+									setFieldValue(
+										"email",
+										_.get(user, "email"),
+									);
+								}}
+								placeholder="- Select Patient -"
+								value={values.patient}
+							>
+								{data.map((patient) => (
+									<option key={patient.id} value={patient.id}>
+										{_.get(patient, "firstName")}{" "}
+										{_.get(patient, "lastName")}
+									</option>
+								))}
+							</Select>
+							<FormErrorMessage>
+								{touched.patient && errors.patient}
+							</FormErrorMessage>
+						</Box>
+					</FormControl>
+					<FormControl isInvalid={touched.email && errors.email}>
+						<Box pt={2}>
+							<FormLabel>{spiels.FORM_EMAIL_ADDRESS}</FormLabel>
+							<Tooltip hasArrow label="Automatically filled">
+								<Input
+									data-testid="email"
+									id="email"
+									isReadOnly
+									name="email"
+									type="email"
+									value={values.email}
+								/>
+							</Tooltip>
+							<FormErrorMessage>
+								{touched.email && errors.email}
+							</FormErrorMessage>
+						</Box>
+					</FormControl>
+				</SimpleGrid>
+			)}
+
 			<FormControl
 				isInvalid={touched.mobileNumber && errors.mobileNumber}
 			>

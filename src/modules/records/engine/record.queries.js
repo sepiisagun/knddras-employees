@@ -33,3 +33,31 @@ export const retrieveUserAppointments = (context) => {
 		})
 		.then(defaultThen);
 };
+
+export const retrieveDentalRecords = (context) => {
+	const { queryKey } = context;
+	const [, params] = queryKey;
+
+	return api.get(API_ENDPOINTS.DENTAL_RECORDS, { params }).then(defaultThen);
+};
+
+export const retrieveMedicalRecords = (context) => {
+	const { queryKey } = context;
+	const [, params] = queryKey;
+
+	return api.get(API_ENDPOINTS.MEDICAL, { params }).then(defaultThen);
+};
+
+export const retrieveConditionRecords = (context) => {
+	const { queryKey } = context;
+	const [, params] = queryKey;
+
+	return api.get(API_ENDPOINTS.CONDITIONS, { params }).then(defaultThen);
+};
+
+export const retrieveGuardians = (context) => {
+	const { queryKey } = context;
+	const [, params] = queryKey;
+
+	return api.get(API_ENDPOINTS.GUARDIANS, { params }).then(defaultThen);
+};

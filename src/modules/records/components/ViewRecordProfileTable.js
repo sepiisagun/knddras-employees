@@ -1,4 +1,5 @@
 /* eslint-disable indent */
+import Link from "next/link";
 import _ from "lodash";
 import { DateTime } from "luxon";
 
@@ -16,6 +17,8 @@ import spiels from "../../../constants/spiels";
 import PrintModal from "./PrintModal";
 import AddTreatment from "./Treatment/AddTreatment";
 
+import { ENDPOINTS } from "../../../constants/Endpoints";
+
 const ViewRecordProfileTable = ({ data }) => {
 	const currentYear = new Date().getFullYear();
 	const age =
@@ -26,17 +29,24 @@ const ViewRecordProfileTable = ({ data }) => {
 			<CardHeader mb="1px" px="12px" py="2px">
 				{/* Not sure why the buttons are glitching when hovering over them */}
 				{/* The logo on the navbar also disappears */}
-				<Button
-					colorScheme="blue"
-					float="right"
-					mt={3}
-					mx={1}
-					p={5}
-					size="md"
-					variant="solid"
+				<Link
+					href={`/${ENDPOINTS.RECORDS}/edit-record/${_.get(
+						data,
+						"id",
+					)}`}
 				>
-					Edit
-				</Button>
+					<Button
+						colorScheme="blue"
+						float="right"
+						mt={3}
+						mx={1}
+						p={5}
+						size="md"
+						variant="solid"
+					>
+						Edit
+					</Button>
+				</Link>
 
 				<PrintModal />
 				<AddTreatment />

@@ -31,13 +31,13 @@ const Links = [
 		location: "appointments",
 		title: "Appointments",
 	},
-	{
-		allowed: ["dental_assistant", "dentist", "associate_dentist"],
-		href: `${ENDPOINTS.CALENDAR}`,
-		icon: MdOutlineCalendarToday,
-		location: "appointments",
-		title: "Calendar",
-	},
+	// {
+	// 	allowed: ["dental_assistant", "dentist", "associate_dentist"],
+	// 	href: `${ENDPOINTS.CALENDAR}`,
+	// 	icon: MdOutlineCalendarToday,
+	// 	location: "appointments",
+	// 	title: "Calendar",
+	// },
 	{
 		allowed: ["dental_assistant", "dentist", "associate_dentist"],
 		href: `${ENDPOINTS.RECORDS}`,

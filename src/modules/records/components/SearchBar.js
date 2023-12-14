@@ -1,3 +1,5 @@
+import { useSelector } from "react-redux";
+
 import {
 	Box,
 	Button,
@@ -17,7 +19,11 @@ import spiels from "../../../constants/spiels";
 import { ENDPOINTS } from "../../../constants/Endpoints";
 import EmployeeModal from "../../../components/Modals/EmployeeModal";
 
+import { userRoleTypeSelector } from "../../auth/engine/auth.selectors";
+import { ADMIN, ASSISTANT } from "../../../constants/userRoles";
+
 const SearchBar = ({ location = "default", setValue }) => {
+	const role = useSelector(userRoleTypeSelector);
 	const [showFilter, setShowFilter] = useState(false);
 	const [searchValue, setSearchValue] = useState("");
 	const queryClient = useQueryClient();
@@ -72,8 +78,10 @@ const SearchBar = ({ location = "default", setValue }) => {
 				</Flex>
 				<Box justifyContent="center">{spiels.TEXT_FILTER}</Box>
 			</Button>
-			{location === "Employees" && <EmployeeModal location="Add" />}
-			{location === "default" && (
+			{location === "Employees" && role === ADMIN && (
+				<EmployeeModal location="Add" />
+			)}
+			{location === "default" && role === ASSISTANT && (
 				<Link href={`${ENDPOINTS.ADD_RECORD}`} passHref>
 					<Button
 						colorScheme="teal"

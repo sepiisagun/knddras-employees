@@ -22,7 +22,6 @@ import AddHistoryTab from "./AddHistoryTab";
 import spiels from "../../../constants/spiels";
 import AddPersonalInfoTab from "./AddPersonalInfoTab";
 import ConditionsTab from "./ConditionsTab";
-import DentalChartTab from "./DentalChartTab";
 
 import { createRecord } from "../engine/record.mutations";
 import { fullRecordSchema, initialValues } from "../model/record.model";
@@ -80,38 +79,6 @@ const AddRecordTab = () => {
 					swollenAnkles: data.swollenAnkles,
 					thyroidProblem: data.thyroidProblem,
 					tuberculosis: data.tuberculosis,
-				},
-				dental: {
-					appliances: {
-						orthodontic: data.orthodontic,
-						stayplate: data.stayplate,
-					},
-					occlusion: {
-						crossbite: data.crossbite,
-						midlineDeviation: data.midlineDeviation,
-						molar: data.molar,
-						overbite: data.overbite,
-						overjet: data.overjetr,
-					},
-					periodental: {
-						advancedPeriodontitis: data.advancedPeriodontitis,
-						earlyPeriodontitis: data.earlyPeriodontitis,
-						gingivitis: data.gingivitis,
-						moderatePeriodontitis: data.moderatePeriodontitis,
-					},
-					tmd: {
-						clenching: data.clenching,
-						clicking: data.clicking,
-						muscleSpasm: data.muscleSpasm,
-
-						trismus: data.trismus,
-					},
-					xRay: {
-						cephalometric: data.cephalometric,
-						occlusal: data.occlusal,
-						panoramic: data.panoramic,
-						periapical: data.periapical,
-					},
 				},
 				medical: {
 					allergies: {
@@ -199,7 +166,6 @@ const AddRecordTab = () => {
 								<Tab>{spiels.PERSONAL_INFO}</Tab>
 								<Tab>{spiels.MEDICAL_HISTORY}</Tab>
 								<Tab>{spiels.CONDITIONS}</Tab>
-								<Tab>{spiels.DENTAL_CHART}</Tab>
 							</TabList>
 
 							<FormikProvider value={formikPersonalInfo}>
@@ -221,17 +187,10 @@ const AddRecordTab = () => {
 									<TabPanel>
 										<ConditionsTab
 											switchToNextTab={() =>
-												setCurrentTab(3)
+												setCurrentTab(2)
 											}
 											switchToPreviousTab={() =>
 												setCurrentTab(1)
-											}
-										/>
-									</TabPanel>
-									<TabPanel>
-										<DentalChartTab
-											switchToPreviousTab={() =>
-												setCurrentTab(2)
 											}
 										/>
 									</TabPanel>
@@ -243,14 +202,14 @@ const AddRecordTab = () => {
 							float="right"
 							mt={10}
 							onClick={() => {
-								if (currentTab < 3) {
+								if (currentTab < 2) {
 									setCurrentTab(currentTab + 1);
 								} else handleSubmit();
 							}}
 							size="sm"
 							variant="solid"
 						>
-							{currentTab !== 3
+							{currentTab !== 2
 								? spiels.BUTTON_NEXT
 								: spiels.BUTTON_SUBMIT}
 						</Button>
@@ -262,7 +221,7 @@ const AddRecordTab = () => {
 							onClick={() => {
 								if (currentTab === 0) {
 									resetPersonalInfo();
-									router.push(`/${ENDPOINTS.RECORDS}`);
+									router.back();
 								} else {
 									setCurrentTab(currentTab - 1);
 								}

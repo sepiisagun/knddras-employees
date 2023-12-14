@@ -39,7 +39,7 @@ const TableRow = ({
 			if (currentPath === "/appointments") {
 				return (<ViewAppointmentModal data={data} />);
 			}
-			if (currentPath === "/records") {
+			if (currentPath === "/records" && status) {
 				return (
 					<Button bg="transparent" p="0px" variant="no-hover">
 						<Text
@@ -54,12 +54,15 @@ const TableRow = ({
 					</Button>
 				);
 			}
-			if (_.includes(currentPath, "/records/")) {
+			if (_.includes(currentPath, "/records/") || _.includes(currentPath, "/transactions")) {
 				return <ViewTreatment data={data} />
 			}
-			return (
-				<ViewRequestModal id={_.get(data, "id")} isOpen={isOpenView} onClose={onCloseView} onOpen={onOpenView} />
-			);
+			if(_.includes(currentPath, "/requests")) {
+				return (
+					<ViewRequestModal id={_.get(data, "id")} isOpen={isOpenView} onClose={onCloseView} onOpen={onOpenView} />
+				);
+			}
+			return null;
 			
 		}
 		if (actionItem === "Edit") {
