@@ -17,8 +17,6 @@ import {
 
 import { userDetailsSelector } from "../../auth/engine/auth.selectors";
 
-import { retrieveRecord } from "../engine/info.queries";
-import { createRecord, updateRecord } from "../engine/info.mutation";
 import { recordSchema } from "../model/record.model";
 
 import spiels from "../../../constants/spiels";
@@ -26,23 +24,9 @@ import spiels from "../../../constants/spiels";
 const PersonalInfoTab = () => {
 	const user = useSelector(userDetailsSelector);
 	const queryClient = useQueryClient();
-	// eslint-disable-next-line no-console
-	console.log(user);
-	const {
-		data: { data: recordData },
-	} = useQuery({
-		initialData: [],
-		queryFn: retrieveRecord,
-		queryKey: [
-			"record",
-			{
-				id: _.get(user, "id", null),
-			},
-		],
-	});
 
-	const updateRecordMutation = useMutation(updateRecord);
-	const createRecordMutation = useMutation(createRecord);
+	// const updateRecordMutation = useMutation(updateRecord);
+	// const createRecordMutation = useMutation(createRecord);
 
 	const formik = useFormik({
 		enableReinitialize: true,
@@ -53,33 +37,35 @@ const PersonalInfoTab = () => {
 			mobileNumber: _.get(user, "mobileNumber"),
 		},
 		onSubmit: async (data, { resetForm }) => {
-			if (_.isEmpty(recordData)) {
-				createRecordMutation
-					.mutateAsync({ data })
-					.then(() => {
-						queryClient.invalidateQueries({ queryKey: "record" });
-						resetForm();
-						// go to success page
-					})
-					.catch((error) => {
-						// display error
-						// eslint-disable-next-line no-console
-						console.log(error);
-					});
-			} else {
-				updateRecordMutation
-					.mutateAsync({ data, id: _.get(recordData, "id") })
-					.then(() => {
-						queryClient.invalidateQueries({ queryKey: "record" });
-						resetForm();
-						// go to success page
-					})
-					.catch((error) => {
-						// display error
-						// eslint-disable-next-line no-console
-						console.log(error);
-					});
-			}
+			// if (_.isEmpty(recordData)) {
+			// 	createRecordMutation
+			// 		.mutateAsync({ data })
+			// 		.then(() => {
+			// 			queryClient.invalidateQueries({ queryKey: "record" });
+			// 			resetForm();
+			// 			// go to success page
+			// 		})
+			// 		.catch((error) => {
+			// 			// display error
+			// 			// eslint-disable-next-line no-console
+			// 			console.log(error);
+			// 		});
+			// } else {
+			// 	updateRecordMutation
+			// 		.mutateAsync({ data, id: _.get(recordData, "id") })
+			// 		.then(() => {
+			// 			queryClient.invalidateQueries({ queryKey: "record" });
+			// 			resetForm();
+			// 			// go to success page
+			// 		})
+			// 		.catch((error) => {
+			// 			// display error
+			// 			// eslint-disable-next-line no-console
+			// 			console.log(error);
+			// 		});
+			// }
+			// eslint-disable-next-line no-console
+			console.log(data);
 		},
 		validateOnBlur: true,
 		validateOnMount: true,
