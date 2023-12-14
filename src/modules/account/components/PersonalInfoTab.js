@@ -1,5 +1,5 @@
-import { useSelector } from "react-redux";
-import { useQueryClient, useMutation } from "react-query";
+import { useSelector, useDispatch } from "react-redux";
+import { useMutation } from "react-query";
 import { FormikProvider, useFormik } from "formik";
 import _ from "lodash";
 
@@ -13,19 +13,28 @@ import {
 	FormLabel,
 	Input,
 	SimpleGrid,
+	useToast,
 } from "@chakra-ui/react";
+
+import { retrieveUserDetails } from "../../auth/engine/auth.queries";
 
 import { userDetailsSelector } from "../../auth/engine/auth.selectors";
 
-import { updateUser } from "../../auth/engine/auth.mutations";
-
-import { recordSchema } from "../model/record.model";
+import { accountSchema } from "../model/record.model";
 
 import spiels from "../../../constants/spiels";
+import { login, updateUser } from "../../auth/engine/auth.mutations";
+import { showSuccess } from "../../../utils/notification";
+import {
+	notifSpiels,
+	toastUpdateMessage,
+} from "../../../constants/notificationSpiels";
+import { setUserDetails } from "../../auth/engine/auth.actions";
 
 const PersonalInfoTab = () => {
 	const user = useSelector(userDetailsSelector);
-	const queryClient = useQueryClient();
+	const dispatch = useDispatch();
+	const toast = useToast();
 
 	const updateAccountMutation = useMutation(updateUser);
 
@@ -41,9 +50,21 @@ const PersonalInfoTab = () => {
 			updateAccountMutation
 				.mutateAsync({ data, id: _.get(user, "id") })
 				.then(() => {
-					queryClient.invalidateQueries({ queryKey: "record" });
+					showSuccess(
+						toast,
+						toastUpdateMessage("info"),
+						notifSpiels.SUCCESS,
+					);
+					return Promise.all([retrieveUserDetails()]).then(
+						(result) => {
+							dispatch(login({ jwt: data.jwt, result: data }));
+							return result;
+						},
+					);
+				})
+				.then(([details]) => {
+					dispatch(setUserDetails(details));
 					resetForm();
-					// go to success page
 				})
 				.catch((error) => {
 					// display error
@@ -53,7 +74,7 @@ const PersonalInfoTab = () => {
 		},
 		validateOnBlur: true,
 		validateOnMount: true,
-		validationSchema: recordSchema,
+		validationSchema: accountSchema,
 	});
 
 	const { errors, handleBlur, handleChange, handleSubmit, touched, values } =
