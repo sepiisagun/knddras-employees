@@ -48,6 +48,7 @@ const TransactionsScreen = () => {
 			value: "1,250",
 		},
 	];
+
 	const iconBoxInside = useColorModeValue("white", "white");
 	return (
 		<ProfileLayout>
@@ -89,9 +90,9 @@ const TransactionsScreen = () => {
 					action={["View"]}
 					data={transactionData}
 					headerTitles={[
-						"Name",
+						"Patient",
 						"Procedure",
-						"Assigned To",
+						"Assigned To", // to fix
 						"Transaction Date",
 						"Total Fee",
 						"Action",
