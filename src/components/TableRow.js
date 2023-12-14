@@ -144,6 +144,7 @@ const TableRow = ({
 								else if (_.has(data, 'record')) user = _.get(data, 'record.data');
 								else if (_.has(data, "username")) user = data;
 								else user = _.get(data, 'doctor.data');
+								// console.log(title, user);
 								return (
 									<Td
 										key={index}

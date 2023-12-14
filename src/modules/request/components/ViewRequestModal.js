@@ -84,7 +84,7 @@ const ViewRequestModal = ({ id, isOpen, onClose, onOpen }) => {
 			const payload = {
 				date: data.date,
 				doctor: data.doctor,
-				patient: _.get(requestData, "patient.data.id"),
+				patient: _.get(requestData, "data.patient.data.id"),
 				purpose: data.purpose,
 				time: data.date,
 			};
