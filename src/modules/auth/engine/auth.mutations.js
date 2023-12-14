@@ -57,9 +57,19 @@ export const login = (user) => {
 		.then(({ data }) => data);
 };
 
-export const updateUser = (user) => {
+export const createUser = (context) => {
+	const { data: userData } = context;
+
 	return api
-		.put(`${API_ENDPOINTS.USERS}/me`, mapUserPayload(user))
+		.post(`${API_ENDPOINTS.ACCOUNTS}/create`, mapUserPayload(userData))
+		.then(({ data }) => data);
+};
+
+export const updateUser = (context) => {
+	const { data: userData, id } = context;
+
+	return api
+		.put(`${API_ENDPOINTS.ACCOUNTS}/me/${id}`, mapUserPayload(userData))
 		.then(({ data }) => data);
 };
 

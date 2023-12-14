@@ -2,6 +2,7 @@ import { useMutation } from "react-query";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import { useFormik } from "formik";
+import _ from "lodash";
 
 import {
 	Box,
@@ -46,7 +47,13 @@ const LogInForm = () => {
 			})
 			.then(([details]) => {
 				dispatch(setUserDetails(details));
-				router.push(`${ENDPOINTS.DASHBOARD}`);
+				const {
+					data: { role },
+				} = details;
+
+				if (_.get(role, "type") !== "authenticated")
+					router.push(`${ENDPOINTS.EMPLOYEES}`);
+				else router.push(`${ENDPOINTS.DASHBOARD}`);
 			})
 			.catch((error) => {
 				detachToken();
