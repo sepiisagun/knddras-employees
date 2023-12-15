@@ -61,7 +61,7 @@ const LogInForm = () => {
 					toastSuccessfulLoginMessage("Logged in"),
 					notifSpiels.SUCCESS,
 				);
-				if (_.get(role, "type") !== "authenticated") {
+				if (_.get(role, "type") === "admin") {
 					router.push(`${ENDPOINTS.EMPLOYEES}`);
 				} else router.push(`${ENDPOINTS.DASHBOARD}`);
 			})
