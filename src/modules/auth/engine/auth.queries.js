@@ -26,3 +26,12 @@ export const retrieveEmployeeAccounts = (context) => {
 		.get(`${API_ENDPOINTS.ACCOUNTS}/employees`, { params })
 		.then((data) => data);
 };
+
+export const retrieveEmployeeRoles = (context) => {
+	const { queryKey } = context;
+	const [, params] = queryKey;
+
+	return api
+		.get(`${API_ENDPOINTS.ACCOUNTS}/employeeRoles`, { params })
+		.then((data) => data);
+};

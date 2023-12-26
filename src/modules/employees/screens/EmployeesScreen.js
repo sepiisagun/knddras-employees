@@ -47,7 +47,13 @@ const EmployeesScreen = () => {
 				<StrapiTable
 					action={["Edit"]}
 					data={employeeData}
-					headerTitles={["Name", "Contact Number", "Role", "Action"]}
+					headerTitles={[
+						"Name",
+						"Contact Number",
+						"Role",
+						"Blocked",
+						"Action",
+					]}
 				/>
 			</Box>
 		</ProfileLayout>

@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { FormikProvider, useFormik } from "formik";
 import _ from "lodash";
 
@@ -27,6 +27,7 @@ import {
 
 import spiels from "../../constants/spiels";
 // import { APPOINTMENT_USERS } from "../../constants/temporaryValues";
+import { retrieveEmployeeRoles } from "../../modules/auth/engine/auth.queries";
 
 import {
 	createUser,
@@ -37,6 +38,16 @@ const EmployeeModal = ({ location, userData = {} }) => {
 	const queryClient = useQueryClient();
 	const createEmployeeMutation = useMutation(createUser);
 	const updateEmployeeMutation = useMutation(updateUser);
+
+	const {
+		data: { data: roles },
+		isFetched,
+	} = useQuery({
+		initialData: [],
+		placeholderData: [],
+		queryFn: retrieveEmployeeRoles,
+		queryKey: ["employee-roles-data"],
+	});
 
 	const {
 		isOpen: isOpenSetAppointment,
@@ -143,155 +154,165 @@ const EmployeeModal = ({ location, userData = {} }) => {
 			>
 				<ModalOverlay />
 				<ModalContent>
-					<ModalHeader>{spiels.FORM_ADD_EMPLOYEE}</ModalHeader>
+					<ModalHeader>
+						{location === "Add"
+							? spiels.FORM_ADD_EMPLOYEE
+							: spiels.FORM_EDIT_EMPLOYEE}
+					</ModalHeader>
 					<ModalCloseButton mt={3} />
 					<ModalBody>
-						<FormikProvider value={formik}>
-							<SimpleGrid columns={2} spacing={10}>
+						{isFetched && (
+							<FormikProvider value={formik}>
+								<SimpleGrid columns={2} spacing={10}>
+									<FormControl
+										isInvalid={
+											touched.firstName &&
+											errors.firstName
+										}
+									>
+										<Box>
+											<FormLabel>
+												{spiels.FORM_FNAME}
+											</FormLabel>
+											<Input
+												data-testid="firstName"
+												id="firstName"
+												name="firstName"
+												onBlur={handleBlur}
+												onChange={handleChange}
+												type="text"
+												value={values.firstName}
+											/>
+											<FormErrorMessage>
+												{touched.firstName &&
+													errors.firstName}
+											</FormErrorMessage>
+										</Box>
+									</FormControl>
+									<FormControl
+										isInvalid={
+											touched.lastName && errors.lastName
+										}
+									>
+										<Box>
+											<FormLabel>
+												{spiels.FORM_LNAME}
+											</FormLabel>
+											<Input
+												data-testid="lastName"
+												id="lastName"
+												name="lastName"
+												onBlur={handleBlur}
+												onChange={handleChange}
+												type="text"
+												value={values.lastName}
+											/>
+											<FormErrorMessage>
+												{touched.lastName &&
+													errors.lastName}
+											</FormErrorMessage>
+										</Box>
+									</FormControl>
+								</SimpleGrid>
 								<FormControl
-									isInvalid={
-										touched.firstName && errors.firstName
-									}
+									isInvalid={touched.email && errors.email}
 								>
-									<Box>
-										<FormLabel>
-											{spiels.FORM_FNAME}
-										</FormLabel>
-										<Input
-											data-testid="firstName"
-											id="firstName"
-											name="firstName"
-											onBlur={handleBlur}
-											onChange={handleChange}
-											type="text"
-											value={values.firstName}
-										/>
-										<FormErrorMessage>
-											{touched.firstName &&
-												errors.firstName}
-										</FormErrorMessage>
-									</Box>
-								</FormControl>
-								<FormControl
-									isInvalid={
-										touched.lastName && errors.lastName
-									}
-								>
-									<Box>
-										<FormLabel>
-											{spiels.FORM_LNAME}
-										</FormLabel>
-										<Input
-											data-testid="lastName"
-											id="lastName"
-											name="lastName"
-											onBlur={handleBlur}
-											onChange={handleChange}
-											type="text"
-											value={values.lastName}
-										/>
-										<FormErrorMessage>
-											{touched.lastName &&
-												errors.lastName}
-										</FormErrorMessage>
-									</Box>
-								</FormControl>
-							</SimpleGrid>
-							<FormControl
-								isInvalid={touched.email && errors.email}
-							>
-								<FormLabel>
-									{spiels.FORM_EMAIL_ADDRESS}
-								</FormLabel>
-								<Input
-									data-testid="email"
-									id="email"
-									name="email"
-									onBlur={handleBlur}
-									onChange={handleChange}
-									type="email"
-									value={values.email}
-								/>
-								<FormErrorMessage>
-									{touched.email && errors.email}
-								</FormErrorMessage>
-							</FormControl>
-							<SimpleGrid columns={2} spacing={10}>
-								<FormControl
-									isInvalid={touched.role && errors.role}
-									mb={2}
-								>
-									<Box>
-										<FormLabel>
-											{spiels.FORM_SELECT_ROLE}
-										</FormLabel>
-										<Select
-											data-testid="role"
-											id="role"
-											name="role"
-											onBlur={handleBlur}
-											onChange={handleChange}
-											placeholder="- Select Role -"
-											value={values.role}
-										>
-											{spiels.FORM_EMPLOYEE_ROLES.map(
-												(role) => (
-													<option
-														key={role.value}
-														value={role.value}
-													>
-														{_.get(role, "label")}
-													</option>
-												),
-											)}
-										</Select>
-									</Box>
+									<FormLabel>
+										{spiels.FORM_EMAIL_ADDRESS}
+									</FormLabel>
+									<Input
+										data-testid="email"
+										id="email"
+										isDisabled={location === "Edit"}
+										name="email"
+										onBlur={handleBlur}
+										onChange={handleChange}
+										type="email"
+										value={values.email}
+									/>
 									<FormErrorMessage>
-										{touched.role && errors.role}
+										{touched.email && errors.email}
 									</FormErrorMessage>
 								</FormControl>
-
-								<FormControl
-									isInvalid={
-										touched.mobileNumber &&
-										errors.mobileNumber
-									}
-								>
-									<Box>
-										<FormLabel>
-											{spiels.FORM_CONTACT_NO}
-										</FormLabel>
-										<Input
-											data-testid="mobileNumber"
-											id="mobileNumber"
-											name="mobileNumber"
-											onBlur={handleBlur}
-											onChange={handleChange}
-											type="text"
-											value={values.mobileNumber}
-										/>
+								<SimpleGrid columns={2} spacing={10}>
+									<FormControl
+										isInvalid={touched.role && errors.role}
+										mb={2}
+									>
+										<Box>
+											<FormLabel>
+												{spiels.FORM_SELECT_ROLE}
+											</FormLabel>
+											<Select
+												data-testid="role"
+												id="role"
+												name="role"
+												onBlur={handleBlur}
+												onChange={handleChange}
+												placeholder="- Select Role -"
+												value={values.role}
+											>
+												{roles.map((role) => (
+													<option
+														key={role.id}
+														value={role.id}
+													>
+														{_.get(role, "name")}
+													</option>
+												))}
+											</Select>
+										</Box>
 										<FormErrorMessage>
-											{touched.mobileNumber &&
-												errors.mobileNumber}
+											{touched.role && errors.role}
 										</FormErrorMessage>
-									</Box>
-								</FormControl>
-							</SimpleGrid>
-							<Divider mt={4} />
-							<Stack direction="row">
-								<Switch
-									data-testid="blocked"
-									id="blocked"
-									isChecked={values.blocked}
-									name="blocked"
-									onChange={handleChange}
-									pt={2}
-									value={values.blocked}
-								>
-									Block User?
-								</Switch>
-							</Stack>
-						</FormikProvider>
+									</FormControl>
+
+									<FormControl
+										isInvalid={
+											touched.mobileNumber &&
+											errors.mobileNumber
+										}
+									>
+										<Box>
+											<FormLabel>
+												{spiels.FORM_CONTACT_NO}
+											</FormLabel>
+											<Input
+												data-testid="mobileNumber"
+												id="mobileNumber"
+												name="mobileNumber"
+												onBlur={handleBlur}
+												onChange={handleChange}
+												type="text"
+												value={values.mobileNumber}
+											/>
+											<FormErrorMessage>
+												{touched.mobileNumber &&
+													errors.mobileNumber}
+											</FormErrorMessage>
+										</Box>
+									</FormControl>
+								</SimpleGrid>
+								{location === "Edit" && (
+									<>
+										<Divider mt={4} />
+										<Stack direction="row">
+											<Switch
+												data-testid="blocked"
+												id="blocked"
+												isChecked={values.blocked}
+												name="blocked"
+												onChange={handleChange}
+												pt={2}
+												value={values.blocked}
+											>
+												Block User?
+											</Switch>
+										</Stack>
+									</>
+								)}
+							</FormikProvider>
+						)}
 					</ModalBody>
 					<ModalFooter>
 						<Button
@@ -300,7 +321,9 @@ const EmployeeModal = ({ location, userData = {} }) => {
 							onClick={handleSubmit}
 							variant="solid"
 						>
-							{spiels.BUTTON_ADD}
+							{location === "Add"
+								? spiels.BUTTON_ADD
+								: spiels.BUTTON_SAVE}
 						</Button>
 						<Button
 							colorScheme="blue"

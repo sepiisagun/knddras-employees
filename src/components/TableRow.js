@@ -34,6 +34,7 @@ const TableRow = ({
 			((status === "PENDING" || status === true || status === false) ||
 			!status  ||
 			(currentPath === "/appointments" && (status === "CANCELLED" || status === "ACCEPTED")) ||
+			currentPath === "/request" ||
 			(_.includes(currentPath, "/records/")))
 		) {
 			if (currentPath === "/appointments") {
@@ -57,7 +58,7 @@ const TableRow = ({
 			if (_.includes(currentPath, "/records/") || _.includes(currentPath, "/transactions")) {
 				return <ViewTreatment data={data} />
 			}
-			if(_.includes(currentPath, "/requests")) {
+			if(_.includes(currentPath, "/request")) {
 				return (
 					<ViewRequestModal id={_.get(data, "id")} isOpen={isOpenView} onClose={onCloseView} onOpen={onOpenView} />
 				);
@@ -400,6 +401,21 @@ const TableRow = ({
 										p="3px 10px"
 									>
 										{_.capitalize(data[_.toLower(title)])}
+									</Badge>
+								</Td>
+							);
+						}
+						if (title === "Blocked") {
+							return (
+								<Td key={index}>
+									<Badge
+										bg={data[_.toLower(title)] === false ? "green.400" : "gray.400"}
+										borderRadius="8px"
+										color="white"
+										fontSize="16px"
+										p="3px 10px"
+									>
+										{data[_.toLower(title)]  === false ? "Active" : "Blocked"}
 									</Badge>
 								</Td>
 							);
