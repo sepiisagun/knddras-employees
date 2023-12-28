@@ -7,16 +7,19 @@ import {
 	Input,
 	InputGroup,
 	InputLeftElement,
+	Select,
 	useDisclosure,
 } from "@chakra-ui/react";
-import { useQueryClient } from "react-query";
-
+import { useQueryClient, useQuery } from "react-query";
 import React, { useState } from "react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { MdFilterList } from "react-icons/md";
 import spiels from "../../../constants/spiels";
 import TransactionPrintModal from "./TransactionPrintModal";
-
+import {
+	retrieveDoctorAccounts,
+	retrieveProcedures
+} from "../../../modules/auth/engine/auth.queries";
 const TransactionsSearchBar = ({ setValue }) => {
 	const { onOpen: onOpenForgot } = useDisclosure();
 	const [searchValue, setSearchValue] = useState("");
@@ -31,6 +34,22 @@ const TransactionsSearchBar = ({ setValue }) => {
 	const handleStartDateChange = (e) => setStartDate(e.target.value);
 	const [endDate, setEndDate] = useState("")
 	const handleEndDateChange = (e) => setEndDate(e.target.value);
+	const {
+		data: { data: doctorData = [] },
+	} = useQuery({
+		initialData: [],
+		placeholderData: [],
+		queryFn: retrieveDoctorAccounts,
+		queryKey: ["doctor-data"],
+	});
+	const {
+		data: { data: procedureData = [] },
+	} = useQuery({
+		initialData: [],
+		placeholderData: [],
+		queryFn: retrieveProcedures,
+		queryKey: ["procedure-data"],
+	});
 	return (
 		<><HStack py={3}>
 			<InputGroup>
@@ -123,7 +142,7 @@ const TransactionsSearchBar = ({ setValue }) => {
 						<Box>
 							<HStack>
 								<HStack>
-									<Box>Start Date</Box>
+									<Box fontWeight="medium">Start Date</Box>
 									<Box>
 										<Input
 											borderRadius="md"
@@ -134,7 +153,7 @@ const TransactionsSearchBar = ({ setValue }) => {
 									</Box>
 								</HStack>
 								<HStack>
-									<Box>End Date</Box>
+									<Box fontWeight="medium">End Date</Box>
 									<Box>
 										<Input
 											borderRadius="md"
@@ -143,6 +162,56 @@ const TransactionsSearchBar = ({ setValue }) => {
 											value={endDate}
 										/>
 									</Box>
+								</HStack>
+								<HStack px={5}>
+									<Box fontWeight="medium">
+										Dentist
+									</Box>
+									<Select
+										data-testid="doctor"
+										id="doctor"
+										name="doctor"
+										placeholder="Select Dentist"
+									>
+										{doctorData.map((dentist) => {
+											return (
+												<option
+													key={dentist.id}
+													value={dentist.id}
+												>
+													Dr.{" "}
+													{_.get(
+														dentist,
+														"firstName",
+													)}{" "}
+													{_.get(dentist, "lastName")}
+												</option>
+											);
+										})}
+									</Select>
+								</HStack>
+								<HStack px={5}>
+									<Box fontWeight="medium">
+										Procedure
+									</Box>
+									<Select
+										data-testid="purpose"
+										id="purpose"
+										name="purpose"
+										placeholder="Select Procedure"
+									>
+										{procedureData.map((procedure) => (
+											<option
+												key={procedure.id}
+												value={procedure.id}
+											>
+												{_.get(
+													procedure,
+													"readableName",
+												)}
+											</option>
+										))}
+									</Select>
 								</HStack>
 							</HStack>
 						</Box>

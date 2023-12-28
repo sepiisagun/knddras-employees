@@ -1,6 +1,7 @@
 import {
 	Box,
 	Button,
+	Checkbox,
 	Flex,
 	HStack,
 	Icon,
@@ -25,54 +26,56 @@ const RequestSearchBar = ({ setValue }) => {
 	const [endDate, setEndDate] = useState("")
 	const handleEndDateChange = (e) => setEndDate(e.target.value);
 	return (
-		<><HStack py={3}>
-			<InputGroup>
-				<InputLeftElement pointerEvents="none">
-					<SearchIcon boxSize={4} />
-				</InputLeftElement>
-				<Input
-					borderRadius="xl"
-					onChange={(e) => {
-						setSearchValue(e.target.value);
-						setValue({
-							patient: {
-								$or: [
-									{
-										firstName: {
-											$containsi: e.target.value,
+		<>
+			<HStack py={3}>
+				<InputGroup>
+					<InputLeftElement pointerEvents="none">
+						<SearchIcon boxSize={4} />
+					</InputLeftElement>
+					<Input
+						borderRadius="xl"
+						onChange={(e) => {
+							setSearchValue(e.target.value);
+							setValue({
+								patient: {
+									$or: [
+										{
+											firstName: {
+												$containsi: e.target.value,
+											},
 										},
-									},
-									{
-										lastName: {
-											$containsi: e.target.value,
+										{
+											lastName: {
+												$containsi: e.target.value,
+											},
 										},
-									},
-								],
-							},
-						});
-						queryClient.invalidateQueries({ queryKey: "requests" });
+									],
+								},
+							});
+							queryClient.invalidateQueries({ queryKey: "requests" });
+						}}
+						placeholder={spiels.PLACEHOLDER_SEARCH}
+						type="text"
+						value={searchValue} />
+				</InputGroup>
+				<Button
+					onClick={() => {
+						setShowFilter(!showFilter);
 					}}
-					placeholder={spiels.PLACEHOLDER_SEARCH}
-					type="text"
-					value={searchValue} />
-			</InputGroup>
-			<Button
-				onClick={() => {
-					setShowFilter(!showFilter);
-				}}
-			>
-				<Flex justifyContent="center" mr={2}>
-					<Icon as={MdFilterList} h={5} w={5} />
-				</Flex>
-				<Box justifyContent="center">{spiels.TEXT_FILTER}</Box>
-			</Button>
-		</HStack><Box>
+				>
+					<Flex justifyContent="center" mr={2}>
+						<Icon as={MdFilterList} h={5} w={5} />
+					</Flex>
+					<Box justifyContent="center">{spiels.TEXT_FILTER}</Box>
+				</Button>
+			</HStack>
+			<Box >
 				{showFilter ? (
-					<Box pt={3}>
-						<Box>
+					<Box py={3}>
+						<HStack justifyContent="space-between">
 							<HStack>
 								<HStack>
-									<Box>Start Date</Box>
+									<Box fontWeight="medium">Start Date</Box>
 									<Box>
 										<Input
 											borderRadius="md"
@@ -83,7 +86,7 @@ const RequestSearchBar = ({ setValue }) => {
 									</Box>
 								</HStack>
 								<HStack>
-									<Box>End Date</Box>
+									<Box fontWeight="medium">End Date</Box>
 									<Box>
 										<Input
 											borderRadius="md"
@@ -93,11 +96,36 @@ const RequestSearchBar = ({ setValue }) => {
 										/>
 									</Box>
 								</HStack>
+								{/* Status Filter */}
+								<Box px={5}>
+									<HStack>
+										<Box fontWeight="medium">Status</Box>
+										<HStack>
+											<Checkbox />
+											<Box>Accepted</Box>
+										</HStack>
+										<HStack>
+											<Checkbox />
+											<Box>Pending</Box>
+										</HStack>
+										<HStack>
+											<Checkbox />
+											<Box>Cancelled</Box>
+										</HStack>
+									</HStack>
+								</Box>
 							</HStack>
-						</Box>
+							<Box>
+								<Button onClick={() => {
+									setEndDate(""),
+									setStartDate("")
+								}}>Reset Filters</Button>
+							</Box>
+						</HStack>
 					</Box>
 				) : null}
-			</Box></>
+			</Box>
+		</>
 	);
 };
 
