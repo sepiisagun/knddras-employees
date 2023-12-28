@@ -35,7 +35,7 @@ import {
 	retrievePatientAccounts,
 } from "../../modules/auth/engine/auth.queries";
 
-import { retrieveProcedures } from "../../utils/engine/procedure.queries";
+// import { retrieveProcedures } from "../../utils/engine/procedure.queries";
 import { createAppointment } from "../../modules/appointment/engine/appointment.mutations";
 import { showSuccess } from "../../utils/notification";
 import {
@@ -71,14 +71,14 @@ const SetAppointmentModal = ({
 		queryKey: ["patient-data"],
 	});
 
-	const {
-		data: { data: procedureData = [] },
-	} = useQuery({
-		initialData: [],
-		placeholderData: [],
-		queryFn: retrieveProcedures,
-		queryKey: ["procedure-data"],
-	});
+	// const {
+	// 	data: { data: procedureData = [] },
+	// } = useQuery({
+	// 	initialData: [],
+	// 	placeholderData: [],
+	// 	queryFn: retrieveProcedures,
+	// 	queryKey: ["procedure-data"],
+	// });
 
 	const createAppointmentMutation = useMutation(createAppointment);
 	const formik = useFormik({
@@ -240,7 +240,7 @@ const SetAppointmentModal = ({
 								</FormErrorMessage>
 							</FormControl>
 
-							<FormControl
+							{/* <FormControl
 								isInvalid={touched.purpose && errors.purpose}
 								mb={2}
 							>
@@ -273,7 +273,7 @@ const SetAppointmentModal = ({
 								<FormErrorMessage mb="24px" px={2}>
 									{touched.purpose && errors.purpose}
 								</FormErrorMessage>
-							</FormControl>
+							</FormControl> */}
 
 							<FormControl
 								isInvalid={touched.doctor && errors.doctor}
