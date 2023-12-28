@@ -159,7 +159,60 @@ const PersonalInfoTab = () => {
 					</FormErrorMessage>
 				</Box>
 			</FormControl>
+			<Box py={5} fontWeight="bold" color="teal" textAlign="left">Emergency Contact</Box>
+			<SimpleGrid columns={2} spacing={10}>
+				<FormControl
+				// isInvalid={
+				// 	touched.mobileNumber &&
+				// 	errors.mobileNumber
+				// }
+				>
+					<Box>
+						<FormLabel>
+							{spiels.FORM_NAME}
+						</FormLabel>
+						<Input
+							data-testid="emergencyContactName"
+							id="emergencyContactName"
+							name="emergencyContactName"
+							onBlur={handleBlur}
+							onChange={handleChange}
+							type="text"
+						// value={values.mobileNumber}
+						/>
+						<FormErrorMessage>
+							{/* {touched.mobileNumber &&
+													errors.mobileNumber} */}
+						</FormErrorMessage>
+					</Box>
+				</FormControl>
 
+				<FormControl
+				// isInvalid={
+				// 	touched.mobileNumber &&
+				// 	errors.mobileNumber
+				// }
+				>
+					<Box>
+						<FormLabel>
+							{spiels.FORM_CONTACT_NO}
+						</FormLabel>
+						<Input
+							data-testid="emergencyContactNumber"
+							id="emergencyContactNumber"
+							name="emergencyContactNumber"
+							onBlur={handleBlur}
+							onChange={handleChange}
+							type="text"
+						// value={values.mobileNumber}
+						/>
+						<FormErrorMessage>
+							{touched.mobileNumber &&
+								errors.mobileNumber}
+						</FormErrorMessage>
+					</Box>
+				</FormControl>
+			</SimpleGrid>
 			<SimpleGrid rows={2} spacing={4}>
 				<Box>
 					<Button
