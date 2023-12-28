@@ -15,8 +15,12 @@ import spiels from "../../../constants/spiels";
 
 const ViewRecordSearchBar = () => {
 	const [showFilter, setShowFilter] = useState(false);
+	const [startDate, setStartDate] = useState("")
+	const handleStartDateChange = (e) => setStartDate(e.target.value);
+	const [endDate, setEndDate] = useState("")
+	const handleEndDateChange = (e) => setEndDate(e.target.value);
 	return (
-		<HStack py={3}>
+		<><HStack py={3}>
 			<InputGroup>
 				<InputLeftElement pointerEvents="none">
 					<SearchIcon boxSize={4} />
@@ -24,10 +28,8 @@ const ViewRecordSearchBar = () => {
 				<Input
 					borderRadius="xl"
 					placeholder={spiels.PLACEHOLDER_SEARCH}
-					type="text"
-				/>
+					type="text" />
 			</InputGroup>
-
 			<Button
 				onClick={() => {
 					setShowFilter(!showFilter);
@@ -38,7 +40,38 @@ const ViewRecordSearchBar = () => {
 				</Flex>
 				<Box justifyContent="center">{spiels.TEXT_FILTER}</Box>
 			</Button>
-		</HStack>
+		</HStack><Box>
+				{showFilter ? (
+					<Box pt={3}>
+						<Box>
+							<HStack>
+								<HStack>
+									<Box>Start Date</Box>
+									<Box>
+										<Input
+											borderRadius="md"
+											onChange={handleStartDateChange}
+											type="date"
+											value={startDate}
+										/>
+									</Box>
+								</HStack>
+								<HStack>
+									<Box>End Date</Box>
+									<Box>
+										<Input
+											borderRadius="md"
+											onChange={handleEndDateChange}
+											type="date"
+											value={endDate}
+										/>
+									</Box>
+								</HStack>
+							</HStack>
+						</Box>
+					</Box>
+				) : null}
+			</Box></>
 	);
 };
 

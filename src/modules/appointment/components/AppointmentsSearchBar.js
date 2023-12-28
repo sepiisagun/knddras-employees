@@ -26,8 +26,12 @@ const AppointmentsSearchBar = ({ setValue }) => {
 		onOpen: onOpenModal,
 	} = useDisclosure();
 	const [showFilter, setShowFilter] = useState(false);
+	const [startDate, setStartDate] = useState("")
+	const handleStartDateChange = (e) => setStartDate(e.target.value);
+	const [endDate, setEndDate] = useState("")
+	const handleEndDateChange = (e) => setEndDate(e.target.value);
 	return (
-		<HStack py={3}>
+		<><HStack py={3}>
 			<InputGroup>
 				<InputLeftElement pointerEvents="none">
 					<SearchIcon boxSize={4} />
@@ -92,8 +96,7 @@ const AppointmentsSearchBar = ({ setValue }) => {
 					}}
 					placeholder={spiels.PLACEHOLDER_SEARCH}
 					type="text"
-					value={searchValue}
-				/>
+					value={searchValue} />
 			</InputGroup>
 
 			<Button
@@ -109,9 +112,41 @@ const AppointmentsSearchBar = ({ setValue }) => {
 			<SetAppointmentModal
 				isOpenSetAppointment={isOpenModal}
 				onCloseSetAppointment={onCloseModal}
-				onOpenSetAppointment={onOpenModal}
-			/>
+				onOpenSetAppointment={onOpenModal} />
 		</HStack>
+			<Box>
+				{showFilter ? (
+					<Box pt={3}>
+						<Box>
+							<HStack>
+								<HStack>
+									<Box>Start Date</Box>
+									<Box>
+										<Input
+											borderRadius="md"
+											onChange={handleStartDateChange}
+											type="date"
+											value={startDate}
+										/>
+									</Box>
+								</HStack>
+								<HStack>
+									<Box>End Date</Box>
+									<Box>
+										<Input
+											borderRadius="md"
+											onChange={handleEndDateChange}
+											type="date"
+											value={endDate}
+										/>
+									</Box>
+								</HStack>
+							</HStack>
+						</Box>
+					</Box>
+				) : null}
+			</Box>
+		</>
 	);
 };
 
