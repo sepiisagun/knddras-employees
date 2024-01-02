@@ -164,6 +164,7 @@ const spiels = {
 	FORM_ID_NUMBER: "ID Number",
 	FORM_INITIAL: "Middle Initial",
 	FORM_LNAME: "Last Name",
+	FORM_NAME: "Name",
 	FORM_NATIONALITY: "Nationality",
 	FORM_NEW_PASSWORD: "New Password",
 	FORM_NOTES: "Notes (optional)",
