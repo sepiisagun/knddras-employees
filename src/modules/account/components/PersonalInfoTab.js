@@ -23,7 +23,7 @@ import { userDetailsSelector } from "../../auth/engine/auth.selectors";
 import { accountSchema } from "../model/record.model";
 
 import spiels from "../../../constants/spiels";
-import { login, updateUser } from "../../auth/engine/auth.mutations";
+import { updateUser } from "../../auth/engine/auth.mutations";
 import { showSuccess } from "../../../utils/notification";
 import {
 	notifSpiels,
@@ -42,6 +42,12 @@ const PersonalInfoTab = () => {
 		enableReinitialize: true,
 		initialValues: {
 			email: _.get(user, "email"),
+			emergencyContactName: _.get(user, "emergencyContact.name", ""),
+			emergencyContactNumber: _.get(
+				user,
+				"emergencyContact.mobileNumber",
+				"",
+			),
 			firstName: _.get(user, "firstName"),
 			lastName: _.get(user, "lastName"),
 			mobileNumber: _.get(user, "mobileNumber"),
@@ -57,7 +63,6 @@ const PersonalInfoTab = () => {
 					);
 					return Promise.all([retrieveUserDetails()]).then(
 						(result) => {
-							dispatch(login({ jwt: data.jwt, result: data }));
 							return result;
 						},
 					);
@@ -159,18 +164,18 @@ const PersonalInfoTab = () => {
 					</FormErrorMessage>
 				</Box>
 			</FormControl>
-			<Box py={5} fontWeight="bold" color="teal" textAlign="left">Emergency Contact</Box>
+			<Box fontWeight="bold" py={5} textAlign="left">
+				Emergency Contact
+			</Box>
 			<SimpleGrid columns={2} spacing={10}>
 				<FormControl
-				// isInvalid={
-				// 	touched.mobileNumber &&
-				// 	errors.mobileNumber
-				// }
+					isInvalid={
+						touched.emergencyContactName &&
+						errors.emergencyContactName
+					}
 				>
 					<Box>
-						<FormLabel>
-							{spiels.FORM_NAME}
-						</FormLabel>
+						<FormLabel>{spiels.FORM_NAME}</FormLabel>
 						<Input
 							data-testid="emergencyContactName"
 							id="emergencyContactName"
@@ -178,25 +183,23 @@ const PersonalInfoTab = () => {
 							onBlur={handleBlur}
 							onChange={handleChange}
 							type="text"
-						// value={values.mobileNumber}
+							value={values.emergencyContactName}
 						/>
 						<FormErrorMessage>
-							{/* {touched.mobileNumber &&
-													errors.mobileNumber} */}
+							{touched.emergencyContactName &&
+								errors.emergencyContactName}
 						</FormErrorMessage>
 					</Box>
 				</FormControl>
 
 				<FormControl
-				// isInvalid={
-				// 	touched.mobileNumber &&
-				// 	errors.mobileNumber
-				// }
+					isInvalid={
+						touched.emergencyContactNumber &&
+						errors.emergencyContactNumber
+					}
 				>
 					<Box>
-						<FormLabel>
-							{spiels.FORM_CONTACT_NO}
-						</FormLabel>
+						<FormLabel>{spiels.FORM_CONTACT_NO}</FormLabel>
 						<Input
 							data-testid="emergencyContactNumber"
 							id="emergencyContactNumber"
@@ -204,11 +207,11 @@ const PersonalInfoTab = () => {
 							onBlur={handleBlur}
 							onChange={handleChange}
 							type="text"
-						// value={values.mobileNumber}
+							value={values.emergencyContactNumber}
 						/>
 						<FormErrorMessage>
-							{touched.mobileNumber &&
-								errors.mobileNumber}
+							{touched.emergencyContactNumber &&
+								errors.emergencyContactNumber}
 						</FormErrorMessage>
 					</Box>
 				</FormControl>

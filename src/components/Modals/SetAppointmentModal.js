@@ -42,6 +42,7 @@ import {
 	notifSpiels,
 	toastCreateMessage,
 } from "../../constants/notificationSpiels";
+import appointmentSchema from "../../modules/appointment/model/appointment.model";
 
 const SetAppointmentModal = ({
 	isOpenSetAppointment,
@@ -71,15 +72,6 @@ const SetAppointmentModal = ({
 		queryKey: ["patient-data"],
 	});
 
-	// const {
-	// 	data: { data: procedureData = [] },
-	// } = useQuery({
-	// 	initialData: [],
-	// 	placeholderData: [],
-	// 	queryFn: retrieveProcedures,
-	// 	queryKey: ["procedure-data"],
-	// });
-
 	const createAppointmentMutation = useMutation(createAppointment);
 	const formik = useFormik({
 		enableReinitialize: true,
@@ -97,7 +89,6 @@ const SetAppointmentModal = ({
 				date,
 				doctor: data.doctor,
 				patient: data.patient,
-				purpose: data.purpose,
 				time,
 			};
 			createAppointmentMutation
@@ -126,6 +117,9 @@ const SetAppointmentModal = ({
 					console.log(error);
 				});
 		},
+		validateOnBlur: true,
+		validateOnChange: true,
+		validationSchema: appointmentSchema,
 	});
 
 	const {
@@ -239,41 +233,6 @@ const SetAppointmentModal = ({
 									{touched.patient && errors.patient}
 								</FormErrorMessage>
 							</FormControl>
-
-							{/* <FormControl
-								isInvalid={touched.purpose && errors.purpose}
-								mb={2}
-							>
-								<Box>
-									<FormLabel>
-										{spiels.FORM_PROCEDURE}
-									</FormLabel>
-									<Select
-										data-testid="purpose"
-										id="purpose"
-										name="purpose"
-										onBlur={handleBlur}
-										onChange={handleChange}
-										placeholder="- Select Procedure -"
-										value={values.purpose}
-									>
-										{procedureData.map((procedure) => (
-											<option
-												key={procedure.id}
-												value={procedure.id}
-											>
-												{_.get(
-													procedure,
-													"readableName",
-												)}
-											</option>
-										))}
-									</Select>
-								</Box>
-								<FormErrorMessage mb="24px" px={2}>
-									{touched.purpose && errors.purpose}
-								</FormErrorMessage>
-							</FormControl> */}
 
 							<FormControl
 								isInvalid={touched.doctor && errors.doctor}

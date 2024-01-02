@@ -159,7 +159,7 @@ const spiels = {
 	FORM_PATIENT: "Patient Account",
 	FORM_FNAME: "First Name",
 	FORM_FORGOT_PASSWORD: "Forgot Password",
-	FORM_GENDER: "Gender",
+	FORM_GENDER: "Sex",
 	FORM_GUARDIAN: "Parent/Guardian's Name",
 	FORM_ID_NUMBER: "ID Number",
 	FORM_INITIAL: "Middle Initial",

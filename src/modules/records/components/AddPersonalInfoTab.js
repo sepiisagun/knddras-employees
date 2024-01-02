@@ -107,7 +107,6 @@ const AddPersonalInfoTab = ({ formType }) => {
 						>
 							<option value="MALE">Male</option>
 							<option value="FEMALE">Female</option>
-							<option value="OTHER">Other</option>
 						</Select>
 					</Box>
 					<FormErrorMessage>

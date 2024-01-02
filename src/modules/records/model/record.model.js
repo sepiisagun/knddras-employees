@@ -1,4 +1,5 @@
 import { boolean, date, object, string } from "yup";
+import { DateTime } from "luxon";
 
 export const phoneLength = /^[-]*(?:.[-]*){7,12}$/;
 
@@ -7,7 +8,12 @@ export const phoneRegExp =
 
 const recordSchema = {
 	address: string().required("Please enter your address"),
-	birthdate: date().required("Please enter your birthdate"),
+	birthdate: date()
+		.max(
+			DateTime.now().minus({ years: 4 }).toJSDate(),
+			"Patient must be at least 4 years old",
+		)
+		.required("Please enter your birthdate"),
 	email: string()
 		.email("Please enter a valid email address")
 		.required("Please enter your email address"),
@@ -46,15 +52,9 @@ const medicalSchema = {
 		.oneOf(["A", "B", "AB", "O"], "Invalid blood type")
 		.required("Please select your blood type."),
 	lastVisit: date().nullable(),
-	physicianAddress: string().required(
-		"Please enter your previous physician's office address",
-	),
-	physicianName: string().required(
-		"Please enter your previous physician's name",
-	),
-	previousDentist: string().required(
-		"Please enter your previous dentist's name",
-	),
+	physicianAddress: string(),
+	physicianName: string(),
+	previousDentist: string(),
 };
 
 export const fullRecordSchema = object().shape({

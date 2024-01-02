@@ -1,3 +1,5 @@
+import { useRouter } from "next/router";
+
 import {
 	Box,
 	Card,
@@ -16,6 +18,9 @@ import PersonalInfoTab from "./PersonalInfoTab";
 import PasswordTab from "./PasswordTab";
 
 const EditAccountTab = () => {
+	const router = useRouter();
+	const { tab } = router.query;
+
 	return (
 		<Flex alignItems="center" justifyContent="center" p={50} w="full">
 			<Box
@@ -28,7 +33,10 @@ const EditAccountTab = () => {
 			>
 				<Card p={4}>
 					<CardBody>
-						<Tabs align="center">
+						<Tabs
+							align="center"
+							defaultIndex={tab ? parseInt(tab, 10) : 0}
+						>
 							<TabList>
 								<Tab>{spiels.PERSONAL_INFO}</Tab>
 								<Tab>{spiels.FORM_PASSWORD}</Tab>
