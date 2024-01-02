@@ -27,9 +27,9 @@ const SearchBar = ({ location = "default", setValue }) => {
 	const [showFilter, setShowFilter] = useState(false);
 	const [searchValue, setSearchValue] = useState("");
 	const queryClient = useQueryClient();
-	const [startDate, setStartDate] = useState("")
+	const [startDate, setStartDate] = useState("");
 	const handleStartDateChange = (e) => setStartDate(e.target.value);
-	const [endDate, setEndDate] = useState("")
+	const [endDate, setEndDate] = useState("");
 	const handleEndDateChange = (e) => setEndDate(e.target.value);
 	return (
 		<Box py={3}>
@@ -69,7 +69,8 @@ const SearchBar = ({ location = "default", setValue }) => {
 						}}
 						placeholder={spiels.PLACEHOLDER_SEARCH}
 						type="text"
-						value={searchValue} />
+						value={searchValue}
+					/>
 				</InputGroup>
 				<Button
 					onClick={() => {

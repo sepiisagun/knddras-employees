@@ -79,23 +79,17 @@ const AppointmentsScreen = () => {
 		queryKey: [
 			"appointments-data",
 			{
-				date: {
-					...dateStartInput,
-					...dateEndInput,
-				},
 				filters: {
 					...searchInput,
+					date: {
+						$between: [dateStartInput, dateEndInput],
+					},
 				},
 				populate: "*",
 				sort: "date:desc",
 			},
 		],
 	});
-
-	// eslint-disable-next-line no-console
-	console.log("Start date:", dateStartInput);
-	// eslint-disable-next-line no-console
-	console.log("End date:", dateEndInput);
 
 	const RECORDS_COUNTERS = [
 		{

@@ -16,14 +16,12 @@ import { SearchIcon } from "@chakra-ui/icons";
 import { MdFilterList } from "react-icons/md";
 import spiels from "../../../constants/spiels";
 
-const RequestSearchBar = ({ setValue }) => {
+const RequestSearchBar = ({ setEndRange, setRange, setValue }) => {
 	const [showFilter, setShowFilter] = useState(false);
 	const [searchValue, setSearchValue] = useState("");
 	const queryClient = useQueryClient();
 	const [startDate, setStartDate] = useState("");
-	const handleStartDateChange = (e) => setStartDate(e.target.value);
 	const [endDate, setEndDate] = useState("");
-	const handleEndDateChange = (e) => setEndDate(e.target.value);
 	return (
 		<>
 			<HStack py={3}>
@@ -81,7 +79,13 @@ const RequestSearchBar = ({ setValue }) => {
 									<Box>
 										<Input
 											borderRadius="md"
-											onChange={handleStartDateChange}
+											onChange={(e) => {
+												setStartDate(e.target.value);
+												setRange(e.target.value);
+												queryClient.invalidateQueries({
+													queryKey: "requests",
+												});
+											}}
 											type="date"
 											value={startDate}
 										/>
@@ -92,7 +96,13 @@ const RequestSearchBar = ({ setValue }) => {
 									<Box>
 										<Input
 											borderRadius="md"
-											onChange={handleEndDateChange}
+											onChange={(e) => {
+												setEndDate(e.target.value);
+												setEndRange(e.target.value);
+												queryClient.invalidateQueries({
+													queryKey: "requests",
+												});
+											}}
 											type="date"
 											value={endDate}
 										/>
