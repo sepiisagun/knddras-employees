@@ -3,26 +3,28 @@ import { useSelector } from "react-redux";
 import {
 	Box,
 	Button,
+	Checkbox,
 	Flex,
 	HStack,
 	Icon,
 	Input,
 	InputGroup,
 	InputLeftElement,
+	Select,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { useQueryClient } from "react-query";
+import { useQueryClient, useQuery } from "react-query";
 import { SearchIcon } from "@chakra-ui/icons";
 import { MdFilterList } from "react-icons/md";
 import Link from "next/link";
 import spiels from "../../../constants/spiels";
 import { ENDPOINTS } from "../../../constants/Endpoints";
 import EmployeeModal from "../../../components/Modals/EmployeeModal";
-
+import { retrieveEmployeeRoles } from "../../../modules/auth/engine/auth.queries";
 import { userRoleTypeSelector } from "../../auth/engine/auth.selectors";
 import { ADMIN, ASSISTANT } from "../../../constants/userRoles";
 
-const SearchBar = ({ location = "default", setValue }) => {
+const SearchBar = ({ location = "default", setValue, isAdmin }) => {
 	const role = useSelector(userRoleTypeSelector);
 	const [showFilter, setShowFilter] = useState(false);
 	const [searchValue, setSearchValue] = useState("");
@@ -31,6 +33,15 @@ const SearchBar = ({ location = "default", setValue }) => {
 	const handleStartDateChange = (e) => setStartDate(e.target.value);
 	const [endDate, setEndDate] = useState("")
 	const handleEndDateChange = (e) => setEndDate(e.target.value);
+	const {
+		data: { data: roles },
+		isFetched,
+	} = useQuery({
+		initialData: [],
+		placeholderData: [],
+		queryFn: retrieveEmployeeRoles,
+		queryKey: ["employee-roles-data"],
+	});
 	return (
 		<Box py={3}>
 			<HStack>
@@ -97,33 +108,66 @@ const SearchBar = ({ location = "default", setValue }) => {
 			</HStack>
 			<Box>
 				{showFilter ? (
-					<Box pt={3}>
-						<Box>
-							<HStack>
+					<Box py={3}>
+						<HStack justifyContent="space-between">
+							{isAdmin ? (
 								<HStack>
-									<Box>Start Date</Box>
-									<Box>
-										<Input
-											borderRadius="md"
-											onChange={handleStartDateChange}
-											type="date"
-											value={startDate}
-										/>
-									</Box>
+									<HStack>
+										<Box fontWeight="medium">Role</Box>
+										<Select
+											data-testid="role"
+											id="role"
+											name="role"
+											placeholder="- Select Role -"
+										>
+											{roles.map((role) => (
+												<option
+													key={role.id}
+													value={role.id}
+												>
+													{_.get(role, "name")}
+												</option>
+											))}
+										</Select>
+									</HStack>
+									<HStack px={5}>
+										<Checkbox />
+										<Box fontWeight="medium">Blocked</Box>
+									</HStack>
 								</HStack>
+							) : (
 								<HStack>
-									<Box>End Date</Box>
-									<Box>
-										<Input
-											borderRadius="md"
-											onChange={handleEndDateChange}
-											type="date"
-											value={endDate}
-										/>
-									</Box>
+									<HStack>
+										<Box fontWeight="medium">Start Date</Box>
+										<Box>
+											<Input
+												borderRadius="md"
+												onChange={handleStartDateChange}
+												type="date"
+												value={startDate}
+											/>
+										</Box>
+									</HStack>
+									<HStack>
+										<Box fontWeight="medium">End Date</Box>
+										<Box>
+											<Input
+												borderRadius="md"
+												onChange={handleEndDateChange}
+												type="date"
+												value={endDate}
+											/>
+										</Box>
+									</HStack>
 								</HStack>
-							</HStack>
-						</Box>
+							)}
+							<Box>
+								<Button onClick={() => {
+									setEndDate(""),
+									setStartDate("")
+								}}>Reset Filters</Button>
+							</Box>
+						</HStack>
 					</Box>
 				) : null}
 			</Box>

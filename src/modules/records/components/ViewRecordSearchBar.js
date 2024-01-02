@@ -7,18 +7,30 @@ import {
 	Input,
 	InputGroup,
 	InputLeftElement,
+	Select,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { MdFilterList } from "react-icons/md";
 import spiels from "../../../constants/spiels";
-
+import {
+	retrieveProcedures
+} from "../../../modules/auth/engine/auth.queries";
+import { useQuery } from "react-query";
 const ViewRecordSearchBar = () => {
 	const [showFilter, setShowFilter] = useState(false);
 	const [startDate, setStartDate] = useState("")
 	const handleStartDateChange = (e) => setStartDate(e.target.value);
 	const [endDate, setEndDate] = useState("")
 	const handleEndDateChange = (e) => setEndDate(e.target.value);
+	const {
+		data: { data: procedureData = [] },
+	} = useQuery({
+		initialData: [],
+		placeholderData: [],
+		queryFn: retrieveProcedures,
+		queryKey: ["procedure-data"],
+	});
 	return (
 		<><HStack py={3}>
 			<InputGroup>
@@ -42,11 +54,11 @@ const ViewRecordSearchBar = () => {
 			</Button>
 		</HStack><Box>
 				{showFilter ? (
-					<Box pt={3}>
+					<Box py={3}>
 						<Box>
 							<HStack>
 								<HStack>
-									<Box>Start Date</Box>
+									<Box fontWeight="medium">Start Date</Box>
 									<Box>
 										<Input
 											borderRadius="md"
@@ -57,7 +69,7 @@ const ViewRecordSearchBar = () => {
 									</Box>
 								</HStack>
 								<HStack>
-									<Box>End Date</Box>
+									<Box fontWeight="medium">End Date</Box>
 									<Box>
 										<Input
 											borderRadius="md"
@@ -66,6 +78,29 @@ const ViewRecordSearchBar = () => {
 											value={endDate}
 										/>
 									</Box>
+								</HStack>
+								<HStack px={5}>
+									<Box fontWeight="medium">
+										Procedure
+									</Box>
+									<Select
+										data-testid="purpose"
+										id="purpose"
+										name="purpose"
+										placeholder="Select Procedure"
+									>
+										{procedureData.map((procedure) => (
+											<option
+												key={procedure.id}
+												value={procedure.id}
+											>
+												{_.get(
+													procedure,
+													"readableName",
+												)}
+											</option>
+										))}
+									</Select>
 								</HStack>
 							</HStack>
 						</Box>
