@@ -16,7 +16,7 @@ import { MdFilterList } from "react-icons/md";
 import spiels from "../../../constants/spiels";
 import SetAppointmentModal from "../../../components/Modals/SetAppointmentModal";
 
-const AppointmentsSearchBar = ({ setValue }) => {
+const AppointmentsSearchBar = ({ setEndRange, setRange, setValue }) => {
 	// const { onOpen: onOpenForgot } = useDisclosure();
 	const [searchValue, setSearchValue] = useState("");
 	const queryClient = useQueryClient();
@@ -26,94 +26,106 @@ const AppointmentsSearchBar = ({ setValue }) => {
 		onOpen: onOpenModal,
 	} = useDisclosure();
 	const [showFilter, setShowFilter] = useState(false);
-	const [startDate, setStartDate] = useState("")
-	const handleStartDateChange = (e) => setStartDate(e.target.value);
-	const [endDate, setEndDate] = useState("")
-	const handleEndDateChange = (e) => setEndDate(e.target.value);
-	return (
-		<><HStack py={3}>
-			<InputGroup>
-				<InputLeftElement pointerEvents="none">
-					<SearchIcon boxSize={4} />
-				</InputLeftElement>
-				<Input
-					borderRadius="xl"
-					onChange={(e) => {
-						setSearchValue(e.target.value);
-						setValue({
-							$or: [
-								{
-									patient: {
-										$or: [
-											{
-												firstName: {
-													$containsi: e.target.value,
-												},
-											},
-											{
-												lastName: {
-													$containsi: e.target.value,
-												},
-											},
-										],
-									},
-								},
-								{
-									doctor: {
-										$or: [
-											{
-												firstName: {
-													$containsi: e.target.value,
-												},
-											},
-											{
-												lastName: {
-													$containsi: e.target.value,
-												},
-											},
-										],
-									},
-								},
-								{
-									purpose: {
-										$or: [
-											{
-												name: {
-													$containsi: e.target.value,
-												},
-											},
-											{
-												readableName: {
-													$containsi: e.target.value,
-												},
-											},
-										],
-									},
-								},
-							],
-						});
-						queryClient.invalidateQueries({ queryKey: "requests" });
-					}}
-					placeholder={spiels.PLACEHOLDER_SEARCH}
-					type="text"
-					value={searchValue} />
-			</InputGroup>
+	const [startDate, setStartDate] = useState("");
+	// const handleStartDateChange = (e) => setStartDate(e.target.value);
+	const [endDate, setEndDate] = useState("");
+	// const handleEndDateChange = (e) => setEndDate(e.target.value);
 
-			<Button
-				onClick={() => {
-					setShowFilter(!showFilter);
-				}}
-			>
-				<Flex justifyContent="center" mr={2}>
-					<Icon as={MdFilterList} h={5} w={5} />
-				</Flex>
-				<Box justifyContent="center">{spiels.TEXT_FILTER}</Box>
-			</Button>
-			<SetAppointmentModal
-				isOpenSetAppointment={isOpenModal}
-				onCloseSetAppointment={onCloseModal}
-				onOpenSetAppointment={onOpenModal} />
-		</HStack>
+	return (
+		<>
+			<HStack py={3}>
+				<InputGroup>
+					<InputLeftElement pointerEvents="none">
+						<SearchIcon boxSize={4} />
+					</InputLeftElement>
+					<Input
+						borderRadius="xl"
+						onChange={(e) => {
+							setSearchValue(e.target.value);
+							setValue({
+								$or: [
+									{
+										patient: {
+											$or: [
+												{
+													firstName: {
+														$containsi:
+															e.target.value,
+													},
+												},
+												{
+													lastName: {
+														$containsi:
+															e.target.value,
+													},
+												},
+											],
+										},
+									},
+									{
+										doctor: {
+											$or: [
+												{
+													firstName: {
+														$containsi:
+															e.target.value,
+													},
+												},
+												{
+													lastName: {
+														$containsi:
+															e.target.value,
+													},
+												},
+											],
+										},
+									},
+									{
+										purpose: {
+											$or: [
+												{
+													name: {
+														$containsi:
+															e.target.value,
+													},
+												},
+												{
+													readableName: {
+														$containsi:
+															e.target.value,
+													},
+												},
+											],
+										},
+									},
+								],
+							});
+							queryClient.invalidateQueries({
+								queryKey: "requests",
+							});
+						}}
+						placeholder={spiels.PLACEHOLDER_SEARCH}
+						type="text"
+						value={searchValue}
+					/>
+				</InputGroup>
+
+				<Button
+					onClick={() => {
+						setShowFilter(!showFilter);
+					}}
+				>
+					<Flex justifyContent="center" mr={2}>
+						<Icon as={MdFilterList} h={5} w={5} />
+					</Flex>
+					<Box justifyContent="center">{spiels.TEXT_FILTER}</Box>
+				</Button>
+				<SetAppointmentModal
+					isOpenSetAppointment={isOpenModal}
+					onCloseSetAppointment={onCloseModal}
+					onOpenSetAppointment={onOpenModal}
+				/>
+			</HStack>
 			<Box>
 				{showFilter ? (
 					<Box pt={3}>
@@ -124,7 +136,15 @@ const AppointmentsSearchBar = ({ setValue }) => {
 									<Box>
 										<Input
 											borderRadius="md"
-											onChange={handleStartDateChange}
+											onChange={(e) => {
+												setStartDate(e.target.value);
+												setRange({
+													$gte: e.target.value,
+												});
+												queryClient.invalidateQueries({
+													queryKey: "requests",
+												});
+											}}
 											type="date"
 											value={startDate}
 										/>
@@ -135,7 +155,15 @@ const AppointmentsSearchBar = ({ setValue }) => {
 									<Box>
 										<Input
 											borderRadius="md"
-											onChange={handleEndDateChange}
+											onChange={(e) => {
+												setEndDate(e.target.value);
+												setEndRange({
+													$gte: e.target.value,
+												});
+												queryClient.invalidateQueries({
+													queryKey: "requests",
+												});
+											}}
 											type="date"
 											value={endDate}
 										/>
