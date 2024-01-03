@@ -180,6 +180,7 @@ const EmployeeModal = ({ location, userData = {} }) => {
 												name="firstName"
 												onBlur={handleBlur}
 												onChange={handleChange}
+												placeholder={spiels.PLACEHOLDER_FIRST_NAME}
 												type="text"
 												value={values.firstName}
 											/>
@@ -204,6 +205,7 @@ const EmployeeModal = ({ location, userData = {} }) => {
 												name="lastName"
 												onBlur={handleBlur}
 												onChange={handleChange}
+												placeholder={spiels.PLACEHOLDER_LAST_NAME}
 												type="text"
 												value={values.lastName}
 											/>
@@ -227,6 +229,7 @@ const EmployeeModal = ({ location, userData = {} }) => {
 										name="email"
 										onBlur={handleBlur}
 										onChange={handleChange}
+										placeholder={spiels.PLACEHOLDER_EMAIL}
 										type="email"
 										value={values.email}
 									/>
@@ -283,6 +286,7 @@ const EmployeeModal = ({ location, userData = {} }) => {
 												name="mobileNumber"
 												onBlur={handleBlur}
 												onChange={handleChange}
+												placeholder={spiels.PLACEHOLDER_CONTACT_NUMBER}
 												type="text"
 												value={values.mobileNumber}
 											/>
@@ -311,6 +315,7 @@ const EmployeeModal = ({ location, userData = {} }) => {
 												name="emergencyContactName"
 												onBlur={handleBlur}
 												onChange={handleChange}
+												placeholder={spiels.PLACEHOLDER_EMERGENCY_CONTACT}
 												type="text"
 												// value={values.mobileNumber}
 											/>
@@ -337,6 +342,7 @@ const EmployeeModal = ({ location, userData = {} }) => {
 												name="emergencyContactNumber"
 												onBlur={handleBlur}
 												onChange={handleChange}
+												placeholder={spiels.PLACEHOLDER_CONTACT_NUMBER}
 												type="text"
 												// value={values.mobileNumber}
 											/>

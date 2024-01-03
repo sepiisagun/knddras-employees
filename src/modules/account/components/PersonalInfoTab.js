@@ -137,6 +137,7 @@ const PersonalInfoTab = () => {
 						name="email"
 						onBlur={handleBlur}
 						onChange={handleChange}
+						placeholder={spiels.PLACEHOLDER_EMAIL}
 						type="email"
 						value={values.email}
 					/>
@@ -156,6 +157,7 @@ const PersonalInfoTab = () => {
 						name="mobileNumber"
 						onBlur={handleBlur}
 						onChange={handleChange}
+						placeholder={spiels.PLACEHOLDER_CONTACT_NUMBER}
 						type="number"
 						value={values.mobileNumber}
 					/>
@@ -182,6 +184,7 @@ const PersonalInfoTab = () => {
 							name="emergencyContactName"
 							onBlur={handleBlur}
 							onChange={handleChange}
+							placeholder={spiels.PLACEHOLDER_EMERGENCY_CONTACT}
 							type="text"
 							value={values.emergencyContactName}
 						/>
@@ -206,6 +209,7 @@ const PersonalInfoTab = () => {
 							name="emergencyContactNumber"
 							onBlur={handleBlur}
 							onChange={handleChange}
+							placeholder={spiels.PLACEHOLDER_CONTACT_NUMBER}
 							type="text"
 							value={values.emergencyContactNumber}
 						/>
