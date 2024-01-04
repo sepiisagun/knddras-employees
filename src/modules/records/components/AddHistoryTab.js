@@ -35,6 +35,7 @@ const AddHistoryTab = () => {
 						name="previousDentist"
 						onBlur={handleBlur}
 						onChange={handleChange}
+						placeholder={spiels.PLACEHOLDER_EMERGENCY_CONTACT}
 						type="text"
 						value={values.previousDentist}
 					/>
@@ -46,7 +47,7 @@ const AddHistoryTab = () => {
 
 			<FormControl isInvalid={touched.lastVisit && errors.lastVisit}>
 				<Box pt={2}>
-					<FormLabel>{spiels.FORM_PREV_DENTIST}</FormLabel>
+					<FormLabel>{spiels.FORM_LAST_VISIT}</FormLabel>
 					<Input
 						data-testid="lastVisit"
 						id="lastVisit"
@@ -73,6 +74,7 @@ const AddHistoryTab = () => {
 						name="physicianName"
 						onBlur={handleBlur}
 						onChange={handleChange}
+						placeholder={spiels.PLACEHOLDER_EMERGENCY_CONTACT}
 						type="text"
 						value={values.physicianName}
 					/>
@@ -93,6 +95,7 @@ const AddHistoryTab = () => {
 						name="physicianAddress"
 						onBlur={handleBlur}
 						onChange={handleChange}
+						placeholder={spiels.PLACEHOLDER_OFFICE_ADDRESS}
 						type="text"
 						value={values.physicianAddress}
 					/>

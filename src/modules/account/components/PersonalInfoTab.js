@@ -23,7 +23,7 @@ import { userDetailsSelector } from "../../auth/engine/auth.selectors";
 import { accountSchema } from "../model/record.model";
 
 import spiels from "../../../constants/spiels";
-import { login, updateUser } from "../../auth/engine/auth.mutations";
+import { updateUser } from "../../auth/engine/auth.mutations";
 import { showSuccess } from "../../../utils/notification";
 import {
 	notifSpiels,
@@ -42,6 +42,12 @@ const PersonalInfoTab = () => {
 		enableReinitialize: true,
 		initialValues: {
 			email: _.get(user, "email"),
+			emergencyContactName: _.get(user, "emergencyContact.name", ""),
+			emergencyContactNumber: _.get(
+				user,
+				"emergencyContact.mobileNumber",
+				"",
+			),
 			firstName: _.get(user, "firstName"),
 			lastName: _.get(user, "lastName"),
 			mobileNumber: _.get(user, "mobileNumber"),
@@ -57,7 +63,6 @@ const PersonalInfoTab = () => {
 					);
 					return Promise.all([retrieveUserDetails()]).then(
 						(result) => {
-							dispatch(login({ jwt: data.jwt, result: data }));
 							return result;
 						},
 					);
@@ -132,6 +137,7 @@ const PersonalInfoTab = () => {
 						name="email"
 						onBlur={handleBlur}
 						onChange={handleChange}
+						placeholder={spiels.PLACEHOLDER_EMAIL}
 						type="email"
 						value={values.email}
 					/>
@@ -151,6 +157,7 @@ const PersonalInfoTab = () => {
 						name="mobileNumber"
 						onBlur={handleBlur}
 						onChange={handleChange}
+						placeholder={spiels.PLACEHOLDER_CONTACT_NUMBER}
 						type="number"
 						value={values.mobileNumber}
 					/>
@@ -159,7 +166,60 @@ const PersonalInfoTab = () => {
 					</FormErrorMessage>
 				</Box>
 			</FormControl>
+			<Box fontWeight="bold" py={5} textAlign="left">
+				Emergency Contact
+			</Box>
+			<SimpleGrid columns={2} spacing={10}>
+				<FormControl
+					isInvalid={
+						touched.emergencyContactName &&
+						errors.emergencyContactName
+					}
+				>
+					<Box>
+						<FormLabel>{spiels.FORM_NAME}</FormLabel>
+						<Input
+							data-testid="emergencyContactName"
+							id="emergencyContactName"
+							name="emergencyContactName"
+							onBlur={handleBlur}
+							onChange={handleChange}
+							placeholder={spiels.PLACEHOLDER_EMERGENCY_CONTACT}
+							type="text"
+							value={values.emergencyContactName}
+						/>
+						<FormErrorMessage>
+							{touched.emergencyContactName &&
+								errors.emergencyContactName}
+						</FormErrorMessage>
+					</Box>
+				</FormControl>
 
+				<FormControl
+					isInvalid={
+						touched.emergencyContactNumber &&
+						errors.emergencyContactNumber
+					}
+				>
+					<Box>
+						<FormLabel>{spiels.FORM_CONTACT_NO}</FormLabel>
+						<Input
+							data-testid="emergencyContactNumber"
+							id="emergencyContactNumber"
+							name="emergencyContactNumber"
+							onBlur={handleBlur}
+							onChange={handleChange}
+							placeholder={spiels.PLACEHOLDER_CONTACT_NUMBER}
+							type="text"
+							value={values.emergencyContactNumber}
+						/>
+						<FormErrorMessage>
+							{touched.emergencyContactNumber &&
+								errors.emergencyContactNumber}
+						</FormErrorMessage>
+					</Box>
+				</FormControl>
+			</SimpleGrid>
 			<SimpleGrid rows={2} spacing={4}>
 				<Box>
 					<Button

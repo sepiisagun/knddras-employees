@@ -180,6 +180,7 @@ const EmployeeModal = ({ location, userData = {} }) => {
 												name="firstName"
 												onBlur={handleBlur}
 												onChange={handleChange}
+												placeholder={spiels.PLACEHOLDER_FIRST_NAME}
 												type="text"
 												value={values.firstName}
 											/>
@@ -204,6 +205,7 @@ const EmployeeModal = ({ location, userData = {} }) => {
 												name="lastName"
 												onBlur={handleBlur}
 												onChange={handleChange}
+												placeholder={spiels.PLACEHOLDER_LAST_NAME}
 												type="text"
 												value={values.lastName}
 											/>
@@ -227,6 +229,7 @@ const EmployeeModal = ({ location, userData = {} }) => {
 										name="email"
 										onBlur={handleBlur}
 										onChange={handleChange}
+										placeholder={spiels.PLACEHOLDER_EMAIL}
 										type="email"
 										value={values.email}
 									/>
@@ -283,8 +286,65 @@ const EmployeeModal = ({ location, userData = {} }) => {
 												name="mobileNumber"
 												onBlur={handleBlur}
 												onChange={handleChange}
+												placeholder={spiels.PLACEHOLDER_CONTACT_NUMBER}
 												type="text"
 												value={values.mobileNumber}
+											/>
+											<FormErrorMessage>
+												{touched.mobileNumber &&
+													errors.mobileNumber}
+											</FormErrorMessage>
+										</Box>
+									</FormControl>
+								</SimpleGrid>
+								<Box py={5} fontWeight="bold" color="teal">Emergency Contact</Box>
+								<SimpleGrid columns={2} spacing={10}>
+									<FormControl
+										// isInvalid={
+										// 	touched.mobileNumber &&
+										// 	errors.mobileNumber
+										// }
+									>
+										<Box>
+											<FormLabel>
+												{spiels.FORM_NAME}
+											</FormLabel>
+											<Input
+												data-testid="emergencyContactName"
+												id="emergencyContactName"
+												name="emergencyContactName"
+												onBlur={handleBlur}
+												onChange={handleChange}
+												placeholder={spiels.PLACEHOLDER_EMERGENCY_CONTACT}
+												type="text"
+												// value={values.mobileNumber}
+											/>
+											<FormErrorMessage>
+												{/* {touched.mobileNumber &&
+													errors.mobileNumber} */}
+											</FormErrorMessage>
+										</Box>
+									</FormControl>
+
+									<FormControl
+										// isInvalid={
+										// 	touched.mobileNumber &&
+										// 	errors.mobileNumber
+										// }
+									>
+										<Box>
+											<FormLabel>
+												{spiels.FORM_CONTACT_NO}
+											</FormLabel>
+											<Input
+												data-testid="emergencyContactNumber"
+												id="emergencyContactNumber"
+												name="emergencyContactNumber"
+												onBlur={handleBlur}
+												onChange={handleChange}
+												placeholder={spiels.PLACEHOLDER_CONTACT_NUMBER}
+												type="text"
+												// value={values.mobileNumber}
 											/>
 											<FormErrorMessage>
 												{touched.mobileNumber &&

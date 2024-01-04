@@ -6,6 +6,7 @@ import {
 	Box,
 	Checkbox,
 	Divider,
+	Flex,
 	FormControl,
 	FormErrorMessage,
 	FormLabel,
@@ -13,6 +14,7 @@ import {
 	Select,
 	SimpleGrid,
 	Stack,
+	Text,
 	Tooltip,
 } from "@chakra-ui/react";
 
@@ -45,6 +47,7 @@ const AddPersonalInfoTab = ({ formType }) => {
 							name="firstName"
 							onBlur={handleBlur}
 							onChange={handleChange}
+							placeholder={spiels.PLACEHOLDER_FIRST_NAME}
 							type="text"
 							value={values.firstName}
 						/>
@@ -62,6 +65,7 @@ const AddPersonalInfoTab = ({ formType }) => {
 							name="lastName"
 							onBlur={handleBlur}
 							onChange={handleChange}
+							placeholder={spiels.PLACEHOLDER_LAST_NAME}
 							type="text"
 							value={values.lastName}
 						/>
@@ -84,6 +88,7 @@ const AddPersonalInfoTab = ({ formType }) => {
 							name="middleInitial"
 							onBlur={handleBlur}
 							onChange={handleChange}
+							placeholder={spiels.PLACEHOLDER_MIDDLE_INITIAL}
 							type="text"
 							value={values.middleInitial}
 						/>
@@ -102,12 +107,11 @@ const AddPersonalInfoTab = ({ formType }) => {
 							name="sex"
 							onBlur={handleBlur}
 							onChange={handleChange}
-							placeholder="- Select Gender -"
+							placeholder="- Select Sex -"
 							value={values.sex}
 						>
 							<option value="MALE">Male</option>
 							<option value="FEMALE">Female</option>
-							<option value="OTHER">Other</option>
 						</Select>
 					</Box>
 					<FormErrorMessage>
@@ -143,6 +147,7 @@ const AddPersonalInfoTab = ({ formType }) => {
 						name="address"
 						onBlur={handleBlur}
 						onChange={handleChange}
+						placeholder={spiels.PLACEHOLDER_ADDRESS}
 						type="text"
 						value={values.address}
 					/>
@@ -198,6 +203,7 @@ const AddPersonalInfoTab = ({ formType }) => {
 									id="email"
 									isReadOnly
 									name="email"
+									placeholder={spiels.PLACEHOLDER_EMAIL}
 									type="email"
 									value={values.email}
 								/>
@@ -221,6 +227,7 @@ const AddPersonalInfoTab = ({ formType }) => {
 						name="mobileNumber"
 						onBlur={handleBlur}
 						onChange={handleChange}
+						placeholder={spiels.PLACEHOLDER_CONTACT_NUMBER}
 						type="number"
 						value={values.mobileNumber}
 					/>
@@ -258,6 +265,7 @@ const AddPersonalInfoTab = ({ formType }) => {
 								name="guardianName"
 								onBlur={handleBlur}
 								onChange={handleChange}
+								placeholder={spiels.PLACEHOLDER_EMERGENCY_CONTACT}
 								type="text"
 								value={values.guardianName}
 							/>
@@ -271,13 +279,14 @@ const AddPersonalInfoTab = ({ formType }) => {
 							isInvalid={touched.occupation && errors.occupation}
 						>
 							<Box>
-								<FormLabel>{spiels.FORM_OCCUPATION}</FormLabel>
+								<FormLabel><Flex>{spiels.FORM_OCCUPATION} <Text fontWeight="normal" color="gray" px={1}>(Optional)</Text></Flex> </FormLabel>
 								<Input
 									data-testid="occupation"
 									id="occupation"
 									name="occupation"
 									onBlur={handleBlur}
 									onChange={handleChange}
+									placeholder={spiels.PLACEHOLDER_OCCUPATION}
 									type="text"
 									value={values.occupation}
 								/>
@@ -299,6 +308,7 @@ const AddPersonalInfoTab = ({ formType }) => {
 									name="relation"
 									onBlur={handleBlur}
 									onChange={handleChange}
+									placeholder={spiels.PLACEHOLDER_RELATIONSHIP}
 									type="text"
 									value={values.relation}
 								/>

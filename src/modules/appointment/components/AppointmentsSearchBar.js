@@ -7,16 +7,21 @@ import {
 	Input,
 	InputGroup,
 	InputLeftElement,
+	Select,
 	useDisclosure,
 } from "@chakra-ui/react";
-import { useQueryClient } from "react-query";
+import { useQueryClient, useQuery } from "react-query";
 import React, { useState } from "react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { MdFilterList } from "react-icons/md";
 import spiels from "../../../constants/spiels";
 import SetAppointmentModal from "../../../components/Modals/SetAppointmentModal";
-
+import {
+	retrieveDoctorAccounts,
+	retrieveProcedures,
+} from "../../../modules/auth/engine/auth.queries";
 const AppointmentsSearchBar = ({ setEndRange, setRange, setValue }) => {
+	// const { onOpen: onOpenForgot } = useDisclosure();
 	const [searchValue, setSearchValue] = useState("");
 	const queryClient = useQueryClient();
 	const {
@@ -27,7 +32,22 @@ const AppointmentsSearchBar = ({ setEndRange, setRange, setValue }) => {
 	const [showFilter, setShowFilter] = useState(false);
 	const [startDate, setStartDate] = useState("");
 	const [endDate, setEndDate] = useState("");
-
+	const {
+		data: { data: doctorData = [] },
+	} = useQuery({
+		initialData: [],
+		placeholderData: [],
+		queryFn: retrieveDoctorAccounts,
+		queryKey: ["doctor-data"],
+	});
+	const {
+		data: { data: procedureData = [] },
+	} = useQuery({
+		initialData: [],
+		placeholderData: [],
+		queryFn: retrieveProcedures,
+		queryKey: ["procedure-data"],
+	});
 	return (
 		<>
 			<HStack py={3}>
@@ -125,11 +145,11 @@ const AppointmentsSearchBar = ({ setEndRange, setRange, setValue }) => {
 			</HStack>
 			<Box>
 				{showFilter ? (
-					<Box pt={3}>
-						<Box>
+					<Box py={3}>
+						<HStack justifyContent="space-between">
 							<HStack>
 								<HStack>
-									<Box>Start Date</Box>
+									<Box fontWeight="medium">Start Date</Box>
 									<Box>
 										<Input
 											borderRadius="md"
@@ -146,7 +166,7 @@ const AppointmentsSearchBar = ({ setEndRange, setRange, setValue }) => {
 									</Box>
 								</HStack>
 								<HStack>
-									<Box>End Date</Box>
+									<Box fontWeight="medium">End Date</Box>
 									<Box>
 										<Input
 											borderRadius="md"
@@ -162,8 +182,63 @@ const AppointmentsSearchBar = ({ setEndRange, setRange, setValue }) => {
 										/>
 									</Box>
 								</HStack>
+								<HStack px={5}>
+									<Box fontWeight="medium">Dentist</Box>
+									<Select
+										data-testid="doctor"
+										id="doctor"
+										name="doctor"
+										placeholder="Select Dentist"
+									>
+										{doctorData.map((dentist) => {
+											return (
+												<option
+													key={dentist.id}
+													value={dentist.id}
+												>
+													Dr.{" "}
+													{_.get(
+														dentist,
+														"firstName",
+													)}{" "}
+													{_.get(dentist, "lastName")}
+												</option>
+											);
+										})}
+									</Select>
+								</HStack>
+								<HStack px={5}>
+									<Box fontWeight="medium">Procedure</Box>
+									<Select
+										data-testid="purpose"
+										id="purpose"
+										name="purpose"
+										placeholder="Select Procedure"
+									>
+										{procedureData.map((procedure) => (
+											<option
+												key={procedure.id}
+												value={procedure.id}
+											>
+												{_.get(
+													procedure,
+													"readableName",
+												)}
+											</option>
+										))}
+									</Select>
+								</HStack>
 							</HStack>
-						</Box>
+							<Box>
+								<Button
+									onClick={() => {
+										setEndDate(""), setStartDate("");
+									}}
+								>
+									Reset Filters
+								</Button>
+							</Box>
+						</HStack>
 					</Box>
 				) : null}
 			</Box>

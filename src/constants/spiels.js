@@ -21,8 +21,17 @@ const spiels = {
 	LABEL_SIGNIN: "Sign In",
 	LABEL_TRANSACTION_NUMBER: "Transaction #: ",
 	LABEL_VIEW_TREATMENT_TOTAL: "Total",
-	PLACEHOLDER_EMAIL: "Your Email Address",
+	PLACEHOLDER_ADDRESS: "House Number, City/Municipality, Province",
+	PLACEHOLDER_CONTACT_NUMBER: "e.g. 09123456789",
+	PLACEHOLDER_EMERGENCY_CONTACT: "e.g. Jane Doe",
+	PLACEHOLDER_EMAIL: "e.g. example@domain.com",
+	PLACEHOLDER_FIRST_NAME: "e.g. Jane",
+	PLACEHOLDER_LAST_NAME: "e.g. Doe",
+	PLACEHOLDER_MIDDLE_INITIAL: "e.g. B",
+	PLACEHOLDER_OCCUPATION: "e.g. Farmer",
+	PLACEHOLDER_OFFICE_ADDRESS:"Room/Unit/Floor Number, Building Name",
 	PLACEHOLDER_PASSWORD: "Your Password",
+	PLACEHOLDER_RELATIONSHIP: "e.g. Mother",
 	INC_EMAIL: "Incorrect Email",
 	INC_PASSWORD: "Incorrect Password",
 	LABEL_LAST_VISIT: "Last Visit",
@@ -159,11 +168,13 @@ const spiels = {
 	FORM_PATIENT: "Patient Account",
 	FORM_FNAME: "First Name",
 	FORM_FORGOT_PASSWORD: "Forgot Password",
-	FORM_GENDER: "Gender",
+	FORM_GENDER: "Sex",
 	FORM_GUARDIAN: "Parent/Guardian's Name",
 	FORM_ID_NUMBER: "ID Number",
 	FORM_INITIAL: "Middle Initial",
+	FORM_LAST_VISIT: "Last Visit",
 	FORM_LNAME: "Last Name",
+	FORM_NAME: "Name",
 	FORM_NATIONALITY: "Nationality",
 	FORM_NEW_PASSWORD: "New Password",
 	FORM_NOTES: "Notes (optional)",
@@ -289,7 +300,7 @@ const spiels = {
 
 	// Tabs
 	PERSONAL_INFO: "Personal Info",
-	MEDICAL_HISTORY: "Medical History",
+	MEDICAL_HISTORY: "Dental History",
 
 	// Dental Chart Legend
 	DENTAL_CHART_LEGEND_COLUMN_ONE: [

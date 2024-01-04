@@ -1,5 +1,17 @@
-import { Card, CardBody, Table, Tbody, Th, Thead, Tr } from "@chakra-ui/react";
+import {
+	Card,
+	CardBody,
+	Table,
+	Tbody,
+	Th,
+	Thead,
+	Tr,
+	Text,
+	Td,
+	Center,
+} from "@chakra-ui/react";
 
+import _ from "lodash";
 import TableRow from "./TableRow";
 
 const StrapiTable = ({ action, data = [], headerTitles = [], limit = 10 }) => {
@@ -19,19 +31,35 @@ const StrapiTable = ({ action, data = [], headerTitles = [], limit = 10 }) => {
 						</Tr>
 					</Thead>
 					<Tbody>
-						{data.map((row, index) => {
-							if (index <= limit) {
-								return (
-									<TableRow
-										key={index}
-										action={action}
-										data={row}
-										headerTitles={headerTitles}
-									/>
-								);
-							}
-							return null;
-						})}
+						{_.isEmpty(data) ? (
+							<Tr>
+								<Td
+									align="center"
+									colSpan={headerTitles.length}
+									h="280px"
+								>
+									<Center>
+										<Text color="gray.400">
+											No data found
+										</Text>
+									</Center>
+								</Td>
+							</Tr>
+						) : (
+							data.map((row, index) => {
+								if (index <= limit) {
+									return (
+										<TableRow
+											key={index}
+											action={action}
+											data={row}
+											headerTitles={headerTitles}
+										/>
+									);
+								}
+								return null;
+							})
+						)}
 					</Tbody>
 				</Table>
 			</CardBody>

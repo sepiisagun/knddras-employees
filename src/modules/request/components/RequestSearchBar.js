@@ -1,6 +1,7 @@
 import {
 	Box,
 	Button,
+	Checkbox,
 	Flex,
 	HStack,
 	Icon,
@@ -71,11 +72,11 @@ const RequestSearchBar = ({ setEndRange, setRange, setValue }) => {
 			</HStack>
 			<Box>
 				{showFilter ? (
-					<Box pt={3}>
-						<Box>
+					<Box py={3}>
+						<HStack justifyContent="space-between">
 							<HStack>
 								<HStack>
-									<Box>Start Date</Box>
+									<Box fontWeight="medium">Start Date</Box>
 									<Box>
 										<Input
 											borderRadius="md"
@@ -92,7 +93,7 @@ const RequestSearchBar = ({ setEndRange, setRange, setValue }) => {
 									</Box>
 								</HStack>
 								<HStack>
-									<Box>End Date</Box>
+									<Box fontWeight="medium">End Date</Box>
 									<Box>
 										<Input
 											borderRadius="md"
@@ -108,8 +109,35 @@ const RequestSearchBar = ({ setEndRange, setRange, setValue }) => {
 										/>
 									</Box>
 								</HStack>
+								{/* Status Filter */}
+								<Box px={5}>
+									<HStack>
+										<Box fontWeight="medium">Status</Box>
+										<HStack>
+											<Checkbox />
+											<Box>Accepted</Box>
+										</HStack>
+										<HStack>
+											<Checkbox />
+											<Box>Pending</Box>
+										</HStack>
+										<HStack>
+											<Checkbox />
+											<Box>Cancelled</Box>
+										</HStack>
+									</HStack>
+								</Box>
 							</HStack>
-						</Box>
+							<Box>
+								<Button
+									onClick={() => {
+										setEndDate(""), setStartDate("");
+									}}
+								>
+									Reset Filters
+								</Button>
+							</Box>
+						</HStack>
 					</Box>
 				) : null}
 			</Box>
