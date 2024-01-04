@@ -13,6 +13,7 @@ export const ENDPOINTS = {
 	DASHBOARD: "dashboard",
 	EMPLOYEES: "employees",
 	LOG_OUT: "logout",
+	NEW_PASSWORD: "new-password",
 	RECORDS: "records",
 	REQUEST: "request",
 	TRANSACTIONS: "transactions",

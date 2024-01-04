@@ -17,14 +17,12 @@ import { SearchIcon } from "@chakra-ui/icons";
 import { MdFilterList } from "react-icons/md";
 import spiels from "../../../constants/spiels";
 
-const RequestSearchBar = ({ setValue }) => {
+const RequestSearchBar = ({ setEndRange, setRange, setValue }) => {
 	const [showFilter, setShowFilter] = useState(false);
 	const [searchValue, setSearchValue] = useState("");
 	const queryClient = useQueryClient();
-	const [startDate, setStartDate] = useState("")
-	const handleStartDateChange = (e) => setStartDate(e.target.value);
-	const [endDate, setEndDate] = useState("")
-	const handleEndDateChange = (e) => setEndDate(e.target.value);
+	const [startDate, setStartDate] = useState("");
+	const [endDate, setEndDate] = useState("");
 	return (
 		<>
 			<HStack py={3}>
@@ -52,11 +50,14 @@ const RequestSearchBar = ({ setValue }) => {
 									],
 								},
 							});
-							queryClient.invalidateQueries({ queryKey: "requests" });
+							queryClient.invalidateQueries({
+								queryKey: "requests",
+							});
 						}}
 						placeholder={spiels.PLACEHOLDER_SEARCH}
 						type="text"
-						value={searchValue} />
+						value={searchValue}
+					/>
 				</InputGroup>
 				<Button
 					onClick={() => {
@@ -69,7 +70,7 @@ const RequestSearchBar = ({ setValue }) => {
 					<Box justifyContent="center">{spiels.TEXT_FILTER}</Box>
 				</Button>
 			</HStack>
-			<Box >
+			<Box>
 				{showFilter ? (
 					<Box py={3}>
 						<HStack justifyContent="space-between">
@@ -79,7 +80,13 @@ const RequestSearchBar = ({ setValue }) => {
 									<Box>
 										<Input
 											borderRadius="md"
-											onChange={handleStartDateChange}
+											onChange={(e) => {
+												setStartDate(e.target.value);
+												setRange(e.target.value);
+												queryClient.invalidateQueries({
+													queryKey: "requests",
+												});
+											}}
 											type="date"
 											value={startDate}
 										/>
@@ -90,7 +97,13 @@ const RequestSearchBar = ({ setValue }) => {
 									<Box>
 										<Input
 											borderRadius="md"
-											onChange={handleEndDateChange}
+											onChange={(e) => {
+												setEndDate(e.target.value);
+												setEndRange(e.target.value);
+												queryClient.invalidateQueries({
+													queryKey: "requests",
+												});
+											}}
 											type="date"
 											value={endDate}
 										/>
@@ -116,10 +129,13 @@ const RequestSearchBar = ({ setValue }) => {
 								</Box>
 							</HStack>
 							<Box>
-								<Button onClick={() => {
-									setEndDate(""),
-									setStartDate("")
-								}}>Reset Filters</Button>
+								<Button
+									onClick={() => {
+										setEndDate(""), setStartDate("");
+									}}
+								>
+									Reset Filters
+								</Button>
 							</Box>
 						</HStack>
 					</Box>

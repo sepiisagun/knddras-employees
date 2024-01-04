@@ -31,3 +31,7 @@ export const toastCancelledMessage = (message) => {
 export const toastSuccessfulLoginMessage = (message) => {
 	return `${message} successfully`;
 };
+
+export const toastSuccessfulRecoveryMessage = () => {
+	return `Please check your email.`;
+};

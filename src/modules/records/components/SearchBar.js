@@ -29,9 +29,9 @@ const SearchBar = ({ location = "default", setValue, isAdmin }) => {
 	const [showFilter, setShowFilter] = useState(false);
 	const [searchValue, setSearchValue] = useState("");
 	const queryClient = useQueryClient();
-	const [startDate, setStartDate] = useState("")
+	const [startDate, setStartDate] = useState("");
 	const handleStartDateChange = (e) => setStartDate(e.target.value);
-	const [endDate, setEndDate] = useState("")
+	const [endDate, setEndDate] = useState("");
 	const handleEndDateChange = (e) => setEndDate(e.target.value);
 	const {
 		data: { data: roles },
@@ -80,7 +80,8 @@ const SearchBar = ({ location = "default", setValue, isAdmin }) => {
 						}}
 						placeholder={spiels.PLACEHOLDER_SEARCH}
 						type="text"
-						value={searchValue} />
+						value={searchValue}
+					/>
 				</InputGroup>
 				<Button
 					onClick={() => {

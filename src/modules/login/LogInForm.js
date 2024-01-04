@@ -8,10 +8,10 @@ import {
 	Box,
 	Button,
 	Heading,
-	FormControl,
-	FormLabel,
-	Switch,
 	useToast,
+	useDisclosure,
+	Stack,
+	Checkbox,
 } from "@chakra-ui/react";
 
 import { login } from "../auth/engine/auth.mutations";
@@ -33,12 +33,18 @@ import {
 	notifSpiels,
 	toastSuccessfulLoginMessage,
 } from "../../constants/notificationSpiels";
+import ForgotPasswordModal from "../../components/Modals/ForgotPasswordModal";
 
 const LogInForm = () => {
 	const dispatch = useDispatch();
 	const router = useRouter();
 	const loginMutation = useMutation(login);
 	const toast = useToast();
+	const {
+		isOpen: isOpenForgot,
+		onClose: onCloseForgot,
+		onOpen: onOpenForgot,
+	} = useDisclosure();
 
 	const onSubmit = (values) => {
 		loginMutation
@@ -84,6 +90,10 @@ const LogInForm = () => {
 			validationSchema: loginValidator,
 		});
 
+	const handleOpenForgot = () => {
+		onOpenForgot();
+	};
+
 	return (
 		<Box minW="400px">
 			<Heading color={spiels.COLOR_TEAR}>
@@ -115,12 +125,34 @@ const LogInForm = () => {
 				type="password"
 				value={values.password}
 			/>
-			<FormControl alignItems="center" display="flex" py="16px">
-				<Switch colorScheme="teal" id="remember-me" />
-				<FormLabel htmlFor="remember-me" mb="0" ml="4">
-					{spiels.LABEL_REMEMBER}
-				</FormLabel>
-			</FormControl>
+			<Stack spacing={5}>
+				<Stack
+					align="start"
+					direction={{ base: "column", sm: "row" }}
+					justify="space-between"
+					pt={1}
+					px={2}
+				>
+					<Checkbox>Remember me</Checkbox>
+					<Button
+						onClick={() => handleOpenForgot()}
+						style={{
+							background: "none",
+							border: "none",
+							color: "#3182CE",
+							cursor: "pointer",
+							fontWeight: "normal",
+						}}
+						variant="link"
+					>
+						{spiels.FORM_FORGOT_PASSWORD}?
+					</Button>
+				</Stack>
+			</Stack>
+			<ForgotPasswordModal
+				isOpenForgot={isOpenForgot}
+				onCloseForgot={onCloseForgot}
+			/>
 			<Button
 				borderRadius="16px"
 				colorScheme="teal"

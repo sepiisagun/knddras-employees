@@ -52,3 +52,9 @@ export const ChangePasswordSchema = object().shape({
 		)
 		.required("Please enter your new password."),
 });
+
+export const emailSchema = object().shape({
+	email: string()
+		.email("Please enter a valid email address")
+		.required("Please enter your email address"),
+});
