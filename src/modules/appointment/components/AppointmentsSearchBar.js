@@ -20,7 +20,13 @@ import {
 	retrieveDoctorAccounts,
 	retrieveProcedures,
 } from "../../../modules/auth/engine/auth.queries";
-const AppointmentsSearchBar = ({ setEndRange, setRange, setValue }) => {
+const AppointmentsSearchBar = ({
+	setDoctor,
+	setEndRange,
+	setProcedure,
+	setRange,
+	setValue,
+}) => {
 	// const { onOpen: onOpenForgot } = useDisclosure();
 	const [searchValue, setSearchValue] = useState("");
 	const queryClient = useQueryClient();
@@ -188,31 +194,37 @@ const AppointmentsSearchBar = ({ setEndRange, setRange, setValue }) => {
 										data-testid="doctor"
 										id="doctor"
 										name="doctor"
+										onChange={(event) => {
+											const selectedDoctorId =
+												event.target.value;
+											setDoctor(selectedDoctorId);
+										}}
 										placeholder="Select Dentist"
 									>
-										{doctorData.map((dentist) => {
-											return (
-												<option
-													key={dentist.id}
-													value={dentist.id}
-												>
-													Dr.{" "}
-													{_.get(
-														dentist,
-														"firstName",
-													)}{" "}
-													{_.get(dentist, "lastName")}
-												</option>
-											);
-										})}
+										{doctorData.map((dentist) => (
+											<option
+												key={dentist.id}
+												value={dentist.id}
+											>
+												Dr.{" "}
+												{_.get(dentist, "firstName")}{" "}
+												{_.get(dentist, "lastName")}
+											</option>
+										))}
 									</Select>
 								</HStack>
+
 								<HStack px={5}>
 									<Box fontWeight="medium">Procedure</Box>
 									<Select
 										data-testid="purpose"
 										id="purpose"
 										name="purpose"
+										onChange={(event) => {
+											const selectedProcedureId =
+												event.target.value;
+											setProcedure(selectedProcedureId);
+										}}
 										placeholder="Select Procedure"
 									>
 										{procedureData.map((procedure) => (
@@ -232,7 +244,8 @@ const AppointmentsSearchBar = ({ setEndRange, setRange, setValue }) => {
 							<Box>
 								<Button
 									onClick={() => {
-										setEndDate(""), setStartDate("");
+										setEndDate("");
+										setStartDate("");
 									}}
 								>
 									Reset Filters
