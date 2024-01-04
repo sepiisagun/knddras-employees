@@ -41,6 +41,13 @@ export const retrieveDentalRecords = (context) => {
 	return api.get(API_ENDPOINTS.DENTAL_RECORDS, { params }).then(defaultThen);
 };
 
+export const retrieveDentalCharts = (context) => {
+	const { queryKey } = context;
+	const [, params] = queryKey;
+
+	return api.get(API_ENDPOINTS.DENTAL_CHARTS, { params }).then(defaultThen);
+};
+
 export const retrieveMedicalRecords = (context) => {
 	const { queryKey } = context;
 	const [, params] = queryKey;

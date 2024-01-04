@@ -24,7 +24,10 @@ import {
 	createDentalRecords,
 	updateDentalRecords,
 } from "../engine/record.mutations";
-import { retrieveDentalRecords } from "../engine/record.queries";
+import {
+	retrieveDentalRecords,
+	retrieveDentalCharts,
+} from "../engine/record.queries";
 
 const EditRecordTab = () => {
 	const router = useRouter();
@@ -35,11 +38,12 @@ const EditRecordTab = () => {
 
 	const {
 		data: { data: dentalRecord = [] },
+		isFetched,
 	} = useQuery({
 		initialData: [],
 		queryFn: retrieveDentalRecords,
 		queryKey: [
-			"appointments-data",
+			"dental-records-data",
 			{
 				filters: {
 					record: id,
@@ -48,9 +52,78 @@ const EditRecordTab = () => {
 		],
 	});
 
-	const formikPersonalInfo = useFormik({
+	const {
+		data: { data: [dentalChart] = [] },
+		isFetched: dentalChartFetched,
+	} = useQuery({
+		enabled: isFetched,
+		initialData: [],
+		queryFn: retrieveDentalCharts,
+		queryKey: [
+			"dental-charts-data",
+			{
+				filters: {
+					record: dentalRecord.id,
+				},
+			},
+		],
+	});
+
+	const formik = useFormik({
 		enableReinitialize: true,
 		initialValues: {
+			11: _.get(dentalChart, "dentalCondition.11", ""),
+			12: _.get(dentalChart, "dentalCondition.12", ""),
+			13: _.get(dentalChart, "dentalCondition.13", ""),
+			14: _.get(dentalChart, "dentalCondition.14", ""),
+			15: _.get(dentalChart, "dentalCondition.15", ""),
+			16: _.get(dentalChart, "dentalCondition.16", ""),
+			17: _.get(dentalChart, "dentalCondition.17", ""),
+			18: _.get(dentalChart, "dentalCondition.18", ""),
+			21: _.get(dentalChart, "dentalCondition.21", ""),
+			22: _.get(dentalChart, "dentalCondition.22", ""),
+			23: _.get(dentalChart, "dentalCondition.23", ""),
+			24: _.get(dentalChart, "dentalCondition.24", ""),
+			25: _.get(dentalChart, "dentalCondition.25", ""),
+			26: _.get(dentalChart, "dentalCondition.26", ""),
+			27: _.get(dentalChart, "dentalCondition.27", ""),
+			28: _.get(dentalChart, "dentalCondition.28", ""),
+			31: _.get(dentalChart, "dentalCondition.31", ""),
+			32: _.get(dentalChart, "dentalCondition.32", ""),
+			33: _.get(dentalChart, "dentalCondition.33", ""),
+			34: _.get(dentalChart, "dentalCondition.34", ""),
+			35: _.get(dentalChart, "dentalCondition.35", ""),
+			36: _.get(dentalChart, "dentalCondition.36", ""),
+			37: _.get(dentalChart, "dentalCondition.37", ""),
+			38: _.get(dentalChart, "dentalCondition.38", ""),
+			41: _.get(dentalChart, "dentalCondition.41", ""),
+			42: _.get(dentalChart, "dentalCondition.42", ""),
+			43: _.get(dentalChart, "dentalCondition.43", ""),
+			44: _.get(dentalChart, "dentalCondition.44", ""),
+			45: _.get(dentalChart, "dentalCondition.45", ""),
+			46: _.get(dentalChart, "dentalCondition.46", ""),
+			47: _.get(dentalChart, "dentalCondition.47", ""),
+			48: _.get(dentalChart, "dentalCondition.48", ""),
+			51: _.get(dentalChart, "dentalCondition.51", ""),
+			52: _.get(dentalChart, "dentalCondition.52", ""),
+			53: _.get(dentalChart, "dentalCondition.53", ""),
+			54: _.get(dentalChart, "dentalCondition.54", ""),
+			55: _.get(dentalChart, "dentalCondition.55", ""),
+			61: _.get(dentalChart, "dentalCondition.61", ""),
+			62: _.get(dentalChart, "dentalCondition.62", ""),
+			63: _.get(dentalChart, "dentalCondition.63", ""),
+			64: _.get(dentalChart, "dentalCondition.64", ""),
+			65: _.get(dentalChart, "dentalCondition.65", ""),
+			71: _.get(dentalChart, "dentalCondition.71", ""),
+			72: _.get(dentalChart, "dentalCondition.72", ""),
+			73: _.get(dentalChart, "dentalCondition.73", ""),
+			74: _.get(dentalChart, "dentalCondition.74", ""),
+			75: _.get(dentalChart, "dentalCondition.75", ""),
+			81: _.get(dentalChart, "dentalCondition.81", ""),
+			82: _.get(dentalChart, "dentalCondition.82", ""),
+			83: _.get(dentalChart, "dentalCondition.83", ""),
+			84: _.get(dentalChart, "dentalCondition.84", ""),
+			85: _.get(dentalChart, "dentalCondition.85", ""),
 			advancedPeriodontitis: _.get(
 				dentalRecord[0],
 				"periodental.advancedPeriodontitis",
@@ -93,34 +166,90 @@ const EditRecordTab = () => {
 		},
 		onSubmit: async (data, { resetForm }) => {
 			const payload = {
-				appliances: {
-					orthodontic: data.orthodontic,
-					stayplate: data.stayplate,
+				dentalCondition: {
+					11: data["11"],
+					12: data["12"],
+					13: data["13"],
+					14: data["14"],
+					15: data["15"],
+					16: data["16"],
+					17: data["17"],
+					18: data["18"],
+					21: data["21"],
+					22: data["22"],
+					23: data["23"],
+					24: data["24"],
+					25: data["25"],
+					26: data["26"],
+					27: data["27"],
+					28: data["28"],
+					31: data["31"],
+					32: data["32"],
+					33: data["33"],
+					34: data["34"],
+					35: data["35"],
+					36: data["36"],
+					37: data["37"],
+					38: data["38"],
+					41: data["41"],
+					42: data["42"],
+					43: data["43"],
+					44: data["44"],
+					45: data["45"],
+					46: data["46"],
+					47: data["47"],
+					48: data["48"],
+					51: data["51"],
+					52: data["52"],
+					53: data["53"],
+					54: data["54"],
+					55: data["55"],
+					61: data["61"],
+					62: data["62"],
+					63: data["63"],
+					64: data["64"],
+					65: data["65"],
+					71: data["71"],
+					72: data["72"],
+					73: data["73"],
+					74: data["74"],
+					75: data["75"],
+					81: data["81"],
+					82: data["82"],
+					83: data["83"],
+					84: data["84"],
+					85: data["85"],
 				},
-				occlusion: {
-					crossbite: data.crossbite,
-					midlineDeviation: data.midlineDeviation,
-					molar: data.molar,
-					overbite: data.overbite,
-					overjet: data.overjet,
-				},
-				periodental: {
-					advancedPeriodontitis: data.advancedPeriodontitis,
-					earlyPeriodontitis: data.earlyPeriodontitis,
-					gingivitis: data.gingivitis,
-					moderatePeriodontitis: data.moderatePeriodontitis,
-				},
-				tmd: {
-					clenching: data.clenching,
-					clicking: data.clicking,
-					muscleSpasm: data.muscleSpasm,
-					trismus: data.trismus,
-				},
-				xRay: {
-					cephalometric: data.cephalometric,
-					occlusal: data.occlusal,
-					panoramic: data.panoramic,
-					periapical: data.periapical,
+				dentalRecord: {
+					appliances: {
+						orthodontic: data.orthodontic,
+						stayplate: data.stayplate,
+					},
+					occlusion: {
+						crossbite: data.crossbite,
+						midlineDeviation: data.midlineDeviation,
+						molar: data.molar,
+						overbite: data.overbite,
+						overjet: data.overjet,
+					},
+					periodental: {
+						advancedPeriodontitis: data.advancedPeriodontitis,
+						earlyPeriodontitis: data.earlyPeriodontitis,
+						gingivitis: data.gingivitis,
+						moderatePeriodontitis: data.moderatePeriodontitis,
+					},
+					tmd: {
+						clenching: data.clenching,
+						clicking: data.clicking,
+						muscleSpasm: data.muscleSpasm,
+						trismus: data.trismus,
+					},
+					xRay: {
+						cephalometric: data.cephalometric,
+						occlusal: data.occlusal,
+						panoramic: data.panoramic,
+						periapical: data.periapical,
+					},
 				},
 			};
 			if (_.isEmpty(dentalRecord)) {
@@ -141,7 +270,10 @@ const EditRecordTab = () => {
 			} else {
 				updateDentalRecordsMutation
 					.mutateAsync({
-						data: payload,
+						data: {
+							...payload,
+							dentalChart: _.get(dentalChart, "id"),
+						},
 						id: _.get(dentalRecord[0], "id"),
 					})
 					.then(() => {
@@ -158,11 +290,9 @@ const EditRecordTab = () => {
 					});
 			}
 		},
-		validateOnBlur: true,
-		validateOnMount: true,
 	});
 
-	const { handleSubmit, resetForm } = formikPersonalInfo;
+	const { handleSubmit, resetForm } = formik;
 
 	return (
 		<Flex alignItems="center" justifyContent="center" p={50} w="full">
@@ -174,47 +304,49 @@ const EditRecordTab = () => {
 				shadow="lg"
 				w="fit-content"
 			>
-				<Card p={4}>
-					<CardBody>
-						<Tabs align="center" index={0}>
-							<TabList>
-								<Tab>{spiels.DENTAL_CHART}</Tab>
-							</TabList>
+				{dentalChartFetched && (
+					<Card p={4}>
+						<CardBody>
+							<Tabs align="center" index={0}>
+								<TabList>
+									<Tab>{spiels.DENTAL_CHART}</Tab>
+								</TabList>
 
-							<FormikProvider value={formikPersonalInfo}>
-								<TabPanels>
-									<TabPanel>
-										<DentalChartTab />
-									</TabPanel>
-								</TabPanels>
-							</FormikProvider>
-						</Tabs>
-						<Button
-							colorScheme="blue"
-							float="right"
-							mt={10}
-							onClick={handleSubmit}
-							size="sm"
-							variant="solid"
-						>
-							{spiels.BUTTON_SUBMIT}
-						</Button>
-						<Button
-							colorScheme="blue"
-							float="right"
-							mr={2}
-							mt={10}
-							onClick={() => {
-								resetForm();
-								router.back();
-							}}
-							size="sm"
-							variant="outline"
-						>
-							{spiels.BUTTON_CANCEL}
-						</Button>
-					</CardBody>
-				</Card>
+								<FormikProvider value={formik}>
+									<TabPanels>
+										<TabPanel>
+											<DentalChartTab />
+										</TabPanel>
+									</TabPanels>
+								</FormikProvider>
+							</Tabs>
+							<Button
+								colorScheme="blue"
+								float="right"
+								mt={10}
+								onClick={handleSubmit}
+								size="sm"
+								variant="solid"
+							>
+								{spiels.BUTTON_SUBMIT}
+							</Button>
+							<Button
+								colorScheme="blue"
+								float="right"
+								mr={2}
+								mt={10}
+								onClick={() => {
+									resetForm();
+									router.back();
+								}}
+								size="sm"
+								variant="outline"
+							>
+								{spiels.BUTTON_CANCEL}
+							</Button>
+						</CardBody>
+					</Card>
+				)}
 			</Box>
 		</Flex>
 	);

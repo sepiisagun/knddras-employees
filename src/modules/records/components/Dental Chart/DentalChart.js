@@ -1,5 +1,5 @@
 import { Box, Center } from "@chakra-ui/layout";
-import React from "react";
+
 import DentalChart5565 from "./DentalChart5565";
 import DentalChart1828 from "./DentalChart1828";
 import DentalChart4838 from "./DentalChart4838";

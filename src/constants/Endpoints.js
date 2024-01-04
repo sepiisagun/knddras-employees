@@ -29,6 +29,7 @@ export const API_ENDPOINTS = {
 	APPOINTMENTS: "/api/appointments",
 	AUTH: "/api/auth",
 	CONDITIONS: "/api/conditions",
+	DENTAL_CHARTS: "/api/dental-charts",
 	DENTAL_RECORDS: "/api/dental-records",
 	GUARDIANS: "/api/guardians",
 	MEDICAL: "/api/medicals",
