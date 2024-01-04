@@ -180,7 +180,9 @@ const EmployeeModal = ({ location, userData = {} }) => {
 												name="firstName"
 												onBlur={handleBlur}
 												onChange={handleChange}
-												placeholder={spiels.PLACEHOLDER_FIRST_NAME}
+												placeholder={
+													spiels.PLACEHOLDER_FIRST_NAME
+												}
 												type="text"
 												value={values.firstName}
 											/>
@@ -205,7 +207,9 @@ const EmployeeModal = ({ location, userData = {} }) => {
 												name="lastName"
 												onBlur={handleBlur}
 												onChange={handleChange}
-												placeholder={spiels.PLACEHOLDER_LAST_NAME}
+												placeholder={
+													spiels.PLACEHOLDER_LAST_NAME
+												}
 												type="text"
 												value={values.lastName}
 											/>
@@ -286,7 +290,9 @@ const EmployeeModal = ({ location, userData = {} }) => {
 												name="mobileNumber"
 												onBlur={handleBlur}
 												onChange={handleChange}
-												placeholder={spiels.PLACEHOLDER_CONTACT_NUMBER}
+												placeholder={
+													spiels.PLACEHOLDER_CONTACT_NUMBER
+												}
 												type="text"
 												value={values.mobileNumber}
 											/>
@@ -297,13 +303,15 @@ const EmployeeModal = ({ location, userData = {} }) => {
 										</Box>
 									</FormControl>
 								</SimpleGrid>
-								<Box py={5} fontWeight="bold" color="teal">Emergency Contact</Box>
+								<Box color="teal" fontWeight="bold" py={5}>
+									Emergency Contact
+								</Box>
 								<SimpleGrid columns={2} spacing={10}>
 									<FormControl
-										// isInvalid={
-										// 	touched.mobileNumber &&
-										// 	errors.mobileNumber
-										// }
+									// isInvalid={
+									// 	touched.mobileNumber &&
+									// 	errors.mobileNumber
+									// }
 									>
 										<Box>
 											<FormLabel>
@@ -315,7 +323,9 @@ const EmployeeModal = ({ location, userData = {} }) => {
 												name="emergencyContactName"
 												onBlur={handleBlur}
 												onChange={handleChange}
-												placeholder={spiels.PLACEHOLDER_EMERGENCY_CONTACT}
+												placeholder={
+													spiels.PLACEHOLDER_EMERGENCY_CONTACT
+												}
 												type="text"
 												// value={values.mobileNumber}
 											/>
@@ -327,10 +337,10 @@ const EmployeeModal = ({ location, userData = {} }) => {
 									</FormControl>
 
 									<FormControl
-										// isInvalid={
-										// 	touched.mobileNumber &&
-										// 	errors.mobileNumber
-										// }
+									// isInvalid={
+									// 	touched.mobileNumber &&
+									// 	errors.mobileNumber
+									// }
 									>
 										<Box>
 											<FormLabel>
@@ -342,7 +352,9 @@ const EmployeeModal = ({ location, userData = {} }) => {
 												name="emergencyContactNumber"
 												onBlur={handleBlur}
 												onChange={handleChange}
-												placeholder={spiels.PLACEHOLDER_CONTACT_NUMBER}
+												placeholder={
+													spiels.PLACEHOLDER_CONTACT_NUMBER
+												}
 												type="text"
 												// value={values.mobileNumber}
 											/>

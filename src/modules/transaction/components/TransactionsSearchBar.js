@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 import {
 	Box,
 	Button,
@@ -16,10 +18,10 @@ import { SearchIcon } from "@chakra-ui/icons";
 import { MdFilterList } from "react-icons/md";
 import spiels from "../../../constants/spiels";
 import TransactionPrintModal from "./TransactionPrintModal";
-import {
-	retrieveDoctorAccounts,
-	retrieveProcedures
-} from "../../../modules/auth/engine/auth.queries";
+import { retrieveDoctorAccounts } from "../../auth/engine/auth.queries";
+
+import { retrieveProcedures } from "../../../utils/engine/procedure.queries";
+
 const TransactionsSearchBar = ({ setValue }) => {
 	const { onOpen: onOpenForgot } = useDisclosure();
 	const [searchValue, setSearchValue] = useState("");
@@ -30,9 +32,9 @@ const TransactionsSearchBar = ({ setValue }) => {
 		onOpen: onOpenModal,
 	} = useDisclosure();
 	const [showFilter, setShowFilter] = useState(false);
-	const [startDate, setStartDate] = useState("")
+	const [startDate, setStartDate] = useState("");
 	const handleStartDateChange = (e) => setStartDate(e.target.value);
-	const [endDate, setEndDate] = useState("")
+	const [endDate, setEndDate] = useState("");
 	const handleEndDateChange = (e) => setEndDate(e.target.value);
 	const {
 		data: { data: doctorData = [] },
@@ -51,92 +53,104 @@ const TransactionsSearchBar = ({ setValue }) => {
 		queryKey: ["procedure-data"],
 	});
 	return (
-		<><HStack py={3}>
-			<InputGroup>
-				<InputLeftElement pointerEvents="none">
-					<SearchIcon boxSize={4} />
-				</InputLeftElement>
-				<Input
-					borderRadius="xl"
-					onChange={(e) => {
-						setSearchValue(e.target.value);
-						setValue({
-							$or: [
-								{
-									procedure: {
-										$or: [
-											{
-												name: {
-													$containsi: e.target.value,
+		<>
+			<HStack py={3}>
+				<InputGroup>
+					<InputLeftElement pointerEvents="none">
+						<SearchIcon boxSize={4} />
+					</InputLeftElement>
+					<Input
+						borderRadius="xl"
+						onChange={(e) => {
+							setSearchValue(e.target.value);
+							setValue({
+								$or: [
+									{
+										procedure: {
+											$or: [
+												{
+													name: {
+														$containsi:
+															e.target.value,
+													},
 												},
-											},
-											{
-												readableName: {
-													$containsi: e.target.value,
+												{
+													readableName: {
+														$containsi:
+															e.target.value,
+													},
 												},
-											},
-										],
+											],
+										},
 									},
-								},
-								{
-									record: {
-										$or: [
-											{
-												firstName: {
-													$containsi: e.target.value,
+									{
+										record: {
+											$or: [
+												{
+													firstName: {
+														$containsi:
+															e.target.value,
+													},
 												},
-											},
-											{
-												lastName: {
-													$containsi: e.target.value,
+												{
+													lastName: {
+														$containsi:
+															e.target.value,
+													},
 												},
-											},
-											{
-												patient: {
-													$or: [
-														{
-															firstName: {
-																$containsi: e.target
-																	.value,
+												{
+													patient: {
+														$or: [
+															{
+																firstName: {
+																	$containsi:
+																		e.target
+																			.value,
+																},
 															},
-														},
-														{
-															lastName: {
-																$containsi: e.target
-																	.value,
+															{
+																lastName: {
+																	$containsi:
+																		e.target
+																			.value,
+																},
 															},
-														},
-													],
+														],
+													},
 												},
-											},
-										],
+											],
+										},
 									},
-								},
-							],
-						});
-						queryClient.invalidateQueries({ queryKey: "requests" });
-					}}
-					placeholder={spiels.PLACEHOLDER_SEARCH}
-					type="text"
-					value={searchValue} />
-			</InputGroup>
+								],
+							});
+							queryClient.invalidateQueries({
+								queryKey: "requests",
+							});
+						}}
+						placeholder={spiels.PLACEHOLDER_SEARCH}
+						type="text"
+						value={searchValue}
+					/>
+				</InputGroup>
 
-			<Button
-				onClick={() => {
-					setShowFilter(!showFilter);
-				}}
-			>
-				<Flex justifyContent="center" mr={2}>
-					<Icon as={MdFilterList} h={5} w={5} />
-				</Flex>
-				<Box justifyContent="center">{spiels.TEXT_FILTER}</Box>
-			</Button>
-			<TransactionPrintModal
-				isOpenModal={isOpenModal}
-				onCloseModal={onCloseModal}
-				onOpenForgot={onOpenForgot}
-				onOpenModal={onOpenModal} />
-		</HStack><Box>
+				<Button
+					onClick={() => {
+						setShowFilter(!showFilter);
+					}}
+				>
+					<Flex justifyContent="center" mr={2}>
+						<Icon as={MdFilterList} h={5} w={5} />
+					</Flex>
+					<Box justifyContent="center">{spiels.TEXT_FILTER}</Box>
+				</Button>
+				<TransactionPrintModal
+					isOpenModal={isOpenModal}
+					onCloseModal={onCloseModal}
+					onOpenForgot={onOpenForgot}
+					onOpenModal={onOpenModal}
+				/>
+			</HStack>
+			<Box>
 				{showFilter ? (
 					<Box pt={3}>
 						<Box>
@@ -164,9 +178,7 @@ const TransactionsSearchBar = ({ setValue }) => {
 									</Box>
 								</HStack>
 								<HStack px={5}>
-									<Box fontWeight="medium">
-										Dentist
-									</Box>
+									<Box fontWeight="medium">Dentist</Box>
 									<Select
 										data-testid="doctor"
 										id="doctor"
@@ -191,9 +203,7 @@ const TransactionsSearchBar = ({ setValue }) => {
 									</Select>
 								</HStack>
 								<HStack px={5}>
-									<Box fontWeight="medium">
-										Procedure
-									</Box>
+									<Box fontWeight="medium">Procedure</Box>
 									<Select
 										data-testid="purpose"
 										id="purpose"
@@ -217,7 +227,8 @@ const TransactionsSearchBar = ({ setValue }) => {
 						</Box>
 					</Box>
 				) : null}
-			</Box></>
+			</Box>
+		</>
 	);
 };
 

@@ -1,3 +1,8 @@
+import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
+// import { FormikProvider, useFormik } from "formik";
+// import _ from "lodash";
+
 import {
 	Button,
 	Checkbox,
@@ -21,16 +26,44 @@ import {
 	useDisclosure,
 } from "@chakra-ui/react";
 import spiels from "../../../../constants/spiels";
-import {
-	PROCEDURE,
-	TRANSACTION_AMOUNT,
-} from "../../../../constants/temporaryValues";
+import { TRANSACTION_AMOUNT } from "../../../../constants/temporaryValues";
 import TreatmentHeader from "./TreatmentHeader";
 import TreatmentBreakdownFee from "./TreatmentBreakdownFee";
-// import StrapiTable from "../../../../components/Table";
+
+import { retrieveTeeth } from "../../engine/record.queries";
+
+import { retrieveProcedures } from "../../../../utils/engine/procedure.queries";
 
 const AddTreatment = () => {
 	const { isOpen, onClose, onOpen } = useDisclosure();
+	const [teethCollection, setTeethCollection] = useState([]);
+
+	const {
+		data: { data: { data } = {} },
+		isFetched,
+	} = useQuery({
+		initialData: {},
+		queryFn: retrieveTeeth,
+		queryKey: ["teeth-data"],
+	});
+
+	const { data: { data: procedureData = [] } = {} } = useQuery({
+		initialData: {},
+		queryFn: retrieveProcedures,
+		queryKey: ["procedures-data"],
+	});
+
+	useEffect(() => {
+		if (isFetched) {
+			setTeethCollection([
+				...data.sectionOne,
+				...data.sectionTwo,
+				...data.sectionThree,
+				...data.sectionFour,
+			]);
+		}
+	}, [data]);
+
 	return (
 		<>
 			<Button
@@ -65,36 +98,49 @@ const AddTreatment = () => {
 									<Tbody>
 										<Tr>
 											<Td>
-												<Input
-													p={0}
-													placeholder="Tooth No."
+												<Select
+													data-testid="tooth"
+													id="tooth"
+													name="tooth"
+													// onChange={handleChange}
+													placeholder="Tooth no."
 													size="sm"
-													variant="flushed"
-													w={20}
-												/>
+													value=""
+												>
+													{teethCollection
+														.sort()
+														.map((teeth) => (
+															<option
+																key={teeth}
+																value={teeth}
+															>
+																{teeth}
+															</option>
+														))}
+												</Select>
 											</Td>
 											<Td>
 												{" "}
 												<Select
-													data-testid="slot"
-													id="slot"
-													name="slot"
+													data-testid="procedure"
+													id="procedure"
+													name="procedure"
+													// onChange={handleChange}
 													placeholder="Select treatment"
 													size="sm"
+													value=""
 												>
-													{PROCEDURE.map(
+													{procedureData.map(
 														(procedure) => (
 															<option
 																key={
 																	procedure.id
 																}
 																value={
-																	procedure.procedure
+																	procedure.id
 																}
 															>
-																{
-																	procedure.procedure
-																}
+																{procedure.name}
 															</option>
 														),
 													)}
@@ -102,9 +148,15 @@ const AddTreatment = () => {
 											</Td>
 											<Td isNumeric>
 												<Input
+													data-testid="Cost"
+													id="Cost"
+													isDisabled
+													name="Cost"
+													// onChange={handleChange}
 													p={0}
-													placeholder="Cost"
+													placeholder="₱"
 													size="sm"
+													// value={values[`${item}`]}
 													variant="flushed"
 													w={20}
 												/>

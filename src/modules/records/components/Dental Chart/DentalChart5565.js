@@ -1,4 +1,5 @@
 import { useQuery } from "react-query";
+import { useFormikContext } from "formik";
 import _ from "lodash";
 
 import { Image } from "@chakra-ui/image";
@@ -32,6 +33,8 @@ const DentalChart5565 = () => {
 		queryKey: ["teeth-status-data"],
 	});
 
+	const { setFieldValue, values } = useFormikContext();
+
 	return (
 		<Box>
 			{isFetched && (
@@ -54,12 +57,16 @@ const DentalChart5565 = () => {
 													data-testid={`${item}`}
 													id={`${item}`}
 													name={`${item}`}
-													// onBlur={handleBlur}
-													// onChange={handleChange}
-													// value={values.sex}
+													onChange={(e) =>
+														setFieldValue(
+															`${item}`,
+															e.target.value,
+															false,
+														)
+													}
 													placeholder="-"
 													size="xs"
-													value=""
+													value={values[`${item}`]}
 												>
 													{statusData.map(
 														(status) => (

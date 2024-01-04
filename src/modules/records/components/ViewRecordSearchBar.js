@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 import {
 	Box,
 	Button,
@@ -12,16 +14,15 @@ import {
 import React, { useState } from "react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { MdFilterList } from "react-icons/md";
-import spiels from "../../../constants/spiels";
-import {
-	retrieveProcedures
-} from "../../../modules/auth/engine/auth.queries";
 import { useQuery } from "react-query";
+import spiels from "../../../constants/spiels";
+import { retrieveProcedures } from "../../../utils/engine/procedure.queries";
+
 const ViewRecordSearchBar = () => {
 	const [showFilter, setShowFilter] = useState(false);
-	const [startDate, setStartDate] = useState("")
+	const [startDate, setStartDate] = useState("");
 	const handleStartDateChange = (e) => setStartDate(e.target.value);
-	const [endDate, setEndDate] = useState("")
+	const [endDate, setEndDate] = useState("");
 	const handleEndDateChange = (e) => setEndDate(e.target.value);
 	const {
 		data: { data: procedureData = [] },
@@ -32,27 +33,30 @@ const ViewRecordSearchBar = () => {
 		queryKey: ["procedure-data"],
 	});
 	return (
-		<><HStack py={3}>
-			<InputGroup>
-				<InputLeftElement pointerEvents="none">
-					<SearchIcon boxSize={4} />
-				</InputLeftElement>
-				<Input
-					borderRadius="xl"
-					placeholder={spiels.PLACEHOLDER_SEARCH}
-					type="text" />
-			</InputGroup>
-			<Button
-				onClick={() => {
-					setShowFilter(!showFilter);
-				}}
-			>
-				<Flex justifyContent="center" mr={2}>
-					<Icon as={MdFilterList} h={5} w={5} />
-				</Flex>
-				<Box justifyContent="center">{spiels.TEXT_FILTER}</Box>
-			</Button>
-		</HStack><Box>
+		<>
+			<HStack py={3}>
+				<InputGroup>
+					<InputLeftElement pointerEvents="none">
+						<SearchIcon boxSize={4} />
+					</InputLeftElement>
+					<Input
+						borderRadius="xl"
+						placeholder={spiels.PLACEHOLDER_SEARCH}
+						type="text"
+					/>
+				</InputGroup>
+				<Button
+					onClick={() => {
+						setShowFilter(!showFilter);
+					}}
+				>
+					<Flex justifyContent="center" mr={2}>
+						<Icon as={MdFilterList} h={5} w={5} />
+					</Flex>
+					<Box justifyContent="center">{spiels.TEXT_FILTER}</Box>
+				</Button>
+			</HStack>
+			<Box>
 				{showFilter ? (
 					<Box py={3}>
 						<Box>
@@ -80,9 +84,7 @@ const ViewRecordSearchBar = () => {
 									</Box>
 								</HStack>
 								<HStack px={5}>
-									<Box fontWeight="medium">
-										Procedure
-									</Box>
+									<Box fontWeight="medium">Procedure</Box>
 									<Select
 										data-testid="purpose"
 										id="purpose"
@@ -106,7 +108,8 @@ const ViewRecordSearchBar = () => {
 						</Box>
 					</Box>
 				) : null}
-			</Box></>
+			</Box>
+		</>
 	);
 };
 

@@ -265,7 +265,9 @@ const AddPersonalInfoTab = ({ formType }) => {
 								name="guardianName"
 								onBlur={handleBlur}
 								onChange={handleChange}
-								placeholder={spiels.PLACEHOLDER_EMERGENCY_CONTACT}
+								placeholder={
+									spiels.PLACEHOLDER_EMERGENCY_CONTACT
+								}
 								type="text"
 								value={values.guardianName}
 							/>
@@ -279,7 +281,18 @@ const AddPersonalInfoTab = ({ formType }) => {
 							isInvalid={touched.occupation && errors.occupation}
 						>
 							<Box>
-								<FormLabel><Flex>{spiels.FORM_OCCUPATION} <Text fontWeight="normal" color="gray" px={1}>(Optional)</Text></Flex> </FormLabel>
+								<FormLabel>
+									<Flex>
+										{spiels.FORM_OCCUPATION}{" "}
+										<Text
+											color="gray"
+											fontWeight="normal"
+											px={1}
+										>
+											(Optional)
+										</Text>
+									</Flex>{" "}
+								</FormLabel>
 								<Input
 									data-testid="occupation"
 									id="occupation"
@@ -308,7 +321,9 @@ const AddPersonalInfoTab = ({ formType }) => {
 									name="relation"
 									onBlur={handleBlur}
 									onChange={handleChange}
-									placeholder={spiels.PLACEHOLDER_RELATIONSHIP}
+									placeholder={
+										spiels.PLACEHOLDER_RELATIONSHIP
+									}
 									type="text"
 									value={values.relation}
 								/>

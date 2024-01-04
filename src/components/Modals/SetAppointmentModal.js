@@ -35,7 +35,6 @@ import {
 	retrievePatientAccounts,
 } from "../../modules/auth/engine/auth.queries";
 
-// import { retrieveProcedures } from "../../utils/engine/procedure.queries";
 import { createAppointment } from "../../modules/appointment/engine/appointment.mutations";
 import { showSuccess } from "../../utils/notification";
 import {

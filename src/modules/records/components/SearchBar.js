@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import _ from "lodash";
 
 import {
 	Box,
@@ -20,11 +21,11 @@ import Link from "next/link";
 import spiels from "../../../constants/spiels";
 import { ENDPOINTS } from "../../../constants/Endpoints";
 import EmployeeModal from "../../../components/Modals/EmployeeModal";
-import { retrieveEmployeeRoles } from "../../../modules/auth/engine/auth.queries";
+import { retrieveEmployeeRoles } from "../../auth/engine/auth.queries";
 import { userRoleTypeSelector } from "../../auth/engine/auth.selectors";
 import { ADMIN, ASSISTANT } from "../../../constants/userRoles";
 
-const SearchBar = ({ location = "default", setValue, isAdmin }) => {
+const SearchBar = ({ isAdmin, location = "default", setValue }) => {
 	const role = useSelector(userRoleTypeSelector);
 	const [showFilter, setShowFilter] = useState(false);
 	const [searchValue, setSearchValue] = useState("");
@@ -35,7 +36,6 @@ const SearchBar = ({ location = "default", setValue, isAdmin }) => {
 	const handleEndDateChange = (e) => setEndDate(e.target.value);
 	const {
 		data: { data: roles },
-		isFetched,
 	} = useQuery({
 		initialData: [],
 		placeholderData: [],
@@ -121,12 +121,12 @@ const SearchBar = ({ location = "default", setValue, isAdmin }) => {
 											name="role"
 											placeholder="- Select Role -"
 										>
-											{roles.map((role) => (
+											{roles.map((item) => (
 												<option
-													key={role.id}
-													value={role.id}
+													key={item.id}
+													value={item.id}
 												>
-													{_.get(role, "name")}
+													{_.get(item, "name")}
 												</option>
 											))}
 										</Select>
@@ -139,7 +139,9 @@ const SearchBar = ({ location = "default", setValue, isAdmin }) => {
 							) : (
 								<HStack>
 									<HStack>
-										<Box fontWeight="medium">Start Date</Box>
+										<Box fontWeight="medium">
+											Start Date
+										</Box>
 										<Box>
 											<Input
 												borderRadius="md"
@@ -163,10 +165,14 @@ const SearchBar = ({ location = "default", setValue, isAdmin }) => {
 								</HStack>
 							)}
 							<Box>
-								<Button onClick={() => {
-									setEndDate(""),
-									setStartDate("")
-								}}>Reset Filters</Button>
+								<Button
+									onClick={() => {
+										setEndDate("");
+										setStartDate("");
+									}}
+								>
+									Reset Filters
+								</Button>
 							</Box>
 						</HStack>
 					</Box>

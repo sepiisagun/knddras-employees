@@ -40,7 +40,7 @@ const EmployeesScreen = () => {
 		<ProfileLayout>
 			<Box maxW="auto" p={{ base: 4, md: 5 }}>
 				<SearchBar
-					isAdmin={true}
+					isAdmin
 					location="Employees"
 					refetch={refetch}
 					setValue={(e) => setSearchInput(e)}
