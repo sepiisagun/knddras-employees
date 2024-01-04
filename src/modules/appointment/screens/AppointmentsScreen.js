@@ -21,6 +21,8 @@ import { retrieveRequests } from "../../request/engine/request.queries";
 const AppointmentsScreen = () => {
 	const today = DateTime.now().toFormat("yyyy-MM-dd");
 	const [searchInput, setSearchInput] = useState();
+	const [dateStartInput, setDateStartInput] = useState();
+	const [dateEndInput, setDateEndInput] = useState();
 	const {
 		data: { total: upcomingTotal },
 	} = useQuery({
@@ -79,6 +81,9 @@ const AppointmentsScreen = () => {
 			{
 				filters: {
 					...searchInput,
+					date: {
+						$between: [dateStartInput, dateEndInput],
+					},
 				},
 				populate: "*",
 				sort: "date:desc",
@@ -136,6 +141,8 @@ const AppointmentsScreen = () => {
 				</Grid>
 				<AppointmentsSearchBar
 					refetch={refetch}
+					setEndRange={(e) => setDateEndInput(e)}
+					setRange={(e) => setDateStartInput(e)}
 					setValue={(e) => setSearchInput(e)}
 				/>
 				<StrapiTable

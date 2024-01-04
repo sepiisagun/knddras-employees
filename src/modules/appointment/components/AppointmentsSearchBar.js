@@ -18,9 +18,9 @@ import spiels from "../../../constants/spiels";
 import SetAppointmentModal from "../../../components/Modals/SetAppointmentModal";
 import {
 	retrieveDoctorAccounts,
-	retrieveProcedures
+	retrieveProcedures,
 } from "../../../modules/auth/engine/auth.queries";
-const AppointmentsSearchBar = ({ setValue }) => {
+const AppointmentsSearchBar = ({ setEndRange, setRange, setValue }) => {
 	// const { onOpen: onOpenForgot } = useDisclosure();
 	const [searchValue, setSearchValue] = useState("");
 	const queryClient = useQueryClient();
@@ -30,10 +30,8 @@ const AppointmentsSearchBar = ({ setValue }) => {
 		onOpen: onOpenModal,
 	} = useDisclosure();
 	const [showFilter, setShowFilter] = useState(false);
-	const [startDate, setStartDate] = useState("")
-	const handleStartDateChange = (e) => setStartDate(e.target.value);
-	const [endDate, setEndDate] = useState("")
-	const handleEndDateChange = (e) => setEndDate(e.target.value);
+	const [startDate, setStartDate] = useState("");
+	const [endDate, setEndDate] = useState("");
 	const {
 		data: { data: doctorData = [] },
 	} = useQuery({
@@ -51,89 +49,100 @@ const AppointmentsSearchBar = ({ setValue }) => {
 		queryKey: ["procedure-data"],
 	});
 	return (
-		<><HStack py={3}>
-			<InputGroup>
-				<InputLeftElement pointerEvents="none">
-					<SearchIcon boxSize={4} />
-				</InputLeftElement>
-				<Input
-					borderRadius="xl"
-					onChange={(e) => {
-						setSearchValue(e.target.value);
-						setValue({
-							$or: [
-								{
-									patient: {
-										$or: [
-											{
-												firstName: {
-													$containsi: e.target.value,
+		<>
+			<HStack py={3}>
+				<InputGroup>
+					<InputLeftElement pointerEvents="none">
+						<SearchIcon boxSize={4} />
+					</InputLeftElement>
+					<Input
+						borderRadius="xl"
+						onChange={(e) => {
+							setSearchValue(e.target.value);
+							setValue({
+								$or: [
+									{
+										patient: {
+											$or: [
+												{
+													firstName: {
+														$containsi:
+															e.target.value,
+													},
 												},
-											},
-											{
-												lastName: {
-													$containsi: e.target.value,
+												{
+													lastName: {
+														$containsi:
+															e.target.value,
+													},
 												},
-											},
-										],
+											],
+										},
 									},
-								},
-								{
-									doctor: {
-										$or: [
-											{
-												firstName: {
-													$containsi: e.target.value,
+									{
+										doctor: {
+											$or: [
+												{
+													firstName: {
+														$containsi:
+															e.target.value,
+													},
 												},
-											},
-											{
-												lastName: {
-													$containsi: e.target.value,
+												{
+													lastName: {
+														$containsi:
+															e.target.value,
+													},
 												},
-											},
-										],
+											],
+										},
 									},
-								},
-								{
-									purpose: {
-										$or: [
-											{
-												name: {
-													$containsi: e.target.value,
+									{
+										purpose: {
+											$or: [
+												{
+													name: {
+														$containsi:
+															e.target.value,
+													},
 												},
-											},
-											{
-												readableName: {
-													$containsi: e.target.value,
+												{
+													readableName: {
+														$containsi:
+															e.target.value,
+													},
 												},
-											},
-										],
+											],
+										},
 									},
-								},
-							],
-						});
-						queryClient.invalidateQueries({ queryKey: "requests" });
-					}}
-					placeholder={spiels.PLACEHOLDER_SEARCH}
-					type="text"
-					value={searchValue} />
-			</InputGroup>
+								],
+							});
+							queryClient.invalidateQueries({
+								queryKey: "requests",
+							});
+						}}
+						placeholder={spiels.PLACEHOLDER_SEARCH}
+						type="text"
+						value={searchValue}
+					/>
+				</InputGroup>
 
-			<Button
-				onClick={() => {
-					setShowFilter(!showFilter);
-				}}
-			>
-				<Flex justifyContent="center" mr={2}>
-					<Icon as={MdFilterList} h={5} w={5} />
-				</Flex>
-				<Box justifyContent="center">{spiels.TEXT_FILTER}</Box>
-			</Button>
-			<SetAppointmentModal
-				isOpenSetAppointment={isOpenModal}
-				onCloseSetAppointment={onCloseModal}
-				onOpenSetAppointment={onOpenModal} />
-		</HStack>
+				<Button
+					onClick={() => {
+						setShowFilter(!showFilter);
+					}}
+				>
+					<Flex justifyContent="center" mr={2}>
+						<Icon as={MdFilterList} h={5} w={5} />
+					</Flex>
+					<Box justifyContent="center">{spiels.TEXT_FILTER}</Box>
+				</Button>
+				<SetAppointmentModal
+					isOpenSetAppointment={isOpenModal}
+					onCloseSetAppointment={onCloseModal}
+					onOpenSetAppointment={onOpenModal}
+				/>
+			</HStack>
 			<Box>
 				{showFilter ? (
 					<Box py={3}>
@@ -144,7 +153,13 @@ const AppointmentsSearchBar = ({ setValue }) => {
 									<Box>
 										<Input
 											borderRadius="md"
-											onChange={handleStartDateChange}
+											onChange={(e) => {
+												setStartDate(e.target.value);
+												setRange(e.target.value);
+												queryClient.invalidateQueries({
+													queryKey: "requests",
+												});
+											}}
 											type="date"
 											value={startDate}
 										/>
@@ -155,16 +170,20 @@ const AppointmentsSearchBar = ({ setValue }) => {
 									<Box>
 										<Input
 											borderRadius="md"
-											onChange={handleEndDateChange}
+											onChange={(e) => {
+												setEndDate(e.target.value);
+												setEndRange(e.target.value);
+												queryClient.invalidateQueries({
+													queryKey: "requests",
+												});
+											}}
 											type="date"
 											value={endDate}
 										/>
 									</Box>
 								</HStack>
 								<HStack px={5}>
-									<Box fontWeight="medium">
-										Dentist
-									</Box>
+									<Box fontWeight="medium">Dentist</Box>
 									<Select
 										data-testid="doctor"
 										id="doctor"
@@ -189,9 +208,7 @@ const AppointmentsSearchBar = ({ setValue }) => {
 									</Select>
 								</HStack>
 								<HStack px={5}>
-									<Box fontWeight="medium">
-										Procedure
-									</Box>
+									<Box fontWeight="medium">Procedure</Box>
 									<Select
 										data-testid="purpose"
 										id="purpose"
@@ -213,10 +230,13 @@ const AppointmentsSearchBar = ({ setValue }) => {
 								</HStack>
 							</HStack>
 							<Box>
-								<Button onClick={() => {
-									setEndDate(""),
-									setStartDate("")
-								}}>Reset Filters</Button>
+								<Button
+									onClick={() => {
+										setEndDate(""), setStartDate("");
+									}}
+								>
+									Reset Filters
+								</Button>
 							</Box>
 						</HStack>
 					</Box>
