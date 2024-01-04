@@ -11,6 +11,9 @@ const RequestScreen = () => {
 	const [searchInput, setSearchInput] = useState();
 	const [dateStartInput, setDateStartInput] = useState();
 	const [dateEndInput, setDateEndInput] = useState();
+	const [pendingStatus, setPendingStatus] = useState();
+	const [acceptedStatus, setAcceptedStatus] = useState();
+	const [cancelledStatus, setCancelledStatus] = useState();
 	const {
 		data: { data: requestData },
 		refetch,
@@ -23,6 +26,17 @@ const RequestScreen = () => {
 			{
 				filters: {
 					...searchInput,
+					$or: [
+						{
+							status: pendingStatus,
+						},
+						{
+							status: cancelledStatus,
+						},
+						{
+							status: acceptedStatus,
+						},
+					],
 					date: {
 						$between: [dateStartInput, dateEndInput],
 					},
@@ -37,7 +51,10 @@ const RequestScreen = () => {
 			<Box maxW="auto" p={{ base: 4, md: 5 }}>
 				<RequestSearchBar
 					refetch={refetch}
+					setAccepted={(e) => setAcceptedStatus(e)}
+					setCancelled={(e) => setCancelledStatus(e)}
 					setEndRange={(e) => setDateEndInput(e)}
+					setPending={(e) => setPendingStatus(e)}
 					setRange={(e) => setDateStartInput(e)}
 					setValue={(e) => setSearchInput(e)}
 				/>

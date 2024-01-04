@@ -23,6 +23,9 @@ const AppointmentsScreen = () => {
 	const [searchInput, setSearchInput] = useState();
 	const [dateStartInput, setDateStartInput] = useState();
 	const [dateEndInput, setDateEndInput] = useState();
+	const [doctorInput, setDoctorInput] = useState();
+	const [procedureInput, setprocedureInput] = useState();
+
 	const {
 		data: { total: upcomingTotal },
 	} = useQuery({
@@ -84,6 +87,12 @@ const AppointmentsScreen = () => {
 					date: {
 						$between: [dateStartInput, dateEndInput],
 					},
+					doctor: {
+						id: doctorInput,
+					},
+					purpose: {
+						id: procedureInput,
+					},
 				},
 				populate: "*",
 				sort: "date:desc",
@@ -141,7 +150,9 @@ const AppointmentsScreen = () => {
 				</Grid>
 				<AppointmentsSearchBar
 					refetch={refetch}
+					setDoctor={(e) => setDoctorInput(e)}
 					setEndRange={(e) => setDateEndInput(e)}
+					setProcedure={(e) => setprocedureInput(e)}
 					setRange={(e) => setDateStartInput(e)}
 					setValue={(e) => setSearchInput(e)}
 				/>

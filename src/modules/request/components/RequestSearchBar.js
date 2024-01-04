@@ -17,12 +17,21 @@ import { SearchIcon } from "@chakra-ui/icons";
 import { MdFilterList } from "react-icons/md";
 import spiels from "../../../constants/spiels";
 
-const RequestSearchBar = ({ setEndRange, setRange, setValue }) => {
+const RequestSearchBar = ({
+	setAccepted,
+	setCancelled,
+	setEndRange,
+	setPending,
+	setRange,
+	setValue,
+}) => {
 	const [showFilter, setShowFilter] = useState(false);
 	const [searchValue, setSearchValue] = useState("");
 	const queryClient = useQueryClient();
 	const [startDate, setStartDate] = useState("");
 	const [endDate, setEndDate] = useState("");
+	// eslint-disable-next-line no-unused-vars
+	const [requestStatus, setRequestStatus] = useState("");
 	return (
 		<>
 			<HStack py={3}>
@@ -114,15 +123,54 @@ const RequestSearchBar = ({ setEndRange, setRange, setValue }) => {
 									<HStack>
 										<Box fontWeight="medium">Status</Box>
 										<HStack>
-											<Checkbox />
+											<Checkbox
+												onChange={(e) => {
+													setRequestStatus(
+														e.target.value,
+													);
+													setAccepted("ACCEPTED");
+													queryClient.invalidateQueries(
+														{
+															queryKey:
+																"requests",
+														},
+													);
+												}}
+											/>
 											<Box>Accepted</Box>
 										</HStack>
 										<HStack>
-											<Checkbox />
+											<Checkbox
+												onChange={(e) => {
+													setRequestStatus(
+														e.target.value,
+													);
+													setPending("PENDING");
+													queryClient.invalidateQueries(
+														{
+															queryKey:
+																"requests",
+														},
+													);
+												}}
+											/>
 											<Box>Pending</Box>
 										</HStack>
 										<HStack>
-											<Checkbox />
+											<Checkbox
+												onChange={(e) => {
+													setRequestStatus(
+														e.target.value,
+													);
+													setCancelled("CANCELLED");
+													queryClient.invalidateQueries(
+														{
+															queryKey:
+																"requests",
+														},
+													);
+												}}
+											/>
 											<Box>Cancelled</Box>
 										</HStack>
 									</HStack>
