@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 import {
 	Box,
 	Button,
@@ -16,10 +18,10 @@ import { SearchIcon } from "@chakra-ui/icons";
 import { MdFilterList } from "react-icons/md";
 import spiels from "../../../constants/spiels";
 import SetAppointmentModal from "../../../components/Modals/SetAppointmentModal";
-import {
-	retrieveDoctorAccounts,
-	retrieveProcedures,
-} from "../../../modules/auth/engine/auth.queries";
+import { retrieveDoctorAccounts } from "../../auth/engine/auth.queries";
+
+import { retrieveProcedures } from "../../../utils/engine/procedure.queries";
+
 const AppointmentsSearchBar = ({ setEndRange, setRange, setValue }) => {
 	// const { onOpen: onOpenForgot } = useDisclosure();
 	const [searchValue, setSearchValue] = useState("");
@@ -232,7 +234,8 @@ const AppointmentsSearchBar = ({ setEndRange, setRange, setValue }) => {
 							<Box>
 								<Button
 									onClick={() => {
-										setEndDate(""), setStartDate("");
+										setEndDate("");
+										setStartDate("");
 									}}
 								>
 									Reset Filters

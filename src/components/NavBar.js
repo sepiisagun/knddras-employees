@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import _ from "lodash";
 
-import { Box, Flex, HStack, Image, Spacer, useDisclosure } from "@chakra-ui/react";
+import { Box, Flex, HStack, Image, useDisclosure } from "@chakra-ui/react";
 
 import {
 	isLoggedInSelector,
@@ -46,13 +46,13 @@ const NavBar = () => {
 	const iconsize = "4vh";
 	const px = "10px";
 	const py = "15px";
-	const { isOpen, onOpen, onClose } = useDisclosure()
+	const { isOpen, onClose, onOpen } = useDisclosure();
 	return (
 		<Flex
 			alignItems="center"
-			justifyContent="space-between"
 			borderBottom="1px"
 			borderBottomColor="gray.300"
+			justifyContent="space-between"
 			px={px}
 			py={py}
 		>
@@ -77,7 +77,11 @@ const NavBar = () => {
 				</Flex>
 				<Box fontWeight="medium">Klinika ng Dentista</Box>
 			</HStack>
-			<TOCandPrivacyPolicy isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
+			<TOCandPrivacyPolicy
+				isOpen={isOpen}
+				onClose={onClose}
+				onOpen={onOpen}
+			/>
 			{isLoggedIn && (
 				<Flex
 					alignItems="center"

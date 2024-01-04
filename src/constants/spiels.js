@@ -29,7 +29,7 @@ const spiels = {
 	PLACEHOLDER_LAST_NAME: "e.g. Doe",
 	PLACEHOLDER_MIDDLE_INITIAL: "e.g. B",
 	PLACEHOLDER_OCCUPATION: "e.g. Farmer",
-	PLACEHOLDER_OFFICE_ADDRESS:"Room/Unit/Floor Number, Building Name",
+	PLACEHOLDER_OFFICE_ADDRESS: "Room/Unit/Floor Number, Building Name",
 	PLACEHOLDER_PASSWORD: "Your Password",
 	PLACEHOLDER_RELATIONSHIP: "e.g. Mother",
 	INC_EMAIL: "Incorrect Email",

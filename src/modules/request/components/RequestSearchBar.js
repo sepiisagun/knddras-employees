@@ -131,7 +131,8 @@ const RequestSearchBar = ({ setEndRange, setRange, setValue }) => {
 							<Box>
 								<Button
 									onClick={() => {
-										setEndDate(""), setStartDate("");
+										setEndDate("");
+										setStartDate("");
 									}}
 								>
 									Reset Filters
