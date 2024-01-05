@@ -49,7 +49,14 @@ const ViewRecordProfileTable = ({ data }) => {
 				</Link>
 
 				<PrintModal />
-				<AddTreatment />
+				<AddTreatment
+					patientId={_.get(data, "patient.id")}
+					patientName={`${_.get(data, "firstName")} ${_.get(
+						data,
+						"lastName",
+					)}`}
+					recordId={_.get(data, "id")}
+				/>
 
 				<Text
 					color="black"

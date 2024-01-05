@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 import {
 	Button,
 	Modal,
@@ -9,43 +11,95 @@ import {
 	StackDivider,
 	Table,
 	TableContainer,
+	Tbody,
+	Td,
+	Text,
+	Th,
+	Thead,
+	Tr,
 	useDisclosure,
 } from "@chakra-ui/react";
 import spiels from "../../../../constants/spiels";
-import { TRANSACTION_AMOUNT } from "../../../../constants/temporaryValues";
 // import StrapiTable from "../../../../components/Table";
-import TreatmentHeader from "./TreatmentHeader";
 import TreatmentBreakdownFee from "./TreatmentBreakdownFee";
+import ViewTreatmentHeader from "./ViewTreatmentHeader";
 
-const ViewTreatment = () => {
-	const { isOpen, onClose, onOpen } = useDisclosure();
-	const total = TRANSACTION_AMOUNT[2];
+const ViewTreatment = ({ data }) => {
+	const {
+		isOpen: isOpenViewTreatment,
+		onClose: onCloseViewTreatment,
+		onOpen: onOpenViewTreatment,
+	} = useDisclosure();
+
 	return (
 		<>
 			<Button
 				colorScheme="blue"
-				// float="right"
 				mx={1}
-				onClick={onOpen}
+				onClick={onOpenViewTreatment}
 				size="md"
 				variant="link"
 			>
 				{spiels.BUTTON_VIEW}
 			</Button>
 
-			<Modal isCentered isOpen={isOpen} onClose={onClose} size="2xl">
+			<Modal
+				isCentered
+				isOpen={isOpenViewTreatment}
+				onClose={onCloseViewTreatment}
+				size="2xl"
+			>
 				<ModalOverlay />
 				<ModalContent>
 					<ModalHeader>{spiels.TABLE_CHECKUP_HISTORY}</ModalHeader>
 					<ModalCloseButton mt={2} />
 					<ModalBody>
 						<TableContainer>
-							<TreatmentHeader />
+							<ViewTreatmentHeader data={data} />
+							<StackDivider />
+							<TableContainer>
+								<Table variant="simple">
+									<Thead>
+										<Tr>
+											<Th>Tooth No.</Th>
+											<Th>Procedure</Th>
+											<Th isNumeric>Cost</Th>
+										</Tr>
+									</Thead>
+									<Tbody>
+										<Tr>
+											<Td>
+												<Text>
+													{_.get(
+														data,
+														"toothOperated",
+													)}
+												</Text>
+											</Td>
+											<Td>
+												<Text>
+													{_.get(
+														data,
+														"procedure.data.name",
+													)}
+												</Text>{" "}
+											</Td>
+											<Td isNumeric>
+												<Text>
+													{`₱   ${_.get(
+														data,
+														"procedure.data.price",
+													)}`}
+												</Text>
+											</Td>
+										</Tr>
+									</Tbody>
+								</Table>
+							</TableContainer>
 							<StackDivider />
 							<Table mt={6} size="sm">
 								<TreatmentBreakdownFee
-									key={total.value}
-									amount={total}
+									amount={_.get(data, "procedure.data.price")}
 								/>
 							</Table>
 						</TableContainer>

@@ -1,9 +1,10 @@
-import { Table, Tbody, Td, Text, Tr } from "@chakra-ui/react";
-import React from "react";
-import { PATIENT_CHECKUP_HISTORY } from "../../../../constants/temporaryValues";
+import _ from "lodash";
 
-const TreatmentHeader = () => {
-	const patient = PATIENT_CHECKUP_HISTORY[0];
+import { DateTime } from "luxon";
+
+import { Table, Tbody, Td, Text, Tr } from "@chakra-ui/react";
+
+const ViewTreatmentHeader = ({ data }) => {
 	return (
 		<Table variant="simple">
 			<Tbody>
@@ -12,28 +13,33 @@ const TreatmentHeader = () => {
 						<Text fontWeight="bold">
 							Name:{" "}
 							<Text as="b" fontWeight="normal">
-								{patient.name}
+								{`${_.get(
+									data,
+									"record.data.firstName",
+								)} ${_.get(data, "record.data.lastName")}`}
 							</Text>
 						</Text>
 						<Text fontWeight="bold">
-							Date:{" "}
+							Appointment Date:{" "}
 							<Text as="b" fontWeight="normal">
-								{patient.dateOperated}
+								{DateTime.fromISO(
+									_.get(data, "appointment.data.date"),
+								).toFormat("MMMM d, yyyy")}
 							</Text>
 						</Text>
 					</Td>
 
 					<Td pb={4} pt={0} px={1}>
 						<Text fontWeight="bold">
-							Assigned To:{" "}
+							Procedure:{" "}
 							<Text as="b" fontWeight="normal">
-								{patient.operatedBy}
+								{_.get(data, "procedure.data.name")}
 							</Text>
 						</Text>
 						<Text fontWeight="bold">
 							Transaction #:{" "}
 							<Text as="b" fontWeight="normal">
-								{patient.transactionNumber}
+								{`TRANS0000${_.get(data, "id")}`}
 							</Text>
 						</Text>
 					</Td>
@@ -43,4 +49,4 @@ const TreatmentHeader = () => {
 	);
 };
 
-export default TreatmentHeader;
+export default ViewTreatmentHeader;

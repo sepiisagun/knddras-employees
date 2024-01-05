@@ -1,5 +1,6 @@
 import { useQuery } from "react-query";
 import { useRouter } from "next/router";
+import _ from "lodash";
 
 import { Box } from "@chakra-ui/react";
 
@@ -9,10 +10,7 @@ import ProfileLayout from "../../../layout/ProfileLayout";
 import ViewRecordProfileTable from "../components/ViewRecordProfileTable";
 import ViewRecordSearchBar from "../components/ViewRecordSearchBar";
 
-import {
-	retrieveRecord,
-	retrieveUserAppointments,
-} from "../engine/record.queries";
+import { retrieveRecord, retrieveTreatments } from "../engine/record.queries";
 
 const ViewRecordScreen = () => {
 	const router = useRouter();
@@ -20,6 +18,7 @@ const ViewRecordScreen = () => {
 
 	const {
 		data: { data: userRecord = [] },
+		isFetched,
 	} = useQuery({
 		initialData: [],
 		placeholderData: [],
@@ -28,18 +27,18 @@ const ViewRecordScreen = () => {
 	});
 
 	const {
-		data: { data },
+		data: { data: treamentData = [] },
 	} = useQuery({
+		enabled: isFetched,
 		initialData: [],
-		queryFn: retrieveUserAppointments,
+		queryFn: retrieveTreatments,
 		queryKey: [
-			"appointments-data",
+			"user-treament-data",
 			{
 				filters: {
-					patient: id,
+					record: _.get(userRecord, "id"),
 				},
 				populate: "*",
-				sort: "date:desc",
 			},
 		],
 	});
@@ -51,7 +50,7 @@ const ViewRecordScreen = () => {
 				<ViewRecordSearchBar />
 				<StrapiTable
 					action={["View"]}
-					data={data}
+					data={treamentData}
 					headerTitles={["Procedure", "Date", "Price", "Action"]}
 					title="Treatments"
 				/>
