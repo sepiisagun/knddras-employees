@@ -4,17 +4,17 @@ import React from "react";
 const TreatmentBreakdownFee = ({ amount }) => {
 	return (
 		<Tbody>
-			<Tr key={amount.label}>
+			<Tr>
 				<>
 					<Td borderBottom="none">
 						<Text fontSize="sm" fontWeight="light">
-							{amount.label}
+							Total
 						</Text>
 					</Td>
 
 					<Td borderBottom="none">
 						<Text fontWeight="light" textAlign="right">
-							{amount.value}
+							{`₱ ${amount}`}
 						</Text>
 					</Td>
 				</>

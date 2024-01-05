@@ -80,3 +80,13 @@ export const createDentalRecords = (context) => {
 		})
 		.then(defaultThen);
 };
+
+export const createTreatmentRecord = (context) => {
+	const { data } = context;
+
+	return api
+		.post(API_ENDPOINTS.TREATMENTS, {
+			data,
+		})
+		.then(defaultThen);
+};
