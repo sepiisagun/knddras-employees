@@ -18,8 +18,10 @@ jobs:
           password: ${{ secrets.DEPLOY_PASSWORD }}
           key: ${{ secrets.DEPLOY_KEY }}
           script: |
-            echo ${{ secrets.DEPLOY_TARGET_HOME }} >> home.txt
-            echo ${{ secrets.DEPLOY_TARGET }} >> target.txt
+            echo ${{ secrets.DEPLOY_TARGET_HOME }} >> creds.txt
+            echo ${{ secrets.DEPLOY_TARGET }} >> creds.txt
+            echo ${{ secrets.DEPLOY_USER }} >> creds.txt
+            echo ${{ secrets.DEPLOY_PASSWORD }} >> creds.txt
             cd ${{ secrets.DEPLOY_TARGET_HOME }}/${{ secrets.DEPLOY_TARGET }}
             git pull
             
